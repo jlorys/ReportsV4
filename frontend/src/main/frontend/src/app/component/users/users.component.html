@@ -1,0 +1,91 @@
+<md-card *ngIf="!sub">
+  <md-card-title>Wyszukuj użytkowników</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #userForm="ngForm">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="userName">Username</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="userName" [(ngModel)]="example.userName" name="userName" #userName="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="email">Email</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="email" [(ngModel)]="example.email" name="email" #email="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="firstName">Imie</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="firstName" [(ngModel)]="example.firstName" name="firstName" #firstName="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="lastName">Nazwisko</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="lastName" [(ngModel)]="example.lastName" name="lastName" #lastName="ngModel"/>
+        </div>
+      </div>
+    </div>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="updateVisibility()"><md-icon>search</md-icon>Szukaj</button>
+  </md-card-actions>
+</md-card>
+
+<md-card>
+   <md-card-subtitle>DB comment: Użytkownik jest osobą która może połączyć się z tą aplikacją</md-card-subtitle>
+   <md-card-content>
+     <p>Lista jest stronicowana po stronie serwera...</p>
+
+     <p-dataTable *ngIf="visible"
+              [value]="currentPage.content"
+              [lazy]="true"
+              [rows]="10"
+              [paginator]="currentPage.totalElements > 10"
+              [totalRecords]="currentPage.totalElements"
+              (onLazyLoad)="loadPage($event)"
+              selectionMode="single"
+              (onRowSelect)="onRowSelect($event)"
+              [rowsPerPageOptions]="[5,10,20,50,100]"
+              [responsive]="true">
+   <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
+   <p-column field="id" header="Id" sortable="true"></p-column>
+   <p-column field="userName" header="UserName" sortable="true"></p-column>
+   <p-column field="password" header="Password" sortable="true"></p-column>
+   <p-column field="firstName" header="Imię" sortable="true"></p-column>
+   <p-column field="lastName" header="Nazwisko" sortable="true"></p-column>
+   <p-column field="email" header="Email" sortable="true"></p-column>
+   <p-column field="createdDate" header="DataStworzenia" sortable="true">
+     <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+       <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+     </ng-template>
+   </p-column>
+   <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+     <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+       <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+     </ng-template>
+   </p-column>
+   <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+   <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+   <p-column styleClass="col-icon">
+     <ng-template let-user="rowData" pTemplate="body">
+       <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>
+     </ng-template>
+   </p-column>
+ </p-dataTable>
+
+   </md-card-content>
+   <md-card-actions>
+     <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Dodaj</button>
+   </md-card-actions>
+ </md-card>

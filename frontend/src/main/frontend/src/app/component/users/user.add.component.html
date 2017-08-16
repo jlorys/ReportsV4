@@ -1,0 +1,79 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="user" ngForm #userForm="ngForm">
+  <md-card-title>Dane użytkownika</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="userName">UserName  *</label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="userName" [(ngModel)]="user.userName"  required placeholder="Wymagane"  name="userName" #userName="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userName.valid && userName.dirty && userName.errors['required']">
+            <i class="fa fa-close"></i>
+            Username jest wymagany
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="password">Hasło  *</label></div>
+        <div class="ui-grid-col-6">
+          <input type="password" pPassword id="password" [(ngModel)]="user.password" required placeholder="Wymagane" name="password" #password="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="firstName">Imię </label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="firstName" [(ngModel)]="user.firstName"   name="firstName" #firstName="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="lastName">Nazwisko </label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="lastName" [(ngModel)]="user.lastName" name="lastName" #lastName="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="email">Email </label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="email" [(ngModel)]="user.email" validateEmail name="email" #email="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
+            <i class="fa fa-close"></i>
+            Email jest nieprawidłowy. Oczekiwany prawidłowy adres email.
+          </div>
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Anuluj</button>
+    <button md-raised-button (click)="onSave()" [disabled]="!userForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
+  </md-card-actions>
+
+  <md-card *ngIf="user && user.id">
+    <md-card-subtitle>Relacje użytkownika</md-card-subtitle>
+    <md-card-content>
+      <md-tab-group>
+        <md-tab label="Raporty">
+
+        </md-tab>
+        <md-tab label="Role">
+          <p-pickList [source]="sourceRoles" [target]="user.roles" sourceHeader="Dostępne" targetHeader="Role użytkownika" [responsive]="true">
+            <ng-template let-role pTemplate="item">
+              {{ role.roleName }}
+            </ng-template>
+          </p-pickList>
+        </md-tab>
+
+      </md-tab-group>
+    </md-card-content>
+  </md-card>
+</md-card>
