@@ -173,4 +173,8 @@ public class AppUserService {
 
         return dto;
     }
+
+    public void deleteAll() {
+        appUserRepository.deleteAll();
+    }
 }
