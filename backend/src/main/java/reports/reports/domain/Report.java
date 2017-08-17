@@ -140,4 +140,11 @@ public class Report {
 	public void setSendInTime(Boolean sendInTime) {
 		isSendInTime = sendInTime;
 	}
+
+	/**
+	 * Helper method to add the passed {@link AppUser} to the {@link #users} list.
+	 */
+	public boolean addUser(AppUser appUser) {
+		return getUsers().add(appUser);
+	}
 }

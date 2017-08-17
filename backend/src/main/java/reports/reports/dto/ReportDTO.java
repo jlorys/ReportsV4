@@ -1,5 +1,7 @@
 package reports.reports.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 /**
@@ -19,4 +21,9 @@ public class ReportDTO {
     public Boolean isSendInTime;
 
     public List<AppUserDTO> users;
+
+    @JsonIgnore
+    public boolean isIdSet() {
+        return id != null;
+    }
 }
