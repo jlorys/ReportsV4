@@ -60,34 +60,6 @@ public class RoleService {
     }
 
     /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
-    @Transactional
-    public RoleDTO save(RoleDTO dto) {
-        if (dto == null) {
-            return null;
-        }
-
-        final Role role;
-
-        if (dto.isIdSet()) {
-            Role roleTmp = roleRepository.findOne(dto.id);
-            if (roleTmp != null) {
-                role = roleTmp;
-            } else {
-                role = new Role();
-                role.setId(dto.id);
-            }
-        } else {
-            role = new Role();
-        }
-
-        role.setRoleName(dto.roleName);
-
-        return toDTO(roleRepository.save(role));
-    }
-
-    /**
      * Converts the passed role to a DTO.
      */
     public RoleDTO toDTO(Role role) {

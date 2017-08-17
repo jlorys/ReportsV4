@@ -32,26 +32,7 @@ public class RoleRestController {
     private final Logger log = LoggerFactory.getLogger(RoleRestController.class);
 
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private RoleService roleDTOService;
-
-    /**
-     * Create a new Role.
-     */
-    @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<RoleDTO> create(@RequestBody RoleDTO roleDTO) throws URISyntaxException {
-
-        log.debug("Create RoleDTO : {}", roleDTO);
-
-        if (roleDTO.isIdSet()) {
-            return ResponseEntity.badRequest().header("Failure", "Cannot create Role with existing ID").body(null);
-        }
-
-        RoleDTO result = roleDTOService.save(roleDTO);
-
-        return ResponseEntity.created(new URI("/api/roles/" + result.id)).body(result);
-    }
 
     /**
     * Find by id Role.
@@ -63,23 +44,6 @@ public class RoleRestController {
 
         return Optional.ofNullable(roleDTOService.findOne(id)).map(roleDTO -> new ResponseEntity<>(roleDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    /**
-     * Update Role.
-     */
-    @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<RoleDTO> update(@RequestBody RoleDTO roleDTO) throws URISyntaxException {
-
-        log.debug("Update RoleDTO : {}", roleDTO);
-
-        if (!roleDTO.isIdSet()) {
-            return create(roleDTO);
-        }
-
-        RoleDTO result = roleDTOService.save(roleDTO);
-
-        return ResponseEntity.ok().body(result);
     }
 
     /**
@@ -100,22 +64,5 @@ public class RoleRestController {
         List<RoleDTO> results = roleDTOService.complete(acq.query, acq.maxResults);
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
-    }
-
-    /**
-     * Delete by id Role.
-     */
-    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
-
-        log.debug("Delete by id Role : {}", id);
-
-        try {
-            roleRepository.delete(id);
-            return ResponseEntity.ok().build();
-        } catch (Exception x) {
-            // todo: dig exception, most likely org.hibernate.exception.ConstraintViolationException
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-        }
     }
 }
