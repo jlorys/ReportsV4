@@ -29,6 +29,7 @@ public class Report {
 	private String createdBy;
 	@LastModifiedBy
 	private String lastModifiedBy;
+	private boolean isSendInTime;
 
 	@ManyToMany(mappedBy = "reports")
 	List<AppUser> users;
@@ -119,5 +120,13 @@ public class Report {
 
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
+	}
+
+	public boolean isSendInTime() {
+		return isSendInTime;
+	}
+
+	public void setSendInTime(boolean sendInTime) {
+		isSendInTime = sendInTime;
 	}
 }
