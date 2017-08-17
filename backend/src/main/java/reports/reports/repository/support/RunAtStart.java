@@ -32,6 +32,7 @@ class RunAtStart {
         generateRoles();
         generateReports();
         addRolesToUsers();
+        addReportsToUsers();
     }
 
     private void generateManyUsers() {
@@ -74,6 +75,13 @@ class RunAtStart {
         AppUser appUser = appUserRepository.findOne(1);
         List<Role> roles = roleRepository.findAll();
         appUser.setRoles(roles);
+        appUserRepository.save(appUser);
+    }
+
+    private void addReportsToUsers() {
+        AppUser appUser = appUserRepository.findOne(1);
+        List<Report> reports = reportRepository.findAll();
+        appUser.setReports(reports);
         appUserRepository.save(appUser);
     }
 }

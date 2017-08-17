@@ -71,7 +71,7 @@ public class AppUserRestController {
 	 * Find by userName.
 	 */
 	@RequestMapping(value = "/name/{userName}", method = GET, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<AppUserDTO> findById(@PathVariable String userName) throws URISyntaxException {
+	public ResponseEntity<AppUserDTO> findByUserName(@PathVariable String userName) throws URISyntaxException {
 
 		log.debug("Find by userName : {}", userName);
 
