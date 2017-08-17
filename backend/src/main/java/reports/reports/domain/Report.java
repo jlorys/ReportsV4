@@ -34,7 +34,16 @@ public class Report {
 	@ManyToMany(mappedBy = "reports")
 	List<AppUser> users;
 
-	public Integer getId() {
+    public Report(String description, String filePath, String fileName, String fileExtension, String grade, Boolean isSendInTime) {
+        this.description = description;
+        this.filePath = filePath;
+        this.fileName = fileName;
+        this.fileExtension = fileExtension;
+        this.grade = grade;
+        this.isSendInTime = isSendInTime;
+    }
+
+    public Integer getId() {
 		return id;
 	}
 

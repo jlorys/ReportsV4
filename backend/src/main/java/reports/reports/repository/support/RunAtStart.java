@@ -3,8 +3,10 @@ package reports.reports.repository.support;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reports.reports.domain.AppUser;
+import reports.reports.domain.Report;
 import reports.reports.domain.Role;
 import reports.reports.repository.AppUserRepository;
+import reports.reports.repository.ReportRepository;
 import reports.reports.repository.RoleRepository;
 
 import javax.annotation.PostConstruct;
@@ -15,17 +17,20 @@ import java.util.List;
 class RunAtStart {
     private final AppUserRepository appUserRepository;
     private final RoleRepository roleRepository;
+    private final ReportRepository reportRepository;
 
     @Autowired
-    public RunAtStart(AppUserRepository appUserRepository, RoleRepository roleRepository) {
+    public RunAtStart(AppUserRepository appUserRepository, RoleRepository roleRepository, ReportRepository reportRepository) {
         this.appUserRepository = appUserRepository;
         this.roleRepository = roleRepository;
+        this.reportRepository = reportRepository;
     }
 
     @PostConstruct
     public void runAtStart() {
         generateManyUsers();
         generateRoles();
+        generateReports();
         addRolesToUsers();
     }
 
@@ -55,6 +60,14 @@ class RunAtStart {
         roles.add(new Role("Student"));
 
         roles.stream().forEach(role -> roleRepository.save(role));
+    }
+
+    private void generateReports() {
+        List<Report> reports = new ArrayList<>();
+        reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true));
+        reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true));
+
+        reports.stream().forEach(report -> reportRepository.save(report));
     }
 
     private void addRolesToUsers() {
