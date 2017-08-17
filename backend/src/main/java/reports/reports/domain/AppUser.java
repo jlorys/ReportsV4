@@ -1,20 +1,12 @@
 package reports.reports.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import reports.reports.config.security.UserWithId;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -48,9 +40,12 @@ public class AppUser {
 			joinColumns = @JoinColumn(name = "USER_ID") ,
 			inverseJoinColumns = @JoinColumn(name = "ROLE_ID") )
 	private List<Role> roles;
-	
-	@JsonIgnore
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+
+	// Many to many
+	@ManyToMany
+	@JoinTable(name = "USER_REPORT",
+			joinColumns = @JoinColumn(name = "USER_ID") ,
+			inverseJoinColumns = @JoinColumn(name = "REPORT_ID") )
 	private List<Report> reports;
 
 	public AppUser() {}

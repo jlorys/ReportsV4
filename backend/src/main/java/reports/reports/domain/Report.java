@@ -1,23 +1,37 @@
 package reports.reports.domain;
 
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Report {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String description;
-	private String file;
-	private String name;
-	private String extension;
+	private String filePath;
+	private String fileName;
+	private String fileExtension;
 	private String grade;
-	private String datetime;
-	
-	@ManyToOne
-	@JoinColumn(name = "owner")
-	private AppUser owner;
+	@CreatedDate
+	private Long createdDate;
+	@LastModifiedDate
+	private Long lastModifiedDate;
+	@CreatedBy
+	private String createdBy;
+	@LastModifiedBy
+	private String lastModifiedBy;
+
+	@ManyToMany(mappedBy = "reports")
+	List<AppUser> users;
 
 	public Long getId() {
 		return id;
@@ -35,36 +49,28 @@ public class Report {
 		this.description = description;
 	}
 
-	public String getFile() {
-		return file;
+	public String getFilePath() {
+		return filePath;
 	}
 
-	public void setFile(String file) {
-		this.file = file;
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
 	}
 
-	public String getName() {
-		return name;
+	public String getFileName() {
+		return fileName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 
-	public String getExtension() {
-		return extension;
+	public String getFileExtension() {
+		return fileExtension;
 	}
 
-	public void setExtension(String extension) {
-		this.extension = extension;
-	}
-
-	public AppUser getOwner() {
-		return owner;
-	}
-
-	public void setOwner(AppUser owner) {
-		this.owner = owner;
+	public void setFileExtension(String fileExtension) {
+		this.fileExtension = fileExtension;
 	}
 
 	public String getGrade() {
@@ -75,12 +81,43 @@ public class Report {
 		this.grade = grade;
 	}
 
-	public String getDatetime() {
-		return datetime;
+	public List<AppUser> getUsers() {
+		return users;
 	}
 
-	public void setDatetime(String datetime) {
-		this.datetime = datetime;
+	public void setUsers(List<AppUser> users) {
+		this.users = users;
 	}
 
+	public Long getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Long createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Long getLastModifiedDate() {
+		return lastModifiedDate;
+	}
+
+	public void setLastModifiedDate(Long lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
+
+	public void setLastModifiedBy(String lastModifiedBy) {
+		this.lastModifiedBy = lastModifiedBy;
+	}
 }
