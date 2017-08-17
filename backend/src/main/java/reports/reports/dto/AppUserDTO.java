@@ -1,10 +1,6 @@
 package reports.reports.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import reports.reports.config.security.UserWithId;
-import reports.reports.domain.Report;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -22,7 +18,7 @@ public class AppUserDTO {
     public String createdBy;
     public String lastModifiedBy;
     public List<RoleDTO> roles;
-    public List<Report> reports;
+    public List<ReportDTO> reports;
 
     @JsonIgnore
     public boolean isIdSet() {

@@ -15,7 +15,7 @@ public class Report {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 	private String description;
 	private String filePath;
 	private String fileName;
@@ -29,16 +29,16 @@ public class Report {
 	private String createdBy;
 	@LastModifiedBy
 	private String lastModifiedBy;
-	private boolean isSendInTime;
+	private Boolean isSendInTime;
 
 	@ManyToMany(mappedBy = "reports")
 	List<AppUser> users;
 
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -122,11 +122,11 @@ public class Report {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
-	public boolean isSendInTime() {
+	public Boolean isSendInTime() {
 		return isSendInTime;
 	}
 
-	public void setSendInTime(boolean sendInTime) {
+	public void setSendInTime(Boolean sendInTime) {
 		isSendInTime = sendInTime;
 	}
 }
