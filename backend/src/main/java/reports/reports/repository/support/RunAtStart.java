@@ -50,6 +50,7 @@ class RunAtStart {
         appUsers.add(new AppUser("user10", "user10", "Dominik", "Jahaś", "dj@x.pl"));
         appUsers.add(new AppUser("user11", "user11", "Bogusław", "Łęcina", "bl@x.pl"));
         appUsers.add(new AppUser("user12", "user12", "Mariusz", "Tracz", "mt@x.pl"));
+        appUsers.add(new AppUser("user13", "user13", "Sylwester", "Kasztan", "sk@x.pl"));
 
         appUsers.stream().forEach(appUser -> appUserRepository.save(appUser));
     }

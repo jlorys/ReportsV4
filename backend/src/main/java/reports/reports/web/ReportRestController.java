@@ -11,9 +11,11 @@ import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.service.ReportService;
+import reports.reports.web.support.AutoCompleteQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -86,6 +88,17 @@ public class ReportRestController {
         ReportDTO result = reportService.save(reportDTO);
 
         return ResponseEntity.created(new URI("/api/users/" + result.id)).body(result);
+    }
+
+    /**
+     * Auto complete support.
+     */
+    @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<ReportDTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
+
+        List<ReportDTO> results = reportService.complete(acq.query, acq.maxResults);
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 
 }

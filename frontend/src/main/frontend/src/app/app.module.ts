@@ -29,6 +29,7 @@ import {ScheduleChartComponent} from "./component/chart/schedulechart/schedulech
 import {AppUsersAddComponent} from "./component/users/user.add.component";
 import {RoleDataService} from "./component/role/role.data.service";
 import {EmailValidator} from "./support/email.validator";
+import {ReportDataService} from "./component/report/report.data.service";
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import {EmailValidator} from "./support/email.validator";
   providers: [
     AppUserDataService,
     RoleDataService,
+    ReportDataService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}, //With this urls works directly from browser
 
     // our application services

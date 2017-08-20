@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
+import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -24,10 +25,13 @@ public class ReportService {
     private ReportRepository reportRepository;
 
     @Autowired
-    private AppUserService userService;
-
-    @Autowired
     private AppUserRepository appUserRepository;
+
+    @Transactional(readOnly = true)
+    public List<ReportDTO> complete(String query, int maxResults) {
+        List<Report> results = reportRepository.complete(query, maxResults);
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<ReportDTO> findAll(PageRequestByExample<ReportDTO> req) {
@@ -128,7 +132,6 @@ public class ReportService {
         report.setLastModifiedDate(dto.lastModifiedDate);
         report.setCreatedBy(dto.createdBy);
         report.setLastModifiedBy(dto.lastModifiedBy);
-        report.setSendInTime(dto.isSendInTime);
 
         return report;
     }
@@ -157,8 +160,6 @@ public class ReportService {
         dto.createdBy = report.getCreatedBy();
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
-
-        dto.users = report.getUsers().stream().map(role -> userService.toDTO(role)).collect(Collectors.toList());
 
         return dto;
     }

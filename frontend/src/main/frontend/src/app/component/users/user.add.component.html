@@ -62,8 +62,29 @@
     <md-card-subtitle>Relacje użytkownika</md-card-subtitle>
     <md-card-content>
       <md-tab-group>
-        <md-tab label="Raporty">
-
+        <md-tab label="Sprawozdania">
+          <p-dataTable [value]="user.reports">
+            <p-header>header</p-header>
+            <p-column field="id" header="Id" sortable="true"></p-column>
+            <p-column field="description" header="description" sortable="true"></p-column>
+            <p-column field="filePath" header="FilePath" sortable="true"></p-column>
+            <p-column field="fileName" header="FileName" sortable="true"></p-column>
+            <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
+            <p-column field="grade" header="Grade" sortable="true"></p-column>
+            <p-column field="createdDate" header="DataStworzenia" sortable="true">
+              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              </ng-template>
+            </p-column>
+            <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              </ng-template>
+            </p-column>
+            <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+            <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+            <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
+          </p-dataTable>
         </md-tab>
         <md-tab label="Role">
           <p-pickList [source]="sourceRoles" [target]="user.roles" sourceHeader="Dostępne" targetHeader="Role użytkownika" [responsive]="true">

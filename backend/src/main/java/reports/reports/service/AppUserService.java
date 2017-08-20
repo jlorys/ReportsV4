@@ -16,6 +16,7 @@ import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
+import reports.reports.repository.ReportRepository;
 import reports.reports.repository.RoleRepository;
 
 import java.util.List;
@@ -31,7 +32,13 @@ public class AppUserService {
     private RoleRepository roleRepository;
 
     @Autowired
+    private ReportRepository reportRepository;
+
+    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private ReportService reportService;
 
     @Transactional(readOnly = true)
     public PageResponse<AppUserDTO> findAll(PageRequestByExample<AppUserDTO> req) {
@@ -117,6 +124,11 @@ public class AppUserService {
             dto.roles.stream().forEach(role -> user.addRole(roleRepository.findOne(role.id)));
         }
 
+        user.getReports().clear();
+        if (dto.reports != null) {
+            dto.reports.stream().forEach(role -> user.addReport(reportRepository.findOne(role.id)));
+        }
+
         return toDTO(appUserRepository.save(user));
     }
 
@@ -170,6 +182,7 @@ public class AppUserService {
         dto.createdBy = user.getCreatedBy();
         dto.lastModifiedBy = user.getLastModifiedBy();
         dto.roles = user.getRoles().stream().map(role -> roleService.toDTO(role)).collect(Collectors.toList());
+        dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report)).collect(Collectors.toList());
 
         return dto;
     }

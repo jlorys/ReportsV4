@@ -1,4 +1,5 @@
 import {Role} from "../role/role";
+import {Report} from "../report/report";
 
 export class AppUser {
   id: number;
@@ -11,7 +12,8 @@ export class AppUser {
   lastModifiedDate: string;
   createdBy: string;
   lastModifiedBy: string;
-  roles : Role[];
+  roles: Role[];
+  reports: Report[];
 
   constructor(json? : any) {
     if (json != null) {
@@ -27,6 +29,9 @@ export class AppUser {
       this.lastModifiedBy = json.lastModifiedBy;
       if (json.roles != null) {
         this.roles = Role.toArray(json.roles);
+      }
+      if (json.reports != null) {
+        this.reports = Report.toArray(json.reports);
       }
     }
   }

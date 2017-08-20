@@ -178,4 +178,11 @@ public class AppUser {
 	public boolean addRole(Role role) {
 		return getRoles().add(role);
 	}
+
+	/**
+	 * Helper method to add the passed {@link Role} to the {@link #roles} list.
+	 */
+	public boolean addReport(Report report) {
+		return getReports().add(report);
+	}
 }
