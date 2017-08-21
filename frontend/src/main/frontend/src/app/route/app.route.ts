@@ -6,12 +6,14 @@ import {HomeComponent} from "../component/home/home.component";
 import {DoughnutChartComponent} from "../component/chart/doughnutchart/doughnutchart.component";
 import {ScheduleChartComponent} from "../component/chart/schedulechart/schedulechart.component";
 import {AppUsersAddComponent} from "../component/users/user.add.component";
+import {RolesComponent} from "../component/role/role.component";
 
 export const appRoutes: Routes = [
   { path: 'users', component: AppUsersComponent},
   { path: 'users/:id', component: AppUsersAddComponent},
   { path: 'schedule', component: ScheduleChartComponent },
   { path: 'doughnut', component: DoughnutChartComponent },
+  { path: 'roles', component: RolesComponent},
   { path: '', component: HomeComponent},
   { path: '**', component: PageNotFoundComponent },
 ];

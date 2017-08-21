@@ -30,6 +30,7 @@ import {AppUsersAddComponent} from "./component/users/user.add.component";
 import {RoleDataService} from "./component/role/role.data.service";
 import {EmailValidator} from "./support/email.validator";
 import {ReportDataService} from "./component/report/report.data.service";
+import {RolesComponent} from "./component/role/role.component";
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import {ReportDataService} from "./component/report/report.data.service";
     AppComponent,
     AppUsersComponent,
     AppUsersAddComponent,
+    RolesComponent,
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
     DoughnutChartComponent,

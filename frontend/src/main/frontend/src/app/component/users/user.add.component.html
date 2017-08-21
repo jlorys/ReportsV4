@@ -63,7 +63,10 @@
     <md-card-content>
       <md-tab-group>
         <md-tab label="Sprawozdania">
-          <p-dataTable [value]="userReports">
+          <p-dataTable [value]="userReports"
+                       selectionMode="single"
+                       (onRowSelect)="onRowSelect($event)"
+                       [responsive]="true">
             <p-header>{{header}}</p-header>
             <p-column field="id" header="Id" sortable="true"></p-column>
             <p-column field="description" header="description" sortable="true"></p-column>

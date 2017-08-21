@@ -1,0 +1,18 @@
+<md-card>
+  <md-card-content>
+    <p>Lista jest stronicowana po stronie serwera...</p>
+
+    <p-dataTable [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+      <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
+      <p-column field="id" header="Id" sortable="true"></p-column>
+      <p-column field="roleName" header="RoleName" sortable="true"></p-column>
+      </p-dataTable>
+  </md-card-content>
+</md-card>

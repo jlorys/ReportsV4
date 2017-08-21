@@ -88,4 +88,9 @@ export class AppUsersAddComponent implements OnInit, OnDestroy {
       this.msgs.push({severity:'info', summary:'Cancel clicked and msg emitted', detail: 'Angular Rocks!'})
     }
   }
+
+  onRowSelect(event : any) {
+    let id =  event.data.id;
+    this.router.navigate(['/reports', id]);
+  }
 }

@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
   selector: 'users',
   templateUrl: './users.component.html'
 })
-export class AppUsersComponent{
+export class AppUsersComponent {
 
   @Input() header = "Użytkownicy...";
   // list is paginated
