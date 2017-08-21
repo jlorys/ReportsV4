@@ -103,7 +103,6 @@ export class AppComponent implements OnInit {
         icon: 'fa-universal-access',
         items: [
           {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
-          {label: 'Tworzenie Ról', icon: 'fa-gavel', routerLink: ['/roles/add']},
         ]
       },
 

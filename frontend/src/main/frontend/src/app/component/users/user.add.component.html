@@ -4,7 +4,7 @@
   <md-card-content>
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
       <div class="ui-grid-row">
-        <div class="ui-grid-col-2"><label for="userName">UserName  *</label></div>
+        <div class="ui-grid-col-2"><label for="userName">UserName *</label></div>
         <div class="ui-grid-col-6">
           <input pInputText id="userName" [(ngModel)]="user.userName"  required placeholder="Wymagane"  name="userName" #userName="ngModel"/>
         </div>
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div class="ui-grid-row">
-        <div class="ui-grid-col-2"><label for="password">Hasło  *</label></div>
+        <div class="ui-grid-col-2"><label for="password">Hasło *</label></div>
         <div class="ui-grid-col-6">
           <input type="password" pPassword id="password" [(ngModel)]="user.password" required placeholder="Wymagane" name="password" #password="ngModel"/>
         </div>
@@ -63,8 +63,8 @@
     <md-card-content>
       <md-tab-group>
         <md-tab label="Sprawozdania">
-          <p-dataTable [value]="user.reports">
-            <p-header>header</p-header>
+          <p-dataTable [value]="userReports">
+            <p-header>{{header}}</p-header>
             <p-column field="id" header="Id" sortable="true"></p-column>
             <p-column field="description" header="description" sortable="true"></p-column>
             <p-column field="filePath" header="FilePath" sortable="true"></p-column>

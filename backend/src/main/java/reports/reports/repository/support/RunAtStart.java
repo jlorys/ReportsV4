@@ -68,6 +68,11 @@ class RunAtStart {
         List<Report> reports = new ArrayList<>();
         reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true));
         reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true));
+        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "3.0", true));
+        reports.add(new Report("Opis4", "files/", "sprawozdanie4", ".pdf", "4.0", true));
+        reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "3.5", true));
+        reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true));
+        reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true));
 
         reports.stream().forEach(report -> reportRepository.save(report));
     }

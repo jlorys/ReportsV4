@@ -182,7 +182,7 @@ public class AppUserService {
         dto.createdBy = user.getCreatedBy();
         dto.lastModifiedBy = user.getLastModifiedBy();
         dto.roles = user.getRoles().stream().map(role -> roleService.toDTO(role)).collect(Collectors.toList());
-        dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report)).collect(Collectors.toList());
+        dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
 
         return dto;
     }

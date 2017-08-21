@@ -143,7 +143,8 @@ public class AppUser {
 	}
 
 	public List<Report> getReports() {
-		return reports;
+		if(Optional.ofNullable(reports).isPresent()) return reports;
+		return Collections.EMPTY_LIST;
 	}
 
 	public void setReports(List<Report> reports) {

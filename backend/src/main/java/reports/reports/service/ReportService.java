@@ -27,6 +27,9 @@ public class ReportService {
     @Autowired
     private AppUserRepository appUserRepository;
 
+    @Autowired
+    private AppUserService appUserService;
+
     @Transactional(readOnly = true)
     public List<ReportDTO> complete(String query, int maxResults) {
         List<Report> results = reportRepository.complete(query, maxResults);
@@ -136,13 +139,17 @@ public class ReportService {
         return report;
     }
 
+    public ReportDTO toDTO(Report report) {
+        return toDTO(report, 0);
+    }
+
     /**
      * Converts the passed report to a DTO. The depth is used to control the
      * amount of association you want.
      *
      * @param report
      */
-    public ReportDTO toDTO(Report report) {
+    public ReportDTO toDTO(Report report, int depth) {
         if (report == null) {
             return null;
         }
@@ -160,6 +167,7 @@ public class ReportService {
         dto.createdBy = report.getCreatedBy();
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
+        if(depth<1) dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user)).collect(Collectors.toList());
 
         return dto;
     }

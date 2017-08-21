@@ -1,12 +1,10 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
-import {Message, SelectItem} from "primeng/primeng";
+import {Message} from "primeng/primeng";
 import {ActivatedRoute, Router} from "@angular/router";
-import {MessageService} from "../../service/message.service";
 import {AppUser} from "./user";
 import {AppUserDataService} from "./user.data.service";
 import {Role} from "../role/role";
 import {RoleDataService} from "../role/role.data.service";
-import {ReportDataService} from "../report/report.data.service";
 import {Report} from "../report/report";
 
 @Component({
@@ -15,12 +13,14 @@ import {Report} from "../report/report";
   selector: 'users-add',
 })
 export class AppUsersAddComponent implements OnInit, OnDestroy {
+
+  @Input() header = "Sprawozdania użytkownika...";
   user : AppUser;
+  userReports: Report[] = [];
 
   private params_subscription: any;
 
   sourceRoles : Role[] = [];
-  sourceReports : Report[] = [];
 
   @Input() sub : boolean = false;
   @Output() onSaveClicked = new EventEmitter<AppUser>();
@@ -28,14 +28,10 @@ export class AppUsersAddComponent implements OnInit, OnDestroy {
 
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private userService: AppUserDataService, private roleService : RoleDataService, private reportService: ReportDataService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userService: AppUserDataService, private roleService : RoleDataService) {
     roleService.complete(null).
     subscribe(roles => this.sourceRoles = roles,
       error => this.msgs.push({severity:'error', summary:'Constructor user roles error', detail: error}))
-
-    reportService.complete(null).
-    subscribe(roles => this.sourceReports = roles,
-      error => this.msgs.push({severity:'error', summary:'Constructor user reports error', detail: error}))
   }
 
   ngOnInit() {
@@ -52,8 +48,8 @@ export class AppUsersAddComponent implements OnInit, OnDestroy {
         this.userService.getUser(id)
           .subscribe(user => {
               this.user = user;
+              this.userReports = user.reports;
               this.sourceRoles = this.sourceRoles.filter(item => this.user.roles.map((e) => e.id).indexOf(item.id) < 0);
-              this.sourceReports = this.sourceReports.filter(item => this.user.reports.map((e) => e.id).indexOf(item.id) < 0);
             },
             error => this.msgs.push({severity:'error', summary:'ngOnInit error', detail: error})
           );
