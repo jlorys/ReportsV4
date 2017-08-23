@@ -14,7 +14,6 @@ import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.service.RoleService;
-import reports.reports.web.support.AutoCompleteQuery;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -51,17 +50,6 @@ public class RoleRestController {
     public ResponseEntity<PageResponse<RoleDTO>> findAll(@RequestBody PageRequestByExample<RoleDTO> prbe) throws URISyntaxException {
         PageResponse<RoleDTO> pageResponse = roleService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
-    }
-
-    /**
-    * Auto complete support.
-    */
-    @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<RoleDTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
-
-        List<RoleDTO> results = roleService.complete(acq.query, acq.maxResults);
-
-        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/findAllRolesWhichDoNotHaveAppUserWithThisId/{id}", method = GET, produces = APPLICATION_JSON_VALUE)

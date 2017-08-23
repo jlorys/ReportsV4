@@ -8,11 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.AppUserDTO;
-import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.service.AppUserService;
-import reports.reports.web.support.AutoCompleteQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -112,17 +110,6 @@ public class AppUserRestController {
 		AppUserDTO result = appUserService.save(userDTO);
 
 		return ResponseEntity.created(new URI("/api/users/" + result.id)).body(result);
-	}
-
-	/**
-	 * Auto complete support.
-	 */
-	@RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<AppUserDTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
-
-		List<AppUserDTO> results = appUserService.complete(acq.query, acq.maxResults);
-
-		return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/findAllAppUsersWhichDoNotHaveReportWithThisId/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
