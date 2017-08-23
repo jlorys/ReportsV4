@@ -23,14 +23,14 @@
   </md-card-actions>
 
   <md-card *ngIf="report && report.id">
-    <md-card-subtitle>Relacje raportu</md-card-subtitle>
+    <md-card-subtitle>Relacje sprawozdanie</md-card-subtitle>
     <md-card-content>
       <md-tab-group>
 
         <md-tab label="Użytkownicy">
-          <p-pickList [source]="sourceUsers" [target]="report.users" sourceHeader="Dostępne" targetHeader="Autorzy" [responsive]="true">
+          <p-pickList [source]="sourceUsers" [target]="report.users" sourceHeader="Użytkownicy możliwi do dodania" targetHeader="Autorzy sprawozdania" [responsive]="true">
             <ng-template let-user pTemplate="item">
-              {{ user.userName }}
+              {{user.userName}} {{user.firstName}} {{user.lastName}}
             </ng-template>
           </p-pickList>
         </md-tab>
