@@ -1,7 +1,5 @@
 package reports.reports.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -9,7 +7,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -33,7 +33,10 @@ public class Report {
 	private String lastModifiedBy;
 	private Boolean isSendInTime;
 
-	@ManyToMany(mappedBy = "reports")
+	@ManyToMany
+	@JoinTable(name = "USER_REPORT",
+			joinColumns = @JoinColumn(name = "REPORT_ID") ,
+			inverseJoinColumns = @JoinColumn(name = "USER_ID") )
 	List<AppUser> users;
 
 	public Report() {}
@@ -96,7 +99,8 @@ public class Report {
 	}
 
 	public List<AppUser> getUsers() {
-		return users;
+		if(Optional.ofNullable(users).isPresent()) return users;
+		return Collections.EMPTY_LIST;
 	}
 
 	public void setUsers(List<AppUser> users) {

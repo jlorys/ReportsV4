@@ -1,0 +1,42 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="report" ngForm #reportForm="ngForm">
+  <md-card-title>Dane sprawozdania</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="description">Description *</label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="description" [(ngModel)]="report.description"  required placeholder="Wymagane"  name="description" #description="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!description.valid && description.dirty && description.errors['required']">
+            <i class="fa fa-close"></i>
+            Opis jest wymagany
+          </div>
+        </div>
+      </div>
+      </div>
+  </md-card-content>
+
+  <md-card-actions>
+    <button md-raised-button (click)="onSave()" [disabled]="!reportForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
+  </md-card-actions>
+
+  <md-card *ngIf="report && report.id">
+    <md-card-subtitle>Relacje raportu</md-card-subtitle>
+    <md-card-content>
+      <md-tab-group>
+
+        <md-tab label="Użytkownicy">
+          <p-pickList [source]="sourceUsers" [target]="report.users" sourceHeader="Dostępne" targetHeader="Autorzy" [responsive]="true">
+            <ng-template let-user pTemplate="item">
+              {{ user.userName }}
+            </ng-template>
+          </p-pickList>
+        </md-tab>
+
+      </md-tab-group>
+    </md-card-content>
+  </md-card>
+
+</md-card>

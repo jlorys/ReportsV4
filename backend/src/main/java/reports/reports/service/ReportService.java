@@ -6,6 +6,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reports.reports.domain.AppUser;
 import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
 import reports.reports.dto.AppUserDTO;
@@ -34,6 +35,12 @@ public class ReportService {
     public List<ReportDTO> complete(String query, int maxResults) {
         List<Report> results = reportRepository.complete(query, maxResults);
         return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public ReportDTO findOne(Integer id) {
+        Report report = reportRepository.findOne(id);
+        return toDTO(report);
     }
 
     @Transactional(readOnly = true)
@@ -108,7 +115,7 @@ public class ReportService {
 
         report.getUsers().clear();
         if (dto.users != null) {
-            dto.users.stream().forEach(role -> report.addUser(appUserRepository.findOne(role.id)));
+            dto.users.stream().forEach(user -> report.addUser(appUserRepository.findOne(user.id)));
         }
 
         return toDTO(reportRepository.save(report));
@@ -167,7 +174,7 @@ public class ReportService {
         dto.createdBy = report.getCreatedBy();
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
-        if(depth<1) dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user)).collect(Collectors.toList());
+        if(depth<1) dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user, 1)).collect(Collectors.toList());
 
         return dto;
     }

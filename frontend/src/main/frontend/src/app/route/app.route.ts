@@ -7,14 +7,18 @@ import {DoughnutChartComponent} from "../component/chart/doughnutchart/doughnutc
 import {ScheduleChartComponent} from "../component/chart/schedulechart/schedulechart.component";
 import {AppUsersAddComponent} from "../component/users/user.add.component";
 import {RolesComponent} from "../component/role/role.component";
+import {ReportComponent} from "../component/report/report.component";
+import {ReportsAddComponent} from "../component/report/report.add.component";
 
 export const appRoutes: Routes = [
-  { path: 'users', component: AppUsersComponent},
-  { path: 'users/:id', component: AppUsersAddComponent},
+  { path: 'users', component: AppUsersComponent },
+  { path: 'users/:id', component: AppUsersAddComponent },
+  { path: 'reports', component: ReportComponent },
+  { path: 'reports/:id', component: ReportsAddComponent },
   { path: 'schedule', component: ScheduleChartComponent },
   { path: 'doughnut', component: DoughnutChartComponent },
-  { path: 'roles', component: RolesComponent},
-  { path: '', component: HomeComponent},
+  { path: 'roles', component: RolesComponent },
+  { path: '', component: HomeComponent },
   { path: '**', component: PageNotFoundComponent },
 ];
 

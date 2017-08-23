@@ -29,7 +29,7 @@ export class Report {
       this.lastModifiedBy = json.lastModifiedBy;
       this.isSendInTime = json.isSendInTime;
       if (json.users != null) {
-        this.users = AppUser.toArray(json.roles);
+        this.users = AppUser.toArray(json.users);
       }
     }
   }

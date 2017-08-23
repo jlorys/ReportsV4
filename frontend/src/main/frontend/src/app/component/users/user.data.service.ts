@@ -76,4 +76,24 @@ export class AppUserDataService {
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
+
+  /**
+   * Performs a search by example on 1 attribute (defined on server side) and returns at most 10 results.
+   * Used by UserCompleteComponent.
+   */
+  complete(query : string) : Observable<AppUser[]> {
+    let body = JSON.stringify({'query': query, 'maxResults': 10});
+    return this.http.post('/api/users/complete', body, this.options)
+      .map(response => AppUser.toArray(response.json()))
+      .catch(this.handleError);
+  }
+
+  /**
+   * Find all appUsers which do not have report with this id.
+   */
+  findAllAppUsersWhichDoNotHaveReportWithThisId(id : any) : Observable<AppUser[]> {
+    return this.http.get('/api/users/findAllAppUsersWhichDoNotHaveReportWithThisId/' + id)
+      .map(response => AppUser.toArray(response.json()))
+      .catch(this.handleError);
+  }
 }

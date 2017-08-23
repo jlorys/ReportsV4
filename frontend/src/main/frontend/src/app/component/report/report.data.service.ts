@@ -17,7 +17,7 @@ export class ReportDataService {
   /**
    * Get a Report by id.
    */
-  getRole(id : any) : Observable<Report> {
+  getReport(id : any) : Observable<Report> {
     return this.http.get('/api/reports/' + id)
       .map(response => new Report(response.json()))
       .catch(this.handleError);

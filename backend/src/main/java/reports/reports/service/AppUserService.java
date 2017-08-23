@@ -21,6 +21,7 @@ import reports.reports.repository.RoleRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class AppUserService {
@@ -126,7 +127,7 @@ public class AppUserService {
 
         user.getReports().clear();
         if (dto.reports != null) {
-            dto.reports.stream().forEach(role -> user.addReport(reportRepository.findOne(role.id)));
+            dto.reports.stream().forEach(report -> user.addReport(reportRepository.findOne(report.id)));
         }
 
         return toDTO(appUserRepository.save(user));
@@ -157,13 +158,17 @@ public class AppUserService {
         return user;
     }
 
+    public AppUserDTO toDTO(AppUser report) {
+        return toDTO(report, 0);
+    }
+
     /**
      * Converts the passed user to a DTO. The depth is used to control the
      * amount of association you want.
      *
      * @param user
      */
-    public AppUserDTO toDTO(AppUser user) {
+    public AppUserDTO toDTO(AppUser user, int depth) {
         if (user == null) {
             return null;
         }
@@ -181,13 +186,29 @@ public class AppUserService {
         dto.lastModifiedDate = user.getLastModifiedDate();
         dto.createdBy = user.getCreatedBy();
         dto.lastModifiedBy = user.getLastModifiedBy();
-        dto.roles = user.getRoles().stream().map(role -> roleService.toDTO(role)).collect(Collectors.toList());
-        dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
+        if(depth<1){
+            dto.roles = user.getRoles().stream().map(role -> roleService.toDTO(role)).collect(Collectors.toList());
+            dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
+        }
 
         return dto;
     }
 
     public void deleteAll() {
         appUserRepository.deleteAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<AppUserDTO> complete(String query, int maxResults) {
+        List<AppUser> results = appUserRepository.complete(query, maxResults);
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<AppUserDTO> findAllAppUsersWhichDoNotHaveReportWithThisId(Integer reportId) {
+        List<AppUser> results = appUserRepository.findAll();
+        List<AppUser> filteredResults = results.stream().filter(appUser -> appUser.getReports().stream().noneMatch(report -> report.getId().equals(reportId)))
+                .collect(Collectors.toList());
+        return filteredResults.stream().map(this::toDTO).collect(Collectors.toList());
     }
 }

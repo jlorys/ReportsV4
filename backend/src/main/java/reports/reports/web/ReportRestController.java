@@ -16,11 +16,10 @@ import reports.reports.web.support.AutoCompleteQuery;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
-import static org.springframework.web.bind.annotation.RequestMethod.PUT;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -38,6 +37,18 @@ public class ReportRestController {
     public ResponseEntity<PageResponse<ReportDTO>> findAll(@RequestBody PageRequestByExample<ReportDTO> prbe) throws URISyntaxException {
         PageResponse<ReportDTO> pageResponse = reportService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    /**
+     * Find by id Report.
+     */
+    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
+
+        log.debug("Find by id Report : {}", id);
+
+        return Optional.ofNullable(reportService.findOne(id)).map(reportDTO -> new ResponseEntity<>(reportDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     /**
@@ -62,7 +73,7 @@ public class ReportRestController {
     @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
-        log.debug("Update UserDTO : {}", reportDTO);
+        log.debug("Update ReportDTO : {}", reportDTO);
 
         if (!reportDTO.isIdSet()) {
             return create(reportDTO);
@@ -79,7 +90,7 @@ public class ReportRestController {
     @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReportDTO> create(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
-        log.debug("Create UserDTO : {}", reportDTO);
+        log.debug("Create ReportDTO : {}", reportDTO);
 
         if (reportDTO.isIdSet()) {
             return ResponseEntity.badRequest().header("Failure", "Cannot create User with existing ID").body(null);
@@ -100,5 +111,4 @@ public class ReportRestController {
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
-
 }

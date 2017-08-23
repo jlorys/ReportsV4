@@ -170,7 +170,7 @@ public class AppUser {
 	 */
 	public List<Role> getRoles() {
 		if(Optional.ofNullable(roles).isPresent()) return roles;
-			return Collections.EMPTY_LIST;
+		return Collections.EMPTY_LIST;
 	}
 
 	/**
