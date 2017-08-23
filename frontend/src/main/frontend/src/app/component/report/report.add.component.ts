@@ -48,7 +48,7 @@ export class ReportsAddComponent implements OnDestroy {
                 error => this.msgs.push({severity:'error', summary:'Constructor user reports error', detail: error}))
 
             },
-            error => this.msgs.push({severity:'error', summary:'ngOnInit error', detail: error})
+            error => this.msgs.push({severity:'error', summary:'Constructor error', detail: error})
           );
       }
     });

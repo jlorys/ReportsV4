@@ -37,6 +37,14 @@ public class RoleService {
     }
 
     @Transactional(readOnly = true)
+    public List<RoleDTO> findAllRolesWhichDoNotHaveAppUserWithThisId(Integer userId) {
+        List<Role> results = roleRepository.findAll();
+        List<Role> filteredResults = results.stream().filter(role -> role.getUsers().stream().noneMatch(user -> user.getId().equals(userId)))
+                .collect(Collectors.toList());
+        return filteredResults.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public PageResponse<RoleDTO> findAll(PageRequestByExample<RoleDTO> req) {
         Example<Role> example = null;
         Role role = toEntity(req.example);

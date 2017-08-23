@@ -12,7 +12,7 @@ export class RoleDataService {
 
   private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-  constructor(private http: Http, private messageService : MessageService) {}
+  constructor(private http: Http) {}
 
   /**
    * Get a Role by id.
@@ -51,12 +51,10 @@ export class RoleDataService {
   }
 
   /**
-   * Performs a search by example on 1 attribute (defined on server side) and returns at most 10 results.
-   * Used by RoleCompleteComponent.
+   * Find all roles which do not have user with this id.
    */
-  complete(query : string) : Observable<Role[]> {
-    let body = JSON.stringify({'query': query, 'maxResults': 10});
-    return this.http.post('/api/roles/complete', body, this.options)
+  findAllRolesWhichDoNotHaveAppUserWithThisId(id : any) : Observable<Role[]> {
+    return this.http.get('/api/roles/findAllRolesWhichDoNotHaveAppUserWithThisId/' + id)
       .map(response => Role.toArray(response.json()))
       .catch(this.handleError);
   }

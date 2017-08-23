@@ -12,7 +12,7 @@ import {Report} from "../report/report";
   templateUrl: 'user.add.component.html',
   selector: 'users-add',
 })
-export class AppUsersAddComponent implements OnInit, OnDestroy {
+export class AppUsersAddComponent implements OnDestroy {
 
   @Input() header = "Sprawozdania użytkownika...";
   user : AppUser;
@@ -29,12 +29,6 @@ export class AppUsersAddComponent implements OnInit, OnDestroy {
   msgs: Message[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: AppUserDataService, private roleService : RoleDataService) {
-    roleService.complete(null).
-    subscribe(roles => this.sourceRoles = roles,
-      error => this.msgs.push({severity:'error', summary:'Constructor user roles error', detail: error}))
-  }
-
-  ngOnInit() {
     if (this.sub) {
       return;
     }
@@ -44,14 +38,23 @@ export class AppUsersAddComponent implements OnInit, OnDestroy {
       console.log('ngOnInit for users-add ' + id);
       if (id === 'add') {
         this.user = new AppUser();
+
+        roleService.findAllRolesWhichDoNotHaveAppUserWithThisId(0).
+        subscribe(roles => this.sourceRoles = roles,
+          error => this.msgs.push({severity:'error', summary:'Constructor user roles error', detail: error}))
+
       } else {
         this.userService.getUser(id)
           .subscribe(user => {
               this.user = user;
               this.userReports = user.reports;
-              this.sourceRoles = this.sourceRoles.filter(item => this.user.roles.map((e) => e.id).indexOf(item.id) < 0);
+
+              roleService.findAllRolesWhichDoNotHaveAppUserWithThisId(this.user.id).
+              subscribe(roles => this.sourceRoles = roles,
+                error => this.msgs.push({severity:'error', summary:'Constructor user roles error', detail: error}))
+
             },
-            error => this.msgs.push({severity:'error', summary:'ngOnInit error', detail: error})
+            error => this.msgs.push({severity:'error', summary:'Constructor error', detail: error})
           );
       }
     });

@@ -12,7 +12,7 @@ export class ReportDataService {
 
   private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
-  constructor(private http: Http, private messageService : MessageService) {}
+  constructor(private http: Http) {}
 
   /**
    * Get a Report by id.
@@ -47,17 +47,6 @@ export class ReportDataService {
         let pr : any = response.json();
         return new PageResponse<Report>(pr.totalPages, pr.totalElements, Report.toArray(pr.content));
       })
-      .catch(this.handleError);
-  }
-
-  /**
-   * Performs a search by example on 1 attribute (defined on server side) and returns at most 10 results.
-   * Used by ReportCompleteComponent.
-   */
-  complete(query : string) : Observable<Report[]> {
-    let body = JSON.stringify({'query': query, 'maxResults': 10});
-    return this.http.post('/api/reports/complete', body, this.options)
-      .map(response => Report.toArray(response.json()))
       .catch(this.handleError);
   }
 

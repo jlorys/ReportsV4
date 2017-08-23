@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
-import reports.reports.repository.RoleRepository;
 import reports.reports.service.RoleService;
 import reports.reports.web.support.AutoCompleteQuery;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +30,7 @@ public class RoleRestController {
     private final Logger log = LoggerFactory.getLogger(RoleRestController.class);
 
     @Autowired
-    private RoleService roleDTOService;
+    private RoleService roleService;
 
     /**
     * Find by id Role.
@@ -42,7 +40,7 @@ public class RoleRestController {
 
         log.debug("Find by id Role : {}", id);
 
-        return Optional.ofNullable(roleDTOService.findOne(id)).map(roleDTO -> new ResponseEntity<>(roleDTO, HttpStatus.OK))
+        return Optional.ofNullable(roleService.findOne(id)).map(roleDTO -> new ResponseEntity<>(roleDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
@@ -51,7 +49,7 @@ public class RoleRestController {
      */
     @RequestMapping(value = "/page", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<RoleDTO>> findAll(@RequestBody PageRequestByExample<RoleDTO> prbe) throws URISyntaxException {
-        PageResponse<RoleDTO> pageResponse = roleDTOService.findAll(prbe);
+        PageResponse<RoleDTO> pageResponse = roleService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -61,7 +59,15 @@ public class RoleRestController {
     @RequestMapping(value = "/complete", method = POST, produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<List<RoleDTO>> complete(@RequestBody AutoCompleteQuery acq) throws URISyntaxException {
 
-        List<RoleDTO> results = roleDTOService.complete(acq.query, acq.maxResults);
+        List<RoleDTO> results = roleService.complete(acq.query, acq.maxResults);
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/findAllRolesWhichDoNotHaveAppUserWithThisId/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<RoleDTO>> findAllRolesWhichDoNotHaveAppUserWithThisId(@PathVariable Integer id) throws URISyntaxException {
+
+        List<RoleDTO> results = roleService.findAllRolesWhichDoNotHaveAppUserWithThisId(id);
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }

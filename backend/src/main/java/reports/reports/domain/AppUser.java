@@ -34,14 +34,12 @@ public class AppUser {
     @LastModifiedBy
 	private String lastModifiedBy;
 
-	// Many to many
 	@ManyToMany
 	@JoinTable(name = "USER_ROLE",
 			joinColumns = @JoinColumn(name = "USER_ID") ,
 			inverseJoinColumns = @JoinColumn(name = "ROLE_ID") )
 	private List<Role> roles;
 
-	// Many to many
 	@ManyToMany
 	@JoinTable(name = "USER_REPORT",
 			joinColumns = @JoinColumn(name = "USER_ID") ,
