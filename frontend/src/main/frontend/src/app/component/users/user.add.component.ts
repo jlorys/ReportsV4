@@ -35,7 +35,7 @@ export class AppUsersAddComponent implements OnDestroy {
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
-      console.log('ngOnInit for users-add ' + id);
+      console.log('Constructor for users-add ' + id);
       if (id === 'add') {
         this.user = new AppUser();
 

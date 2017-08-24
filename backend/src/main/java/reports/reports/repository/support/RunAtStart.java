@@ -72,6 +72,11 @@ class RunAtStart {
         reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "3.5", true));
         reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true));
         reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true));
+        reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "3.0", true));
+        reports.add(new Report("Opis9", "files/", "sprawozdanie9", ".pdf", "3.0", true));
+        reports.add(new Report("Opis10", "files/", "sprawozdanie10", ".pdf", "3.5", true));
+        reports.add(new Report("Opis11", "files/", "sprawozdanie11", ".pdf", "3.5", true));
+        reports.add(new Report("Opis12", "files/", "sprawozdanie12", ".pdf", "3.5", true));
 
         reports.stream().forEach(report -> reportRepository.save(report));
     }

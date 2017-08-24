@@ -30,7 +30,7 @@ export class ReportsAddComponent implements OnDestroy {
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
-      console.log('ngOnInit for reports-add ' + id);
+      console.log('Constructor for reports-add ' + id);
       if (id === 'add') {
         this.report = new Report();
 
