@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -32,7 +31,7 @@ public class AppUserRestController {
 	/**
 	 * Find a Page of User using query by example.
 	 */
-	@RequestMapping(value = "/page", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<PageResponse<AppUserDTO>> findAll(@RequestBody PageRequestByExample<AppUserDTO> prbe) throws URISyntaxException {
 		PageResponse<AppUserDTO> pageResponse = appUserService.findAll(prbe);
 		return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -41,7 +40,7 @@ public class AppUserRestController {
 	/**
 	 * Delete by id User.
 	 */
-	@RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
 		log.debug("Delete by id User : {}", id);
@@ -57,7 +56,7 @@ public class AppUserRestController {
 	/**
 	 * Find by id User.
 	 */
-	@RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<AppUserDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
 		log.debug("Find by id User : {}", id);
@@ -69,7 +68,7 @@ public class AppUserRestController {
 	/**
 	 * Find by userName.
 	 */
-	@RequestMapping(value = "/name/{userName}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/name/{userName}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<AppUserDTO> findByUserName(@PathVariable String userName) throws URISyntaxException {
 
 		log.debug("Find by userName : {}", userName);
@@ -81,7 +80,7 @@ public class AppUserRestController {
 	/**
 	 * Update User.
 	 */
-	@RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
+	@PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<AppUserDTO> update(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
 
 		log.debug("Update UserDTO : {}", userDTO);
@@ -98,7 +97,7 @@ public class AppUserRestController {
 	/**
 	 * Create a new User.
 	 */
-	@RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<AppUserDTO> create(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
 
 		log.debug("Create UserDTO : {}", userDTO);
@@ -112,7 +111,7 @@ public class AppUserRestController {
 		return ResponseEntity.created(new URI("/api/users/" + result.id)).body(result);
 	}
 
-	@RequestMapping(value = "/findAllAppUsersWhichDoNotHaveReportWithThisId/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/findAllAppUsersWhichDoNotHaveReportWithThisId/{id}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<AppUserDTO>> findAllAppUsersWhichDoNotHaveReportWithThisId(@PathVariable Integer id) throws URISyntaxException {
 
 		List<AppUserDTO> results = appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(id);

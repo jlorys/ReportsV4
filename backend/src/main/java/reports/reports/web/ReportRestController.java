@@ -17,7 +17,6 @@ import java.net.URISyntaxException;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
 @RequestMapping("/api/reports")
@@ -31,7 +30,7 @@ public class ReportRestController {
     /**
      * Find a Page of Reports using query by example.
      */
-    @RequestMapping(value = "/page", method = RequestMethod.POST, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<ReportDTO>> findAll(@RequestBody PageRequestByExample<ReportDTO> prbe) throws URISyntaxException {
         PageResponse<ReportDTO> pageResponse = reportService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -40,7 +39,7 @@ public class ReportRestController {
     /**
      * Find by id Report.
      */
-    @RequestMapping(value = "/{id}", method = GET, produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Report : {}", id);
@@ -52,7 +51,7 @@ public class ReportRestController {
     /**
      * Delete by id Report.
      */
-    @RequestMapping(value = "/{id}", method = DELETE, produces = APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id Report : {}", id);
@@ -68,7 +67,7 @@ public class ReportRestController {
     /**
      * Update Report.
      */
-    @RequestMapping(value = "/", method = PUT, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
         log.debug("Update ReportDTO : {}", reportDTO);
@@ -85,13 +84,13 @@ public class ReportRestController {
     /**
      * Create a new User.
      */
-    @RequestMapping(value = "/", method = POST, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<ReportDTO> create(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
         log.debug("Create ReportDTO : {}", reportDTO);
 
         if (reportDTO.isIdSet()) {
-            return ResponseEntity.badRequest().header("Failure", "Cannot create User with existing ID").body(null);
+            return ResponseEntity.badRequest().header("Failure", "Cannot create Report with existing ID").body(null);
         }
 
         ReportDTO result = reportService.save(reportDTO);
