@@ -1,14 +1,12 @@
 import {Report} from "./report";
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, Input, OnDestroy} from "@angular/core";
 import {AppUser} from "../users/user";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/primeng";
 import {ReportDataService} from "./report.data.service";
 import {AppUserDataService} from "../users/user.data.service";
-import {AppComponent} from "../app/app.component";
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'report.add.component.html',
   selector: 'reports-add',
 })
@@ -20,13 +18,9 @@ export class ReportsAddComponent implements OnDestroy {
 
   private params_subscription: any;
 
-  @Output() onSaveClicked = new EventEmitter<Report>();
-  @Output() onCancelClicked = new EventEmitter();
-
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private reportService: ReportDataService, private appUserDataService: AppUserDataService,
-              private appComponent: AppComponent) {
+  constructor(private route: ActivatedRoute, private router: Router, private reportService: ReportDataService, private appUserDataService: AppUserDataService,) {
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
@@ -66,7 +60,7 @@ export class ReportsAddComponent implements OnDestroy {
         this.msgs = []; //this line fix disappearing of messages
         this.msgs.push({severity:'info', summary:'Saved OK', detail: 'Angular Rocks!'})
       },
-      error => this.msgs.push({severity:'error', summary:'Could not save', detail: 'Angular Rocks!'})
+      error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
     );
   }
 }

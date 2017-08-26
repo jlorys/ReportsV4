@@ -8,7 +8,6 @@ import {RoleDataService} from "../role/role.data.service";
 import {Report} from "../report/report";
 
 @Component({
-  moduleId: module.id,
   templateUrl: 'user.add.component.html',
   selector: 'users-add',
 })

@@ -18,7 +18,8 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label>Plik *</label></div>
         <div class="ui-grid-col-6">
-          <p-fileUpload></p-fileUpload>
+          <input type="file" id="file" [(ngModel)]="report.file" required placeholder="Wymagane" name="file" #file="ngModel"/>
+          <p-fileUpload name="file" url="http://localhost:4200/api/reports/upload" ></p-fileUpload>
         </div>
         <div class="ui-grid-col-4">
         </div>

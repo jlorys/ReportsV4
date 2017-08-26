@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {PageRequestByExample, PageResponse} from "../../support/paging";
 import {LazyLoadEvent} from "primeng/primeng";
-import {MessageService} from "../../service/message.service";
 import {Report} from "./report";
 
 @Injectable()
