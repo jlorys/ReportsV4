@@ -19,6 +19,7 @@ export class ReportsAddComponent implements OnDestroy {
   private params_subscription: any;
 
   msgs: Message[] = [];
+  filePath: string = "/uploaded_files";
 
   constructor(private route: ActivatedRoute, private router: Router, private reportService: ReportDataService, private appUserDataService: AppUserDataService,) {
 
@@ -52,7 +53,15 @@ export class ReportsAddComponent implements OnDestroy {
       this.params_subscription.unsubscribe();
   }
 
-  onSave() {
+  onUpload(event) {
+    this.msgs = []; //this line fix disappearing of messages
+    this.msgs.push({severity:'info', summary:'Upload ok', detail: 'Angular Rocks!'})
+
+    this.report.filePath = this.filePath;
+    let fullFileName = event.files[0].name;
+    this.report.fileExtension = '.' + fullFileName.split('.').pop();
+    this.report.fileName = fullFileName.split('.').shift();
+
     this.reportService.update(this.report).
     subscribe(
       report => {
@@ -63,4 +72,19 @@ export class ReportsAddComponent implements OnDestroy {
       error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
     );
   }
+
+  onUpdate() {
+        this.msgs = []; //this line fix disappearing of messages
+        this.msgs.push({severity:'info', summary:'Upload ok', detail: 'Angular Rocks!'})
+
+        this.reportService.update(this.report).subscribe(
+          report => {
+            this.report = report;
+            this.msgs = []; //this line fix disappearing of messages
+            this.msgs.push({severity:'info', summary:'Update OK', detail: 'Angular Rocks!'})
+          },
+          error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
+
+        );
+    }
 }

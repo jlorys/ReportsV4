@@ -5,7 +5,7 @@
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="description">Description *</label></div>
-        <div class="ui-grid-col-6">
+        <div class="ui-grid-col-8">
           <input pInputText id="description" [(ngModel)]="report.description"  required placeholder="Wymagane"  name="description" #description="ngModel"/>
         </div>
         <div class="ui-grid-col-4">
@@ -17,19 +17,16 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label>Plik *</label></div>
-        <div class="ui-grid-col-6">
-          <input type="file" id="file" [(ngModel)]="report.file" required placeholder="Wymagane" name="file" #file="ngModel"/>
-          <p-fileUpload name="file" url="http://localhost:4200/api/reports/upload" ></p-fileUpload>
+        <div class="ui-grid-col-8">
+          <p-fileUpload *ngIf="report.description" name="file" url="/api/reports/upload" (onUpload)="onUpload($event)"></p-fileUpload>
         </div>
         <div class="ui-grid-col-4">
         </div>
       </div>
+      <div class="ui-grid-row">
+      </div>
       </div>
   </md-card-content>
-
-  <md-card-actions>
-    <button md-raised-button (click)="onSave()" [disabled]="!reportForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
-  </md-card-actions>
 
   <md-card *ngIf="report && report.id">
     <md-card-subtitle>Relacje sprawozdanie</md-card-subtitle>
@@ -46,6 +43,9 @@
 
       </md-tab-group>
     </md-card-content>
+    <md-card-actions>
+      <button md-raised-button (click)="onUpdate()" [disabled]="!reportForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
+    </md-card-actions>
   </md-card>
 
 </md-card>
