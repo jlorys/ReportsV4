@@ -24,3 +24,9 @@ nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+# exclude everything
+uploaded_files/*
+
+# exception to the rule
+!uploaded_files/.gitkeep 
