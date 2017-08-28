@@ -30,12 +30,12 @@
   </md-card-content>
 
   <md-card *ngIf="report && report.id">
-    <md-card-subtitle>Relacje sprawozdanie</md-card-subtitle>
+    <md-card-subtitle>Relacje sprawozdania</md-card-subtitle>
     <md-card-content>
       <md-tab-group>
 
-        <md-tab label="Użytkownicy">
-          <p-pickList [source]="sourceUsers" [target]="report.users" sourceHeader="Użytkownicy możliwi do dodania" targetHeader="Autorzy sprawozdania" [responsive]="true">
+        <md-tab label="Autorzy">
+          <p-pickList sourceFilterPlaceholder="Szukaj po nazwisku" filterBy="lastName" [source]="sourceUsers" [target]="report.users" sourceHeader="Użytkownicy możliwi do dodania" targetHeader="Autorzy sprawozdania" [responsive]="true">
             <ng-template let-user pTemplate="item">
               {{user.userName}} {{user.firstName}} {{user.lastName}}
             </ng-template>
