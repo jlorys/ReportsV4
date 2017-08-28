@@ -53,26 +53,6 @@ export class ReportsAddComponent implements OnDestroy {
       this.params_subscription.unsubscribe();
   }
 
-  onUpload(event) {
-    this.msgs = []; //this line fix disappearing of messages
-    this.msgs.push({severity:'info', summary:'Upload ok', detail: 'Angular Rocks!'})
-
-    this.report.filePath = this.filePath;
-    let fullFileName = event.files[0].name;
-    this.report.fileExtension = '.' + fullFileName.split('.').pop();
-    this.report.fileName = fullFileName.split('.').shift();
-
-    this.reportService.update(this.report).
-    subscribe(
-      report => {
-        this.report = report;
-        this.msgs = []; //this line fix disappearing of messages
-        this.msgs.push({severity:'info', summary:'Saved OK', detail: 'Angular Rocks!'})
-      },
-      error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
-    );
-  }
-
   onUpdate() {
         this.msgs = []; //this line fix disappearing of messages
         this.msgs.push({severity:'info', summary:'Upload ok', detail: 'Angular Rocks!'})
@@ -87,4 +67,29 @@ export class ReportsAddComponent implements OnDestroy {
 
         );
     }
+
+  myUploader(event) {
+    this.msgs = []; //this line fix disappearing of messages
+
+    this.report.filePath = this.filePath;
+    let fullFileName = event.files[0].name;
+    this.report.fileExtension = '.' + fullFileName.split('.').pop();
+    this.report.fileName = fullFileName.split('.').shift();
+
+    this.reportService.update(this.report).
+    subscribe(
+      report => {
+        this.report = report;
+
+        let xhr = new XMLHttpRequest(), formData = new FormData();
+        formData.append("file", event.files[0], this.report.id + "_r_" + fullFileName);
+        xhr.open("POST", '/api/reports/upload', true);
+        xhr.send(formData);
+
+        this.msgs.push({severity:'info', summary:'Saved OK', detail: 'Angular Rocks!'})
+      },
+      error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
+    );
+  }
+
 }
