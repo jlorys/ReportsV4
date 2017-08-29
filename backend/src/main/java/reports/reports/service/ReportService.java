@@ -6,6 +6,7 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import reports.reports.domain.AppUser;
 import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
@@ -16,11 +17,21 @@ import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class ReportService {
+
+    //Save the uploaded file to this folder
+    private static final String UPLOAD_FOLDER = "uploaded_files//";
 
     @Autowired
     private ReportRepository reportRepository;
@@ -179,4 +190,54 @@ public class ReportService {
         return dto;
     }
 
+    public String uploadFile(MultipartFile file) {
+        if (file.isEmpty()) return "File is empty";
+
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "uploadAccepted";
+    }
+
+    public void downloadFile(Integer reportId, HttpServletResponse response) throws IOException {
+        Report report = reportRepository.getOne(reportId);
+
+        File someFile = new File(report.getFileName());
+        FileOutputStream fos = new FileOutputStream(someFile);
+
+        Path path = Paths.get("uploaded_files//" + report.getId() + "_r_" + report.getFileName() + report.getFileExtension());
+        byte[] data = Files.readAllBytes(path);
+
+        fos.write(data);
+        fos.flush();
+        fos.close();
+
+        FileInputStream inputStream = new FileInputStream(someFile);
+
+        String fileName = URLEncoder.encode(someFile.getName(), "UTF-8");
+        fileName = URLDecoder.decode(fileName, "ISO8859_1");
+        response.setContentType("application/x-msdownload");
+
+        String headerValue = String.format("attachment; filename=\"%s\"", fileName + report.getFileExtension());
+        response.setHeader("Content-Disposition", headerValue);
+
+        OutputStream outStream = response.getOutputStream();
+
+        byte[] buffer = new byte[1024];
+        int bytesRead = -1;
+        // reads parts in loop, when next we giving to output stream
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            outStream.write(buffer, 0, bytesRead);
+        }
+        inputStream.close();
+        outStream.close();
+        someFile.delete();
+    }
 }

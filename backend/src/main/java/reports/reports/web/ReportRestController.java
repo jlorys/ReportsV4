@@ -15,9 +15,12 @@ import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.service.ReportService;
 
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -29,8 +32,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/api/reports")
 public class ReportRestController {
 
-    //Save the uploaded file to this folder
-    private static String UPLOAD_FOLDER = "uploaded_files//";
     private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
     @Autowired
     private ReportService reportService;
@@ -107,22 +108,12 @@ public class ReportRestController {
     }
 
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    public String addReport(@RequestParam("file") MultipartFile file) {
+    public String uploadFile(@RequestParam("file") MultipartFile file) {
+        return reportService.uploadFile(file);
+    }
 
-        if (file.isEmpty()) {
-            return "File is empty";
-        }
-
-        try {
-            // Get the file and save it somewhere
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOAD_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "uploadAccepted";
+    @GetMapping("/file/{reportId}")
+    public void downloadFile (@PathVariable Integer reportId, HttpServletResponse response) throws IOException {
+        reportService.downloadFile(reportId, response);
     }
 }
