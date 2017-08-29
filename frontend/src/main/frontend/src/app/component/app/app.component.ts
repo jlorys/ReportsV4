@@ -43,7 +43,8 @@ import {Router} from "@angular/router";
                         <label for="password">Hasło</label>
                     </div>
                     <div class="ui-g-8">
-                        <input type="password" pPassword id="password" [(ngModel)]="password" name="password"/>
+                        <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword 
+                        id="password" [(ngModel)]="password" name="password"/>
                     </div>
                 </div>
             </div>

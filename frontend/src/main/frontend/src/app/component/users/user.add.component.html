@@ -18,7 +18,8 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="password">Hasło *</label></div>
         <div class="ui-grid-col-6">
-          <input type="password" pPassword id="password" [(ngModel)]="user.password" required placeholder="Wymagane" name="password" #password="ngModel"/>
+          <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword
+                 id="password" [(ngModel)]="user.password" required placeholder="Wymagane" name="password" #password="ngModel"/>
         </div>
         <div class="ui-grid-col-4">
         </div>
