@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, RequestOptions, Headers} from '@angular/http';
+import {Http, RequestOptions, Headers, ResponseContentType} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {PageRequestByExample, PageResponse} from "../../support/paging";
@@ -31,6 +31,13 @@ export class ReportDataService {
     return this.http.put('/api/reports/', body, this.options)
       .map(response => new Report(response.json()))
       .catch(this.handleError);
+  }
+
+  downloadFile(id): Observable<Blob> {
+    let options = new RequestOptions({responseType: ResponseContentType.Blob });
+    return this.http.get('/api/reports/file/' + id, options)
+      .map(res => res.blob())
+      .catch(this.handleError)
   }
 
   /**

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/primeng";
 import {ReportDataService} from "./report.data.service";
 import {AppUserDataService} from "../users/user.data.service";
+import {saveAs as importedSaveAs} from "file-saver";
 
 @Component({
   templateUrl: 'report.add.component.html',
@@ -55,15 +56,13 @@ export class ReportsAddComponent implements OnDestroy {
 
   onUpdate() {
         this.msgs = []; //this line fix disappearing of messages
-        this.msgs.push({severity:'info', summary:'Upload ok', detail: 'Angular Rocks!'})
 
         this.reportService.update(this.report).subscribe(
           report => {
             this.report = report;
-            this.msgs = []; //this line fix disappearing of messages
-            this.msgs.push({severity:'info', summary:'Update OK', detail: 'Angular Rocks!'})
+            this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
           },
-          error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
+          error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: error})
 
         );
     }
@@ -86,10 +85,17 @@ export class ReportsAddComponent implements OnDestroy {
         xhr.open("POST", '/api/reports/upload', true);
         xhr.send(formData);
 
-        this.msgs.push({severity:'info', summary:'Saved OK', detail: 'Angular Rocks!'})
+        this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
       },
-      error => this.msgs.push({severity:'error', summary:'Could not save', detail: error})
+      error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: error})
     );
+  }
+
+  onDownloadFile() {
+    this.reportService.downloadFile(this.report.id).subscribe(blob => {
+        importedSaveAs(blob, this.report.fileName + this.report.fileExtension);
+      }
+    )
   }
 
 }

@@ -19,7 +19,10 @@
         <div class="ui-grid-col-2"><label>Plik *</label></div>
         <div class="ui-grid-col-8">
           <p-fileUpload *ngIf="report.description && !report.id" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
-          <label *ngIf="report.id">{{report.fileName}}{{report.fileExtension}}</label>
+          <label *ngIf="report.id">
+            {{report.fileName}}{{report.fileExtension}}
+            <button md-raised-button (click)="onDownloadFile()"><md-icon>attachment</md-icon></button>
+          </label>
         </div>
         <div class="ui-grid-col-4">
         </div>
