@@ -34,10 +34,9 @@ import java.util.stream.Collectors;
 @Service
 public class ReportService {
 
-    private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
     //Save the uploaded file to this folder
     private static final String UPLOAD_FOLDER = "uploaded_files//";
-
+    private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
     @Autowired
     private ReportRepository reportRepository;
 
@@ -190,7 +189,8 @@ public class ReportService {
         dto.createdBy = report.getCreatedBy();
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
-        if(depth<1) dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user, 1)).collect(Collectors.toList());
+        if (depth < 1)
+            dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user, 1)).collect(Collectors.toList());
 
         return dto;
     }
@@ -256,12 +256,5 @@ public class ReportService {
             outStream.close();
             someFile.delete();
         }
-
-
-
-
-
-
-
     }
 }
