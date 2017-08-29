@@ -1,5 +1,7 @@
 package reports.reports.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -16,12 +18,14 @@ import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
+import reports.reports.web.AppUserRestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -30,6 +34,7 @@ import java.util.stream.Collectors;
 @Service
 public class ReportService {
 
+    private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
     //Save the uploaded file to this folder
     private static final String UPLOAD_FOLDER = "uploaded_files//";
 
@@ -207,37 +212,56 @@ public class ReportService {
     }
 
     public void downloadFile(Integer reportId, HttpServletResponse response) throws IOException {
-        Report report = reportRepository.getOne(reportId);
+        boolean success = false;
+        try {
 
-        File someFile = new File(report.getFileName());
-        FileOutputStream fos = new FileOutputStream(someFile);
+            Report report = reportRepository.getOne(reportId);
+            Path path = Paths.get("uploaded_files//" + report.getId() + "_r_" + report.getFileName() + report.getFileExtension());
+            byte[] data = Files.readAllBytes(path);
+            success = true;
 
-        Path path = Paths.get("uploaded_files//" + report.getId() + "_r_" + report.getFileName() + report.getFileExtension());
-        byte[] data = Files.readAllBytes(path);
-
-        fos.write(data);
-        fos.flush();
-        fos.close();
-
-        FileInputStream inputStream = new FileInputStream(someFile);
-
-        String fileName = URLEncoder.encode(someFile.getName(), "UTF-8");
-        fileName = URLDecoder.decode(fileName, "ISO8859_1");
-        response.setContentType("application/x-msdownload");
-
-        String headerValue = String.format("attachment; filename=\"%s\"", fileName + report.getFileExtension());
-        response.setHeader("Content-Disposition", headerValue);
-
-        OutputStream outStream = response.getOutputStream();
-
-        byte[] buffer = new byte[1024];
-        int bytesRead = -1;
-        // reads parts in loop, when next we giving to output stream
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outStream.write(buffer, 0, bytesRead);
+        } catch (NoSuchFileException e) {
+            log.error("NoSuchFileException");
         }
-        inputStream.close();
-        outStream.close();
-        someFile.delete();
+        if (success) {
+
+            Report report = reportRepository.getOne(reportId);
+            File someFile = new File(report.getFileName());
+            Path path = Paths.get("uploaded_files//" + report.getId() + "_r_" + report.getFileName() + report.getFileExtension());
+            byte[] data = Files.readAllBytes(path);
+
+            FileOutputStream fos = new FileOutputStream(someFile);
+            fos.write(data);
+            fos.flush();
+            fos.close();
+
+            FileInputStream inputStream = new FileInputStream(someFile);
+
+            String fileName = URLEncoder.encode(someFile.getName(), "UTF-8");
+            fileName = URLDecoder.decode(fileName, "ISO8859_1");
+            response.setContentType("application/x-msdownload");
+
+            String headerValue = String.format("attachment; filename=\"%s\"", fileName + report.getFileExtension());
+            response.setHeader("Content-Disposition", headerValue);
+
+            OutputStream outStream = response.getOutputStream();
+
+            byte[] buffer = new byte[1024];
+            int bytesRead = -1;
+            // reads parts in loop, when next we giving to output stream
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outStream.write(buffer, 0, bytesRead);
+            }
+            inputStream.close();
+            outStream.close();
+            someFile.delete();
+        }
+
+
+
+
+
+
+
     }
 }

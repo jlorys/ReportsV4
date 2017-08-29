@@ -22,6 +22,7 @@ import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -114,6 +115,6 @@ public class ReportRestController {
 
     @GetMapping("/file/{reportId}")
     public void downloadFile (@PathVariable Integer reportId, HttpServletResponse response) throws IOException {
-        reportService.downloadFile(reportId, response);
+            reportService.downloadFile(reportId, response);
     }
 }
