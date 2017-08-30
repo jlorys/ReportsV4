@@ -19,15 +19,4 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 	 * @return the corresponding {@link AppUser} persistent instance or null
 	 */
 	AppUser getByUserName(String userName);
-
-	default List<AppUser> complete(String query, int maxResults) {
-		AppUser probe = new AppUser();
-		probe.setUserName(query);
-
-		ExampleMatcher matcher = ExampleMatcher.matching() //
-				.withMatcher(AppUser_.userName.getName(), match -> match.ignoreCase().startsWith());
-
-		Page<AppUser> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
-		return page.getContent();
-	}
 }

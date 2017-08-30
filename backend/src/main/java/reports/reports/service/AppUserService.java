@@ -199,12 +199,6 @@ public class AppUserService {
     }
 
     @Transactional(readOnly = true)
-    public List<AppUserDTO> complete(String query, int maxResults) {
-        List<AppUser> results = appUserRepository.complete(query, maxResults);
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public List<AppUserDTO> findAllAppUsersWhichDoNotHaveReportWithThisId(Integer reportId) {
         List<AppUser> results = appUserRepository.findAll();
         List<AppUser> filteredResults = results.stream().filter(appUser -> appUser.getReports().stream().noneMatch(report -> report.getId().equals(reportId)))

@@ -20,15 +20,4 @@ public interface RoleRepository extends JpaRepository<Role, Integer> {
      * @return the corresponding {@link Role} persistent instance or null
      */
     Role getByRoleName(String roleName);
-
-    default List<Role> complete(String query, int maxResults) {
-        Role probe = new Role();
-        probe.setRoleName(query);
-
-        ExampleMatcher matcher = ExampleMatcher.matching() //
-                .withMatcher(Role_.roleName.getName(), match -> match.ignoreCase().startsWith());
-
-        Page<Role> page = findAll(Example.of(probe, matcher), new PageRequest(0, maxResults));
-        return page.getContent();
-    }
 }

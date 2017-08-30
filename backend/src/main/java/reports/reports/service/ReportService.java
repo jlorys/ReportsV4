@@ -47,12 +47,6 @@ public class ReportService {
     private AppUserService appUserService;
 
     @Transactional(readOnly = true)
-    public List<ReportDTO> complete(String query, int maxResults) {
-        List<Report> results = reportRepository.complete(query, maxResults);
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public ReportDTO findOne(Integer id) {
         Report report = reportRepository.findOne(id);
         return toDTO(report);

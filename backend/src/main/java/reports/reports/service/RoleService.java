@@ -31,12 +31,6 @@ public class RoleService {
     }
 
     @Transactional(readOnly = true)
-    public List<RoleDTO> complete(String query, int maxResults) {
-        List<Role> results = roleRepository.complete(query, maxResults);
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public List<RoleDTO> findAllRolesWhichDoNotHaveAppUserWithThisId(Integer userId) {
         List<Role> results = roleRepository.findAll();
         List<Role> filteredResults = results.stream().filter(role -> role.getUsers().stream().noneMatch(user -> user.getId().equals(userId)))
