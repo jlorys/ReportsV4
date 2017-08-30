@@ -36,4 +36,12 @@ public class Laboratory {
 
     @OneToMany(mappedBy = "laboratory")
     private List<Report> reports;
+
+    public Laboratory(String name, String description, LocalDateTime labDate, LocalDateTime returnReportDate, LocalDateTime finalReturnReportDate) {
+        this.name = name;
+        this.description = description;
+        this.labDate = labDate;
+        this.returnReportDate = returnReportDate;
+        this.finalReturnReportDate = finalReturnReportDate;
+    }
 }

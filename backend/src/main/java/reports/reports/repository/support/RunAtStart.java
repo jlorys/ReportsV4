@@ -3,33 +3,47 @@ package reports.reports.repository.support;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import reports.reports.domain.AppUser;
+import reports.reports.domain.Laboratory;
 import reports.reports.domain.Report;
 import reports.reports.domain.Role;
-import reports.reports.repository.AppUserRepository;
-import reports.reports.repository.ReportRepository;
-import reports.reports.repository.RoleRepository;
+import reports.reports.repository.*;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
 class RunAtStart {
+
     private final AppUserRepository appUserRepository;
-    private final RoleRepository roleRepository;
+    private final FieldOfStudyRepository fieldOfStudyRepsitory;
+    private final LaboratoryRepository laboratoryRepository;
     private final ReportRepository reportRepository;
+    private final RoleRepository roleRepository;
+    private final SubjectRepository subjectRepository;
 
     @Autowired
-    public RunAtStart(AppUserRepository appUserRepository, RoleRepository roleRepository, ReportRepository reportRepository) {
+    public RunAtStart(AppUserRepository appUserRepository,
+                      FieldOfStudyRepository fieldOfStudyRepository,
+                      LaboratoryRepository laboratoryRepository,
+                      ReportRepository reportRepository,
+                      RoleRepository roleRepository,
+                      SubjectRepository subjectRepository) {
         this.appUserRepository = appUserRepository;
-        this.roleRepository = roleRepository;
+        this.fieldOfStudyRepsitory = fieldOfStudyRepository;
+        this.laboratoryRepository = laboratoryRepository;
         this.reportRepository = reportRepository;
+        this.roleRepository = roleRepository;
+        this.subjectRepository = subjectRepository;
     }
 
     @PostConstruct
     public void runAtStart() {
         generateManyUsers();
         generateRoles();
+        generateLaboratories();
         generateReports();
         addRolesToUsers();
         addReportsToUsers();
@@ -61,6 +75,16 @@ class RunAtStart {
         roles.add(new Role("Admin"));
 
         roles.stream().forEach(role -> roleRepository.save(role));
+    }
+
+    private void generateLaboratories() {
+        List<Laboratory> laboratories = new ArrayList<>();
+        laboratories.add(new Laboratory("Laboratorium1", "Pomiary napięcia",
+                LocalDateTime.of(2017, Month.of(9), 12, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 15, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 16, 12, 0)));
+
+        laboratories.stream().forEach(lab -> laboratoryRepository.save(lab));
     }
 
     private void generateReports() {
