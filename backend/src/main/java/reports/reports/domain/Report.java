@@ -39,6 +39,10 @@ public class Report {
 			inverseJoinColumns = @JoinColumn(name = "USER_ID") )
 	List<AppUser> users;
 
+	@ManyToOne()
+	@JoinColumn(name = "LABORATORY_ID")
+	private Laboratory laboratory;
+
 	public Report() {}
 
     public Report(String description, String filePath, String fileName, String fileExtension, String grade, Boolean isSendInTime) {
@@ -153,4 +157,8 @@ public class Report {
 	public boolean addUser(AppUser appUser) {
 		return getUsers().add(appUser);
 	}
+
+	public Laboratory getLaboratory() {return laboratory;}
+
+	public void setLaboratory(Laboratory laboratory) {this.laboratory = laboratory;}
 }
