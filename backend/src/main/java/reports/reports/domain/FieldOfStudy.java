@@ -29,4 +29,11 @@ public class FieldOfStudy {
 
     @OneToMany(mappedBy = "fieldOfStudy")
     private List<Subject> subjects;
+
+    public FieldOfStudy() {}
+
+    public FieldOfStudy(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

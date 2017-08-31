@@ -2,10 +2,7 @@ package reports.reports.repository.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import reports.reports.domain.AppUser;
-import reports.reports.domain.Laboratory;
-import reports.reports.domain.Report;
-import reports.reports.domain.Role;
+import reports.reports.domain.*;
 import reports.reports.repository.*;
 
 import javax.annotation.PostConstruct;
@@ -18,7 +15,7 @@ import java.util.List;
 class RunAtStart {
 
     private final AppUserRepository appUserRepository;
-    private final FieldOfStudyRepository fieldOfStudyRepsitory;
+    private final FieldOfStudyRepository fieldOfStudyRepository;
     private final LaboratoryRepository laboratoryRepository;
     private final ReportRepository reportRepository;
     private final RoleRepository roleRepository;
@@ -32,7 +29,7 @@ class RunAtStart {
                       RoleRepository roleRepository,
                       SubjectRepository subjectRepository) {
         this.appUserRepository = appUserRepository;
-        this.fieldOfStudyRepsitory = fieldOfStudyRepository;
+        this.fieldOfStudyRepository = fieldOfStudyRepository;
         this.laboratoryRepository = laboratoryRepository;
         this.reportRepository = reportRepository;
         this.roleRepository = roleRepository;
@@ -43,6 +40,8 @@ class RunAtStart {
     public void runAtStart() {
         generateManyUsers();
         generateRoles();
+        generateFieldsOfStudies();
+        generateSubjects();
         generateLaboratories();
         generateReports();
         addRolesToUsers();
@@ -77,30 +76,57 @@ class RunAtStart {
         roles.stream().forEach(role -> roleRepository.save(role));
     }
 
+    private void generateFieldsOfStudies() {
+        List<FieldOfStudy> fieldsOfStudies = new ArrayList<>();
+        fieldsOfStudies.add(new FieldOfStudy("Elektronika", "studia elektroniczne"));
+
+        fieldsOfStudies.stream().forEach(fieldOfStudy -> fieldOfStudyRepository.save(fieldOfStudy));
+    }
+
+    private void generateSubjects() {
+        FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findOne(1);
+
+        List<Subject> subjects = new ArrayList<>();
+        subjects.add(new Subject("Pomiary", "przedmiot który uczy mierzenia wartości elektrycznych", fieldOfStudy));
+        
+        subjects.stream().forEach(subject -> subjectRepository.save(subject));
+    }
+
     private void generateLaboratories() {
+        Subject subject = subjectRepository.findOne(1);
+
         List<Laboratory> laboratories = new ArrayList<>();
         laboratories.add(new Laboratory("Laboratorium1", "Pomiary napięcia",
                 LocalDateTime.of(2017, Month.of(9), 12, 12, 0),
                 LocalDateTime.of(2017, Month.of(9), 15, 12, 0),
-                LocalDateTime.of(2017, Month.of(9), 16, 12, 0)));
+                LocalDateTime.of(2017, Month.of(9), 16, 12, 0),
+                subject));
+
+        laboratories.add(new Laboratory("Laboratorium2", "Pomiary mocy",
+                LocalDateTime.of(2017, Month.of(9), 13, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 16, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 17, 12, 0),
+                subject));
 
         laboratories.stream().forEach(lab -> laboratoryRepository.save(lab));
     }
 
     private void generateReports() {
+        Laboratory laboratory = laboratoryRepository.findOne(1);
+
         List<Report> reports = new ArrayList<>();
-        reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true));
-        reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true));
-        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "3.0", true));
-        reports.add(new Report("Opis4", "files/", "sprawozdanie4", ".pdf", "4.0", true));
-        reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "3.5", true));
-        reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true));
-        reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true));
-        reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "3.0", true));
-        reports.add(new Report("Opis9", "files/", "sprawozdanie9", ".pdf", "3.0", true));
-        reports.add(new Report("Opis10", "files/", "sprawozdanie10", ".pdf", "3.5", true));
-        reports.add(new Report("Opis11", "files/", "sprawozdanie11", ".pdf", "3.5", true));
-        reports.add(new Report("Opis12", "files/", "sprawozdanie12", ".pdf", "3.5", true));
+        reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true, laboratory));
+        reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true, laboratory));
+        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis4", "files/", "sprawozdanie4", ".pdf", "4.0", true, laboratory));
+        reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "3.5", true, laboratory));
+        reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true, laboratory));
+        reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis9", "files/", "sprawozdanie9", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis10", "files/", "sprawozdanie10", ".pdf", "3.5", true, laboratory));
+        reports.add(new Report("Opis11", "files/", "sprawozdanie11", ".pdf", "3.5", true, laboratory));
+        reports.add(new Report("Opis12", "files/", "sprawozdanie12", ".pdf", "3.5", true, laboratory));
 
         reports.stream().forEach(report -> reportRepository.save(report));
     }

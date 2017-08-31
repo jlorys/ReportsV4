@@ -37,11 +37,78 @@ public class Laboratory {
     @OneToMany(mappedBy = "laboratory")
     private List<Report> reports;
 
-    public Laboratory(String name, String description, LocalDateTime labDate, LocalDateTime returnReportDate, LocalDateTime finalReturnReportDate) {
+    public Laboratory(){}
+
+    public Laboratory(String name, String description, LocalDateTime labDate, LocalDateTime returnReportDate, LocalDateTime finalReturnReportDate, Subject subject) {
         this.name = name;
         this.description = description;
         this.labDate = labDate;
         this.returnReportDate = returnReportDate;
         this.finalReturnReportDate = finalReturnReportDate;
+        this.subject = subject;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getLabDate() {
+        return labDate;
+    }
+
+    public void setLabDate(LocalDateTime labDate) {
+        this.labDate = labDate;
+    }
+
+    public LocalDateTime getReturnReportDate() {
+        return returnReportDate;
+    }
+
+    public void setReturnReportDate(LocalDateTime returnReportDate) {
+        this.returnReportDate = returnReportDate;
+    }
+
+    public LocalDateTime getFinalReturnReportDate() {
+        return finalReturnReportDate;
+    }
+
+    public void setFinalReturnReportDate(LocalDateTime finalReturnReportDate) {
+        this.finalReturnReportDate = finalReturnReportDate;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public List<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(List<Report> reports) {
+        this.reports = reports;
     }
 }

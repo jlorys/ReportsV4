@@ -45,13 +45,14 @@ public class Report {
 
 	public Report() {}
 
-    public Report(String description, String filePath, String fileName, String fileExtension, String grade, Boolean isSendInTime) {
+    public Report(String description, String filePath, String fileName, String fileExtension, String grade, Boolean isSendInTime, Laboratory laboratory) {
         this.description = description;
         this.filePath = filePath;
         this.fileName = fileName;
         this.fileExtension = fileExtension;
         this.grade = grade;
         this.isSendInTime = isSendInTime;
+        this.laboratory = laboratory;
     }
 
     public Integer getId() {

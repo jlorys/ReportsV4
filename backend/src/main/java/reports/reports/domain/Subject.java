@@ -33,4 +33,12 @@ public class Subject {
     @ManyToOne()
     @JoinColumn(name = "FIELD_OF_STUDY")
     private FieldOfStudy fieldOfStudy;
+
+    public Subject() {}
+
+    public Subject(String name, String description, FieldOfStudy fieldOfStudy) {
+        this.name = name;
+        this.description = description;
+        this.fieldOfStudy = fieldOfStudy;
+    }
 }
