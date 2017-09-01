@@ -8,14 +8,14 @@ import java.util.List;
  * Simple DTO for FieldOfStudy.
  */
 public class FieldOfStudyDTO {
-    private Integer id;
-    private String name;
-    private String description;
-    private Long createdDate;
-    private Long lastModifiedDate;
-    private String createdBy;
-    private String lastModifiedBy;
-    private List<SubjectDTO> subjects;
+    public Integer id;
+    public String name;
+    public String description;
+    public Long createdDate;
+    public Long lastModifiedDate;
+    public String createdBy;
+    public String lastModifiedBy;
+    public List<SubjectDTO> subjects;
 
     @JsonIgnore
     public boolean isIdSet() {

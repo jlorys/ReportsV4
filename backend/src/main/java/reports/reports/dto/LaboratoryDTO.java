@@ -9,18 +9,18 @@ import java.util.List;
  * Simple DTO for Laboratory.
  */
 public class LaboratoryDTO {
-    private Integer id;
-    private String name;
-    private String description;
-    private LocalDateTime labDate;
-    private LocalDateTime returnReportDate;
-    private LocalDateTime finalReturnReportDate;
-    private Long createdDate;
-    private Long lastModifiedDate;
-    private String createdBy;
-    private String lastModifiedBy;
-    private SubjectDTO subject;
-    private List<ReportDTO> reports;
+    public Integer id;
+    public String name;
+    public String description;
+    public LocalDateTime labDate;
+    public LocalDateTime returnReportDate;
+    public LocalDateTime finalReturnReportDate;
+    public Long createdDate;
+    public Long lastModifiedDate;
+    public String createdBy;
+    public String lastModifiedBy;
+    public SubjectDTO subject;
+    public List<ReportDTO> reports;
 
     @JsonIgnore
     public boolean isIdSet() {

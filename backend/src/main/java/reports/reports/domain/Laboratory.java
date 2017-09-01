@@ -96,6 +96,38 @@ public class Laboratory {
         this.finalReturnReportDate = finalReturnReportDate;
     }
 
+    public Long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Long lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
     public Subject getSubject() {
         return subject;
     }
@@ -110,5 +142,12 @@ public class Laboratory {
 
     public void setReports(List<Report> reports) {
         this.reports = reports;
+    }
+
+    /**
+     * Helper method to add the passed {@link Report} to the {@link #reports} list.
+     */
+    public boolean addReport(Report report) {
+        return getReports().add(report);
     }
 }

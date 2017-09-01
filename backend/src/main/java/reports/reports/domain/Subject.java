@@ -41,4 +41,83 @@ public class Subject {
         this.description = description;
         this.fieldOfStudy = fieldOfStudy;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Long createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Long lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getLastModifiedBy() {
+        return lastModifiedBy;
+    }
+
+    public void setLastModifiedBy(String lastModifiedBy) {
+        this.lastModifiedBy = lastModifiedBy;
+    }
+
+    public List<Laboratory> getLaboratories() {
+        return laboratories;
+    }
+
+    public void setLaboratories(List<Laboratory> laboratories) {
+        this.laboratories = laboratories;
+    }
+
+    /**
+     * Helper method to add the passed {@link Laboratory} to the {@link #laboratories} list.
+     */
+    public boolean addLaboratory(Laboratory laboratory) {
+        return getLaboratories().add(laboratory);
+    }
+
+    public FieldOfStudy getFieldOfStudy() {
+        return fieldOfStudy;
+    }
+
+    public void setFieldOfStudy(FieldOfStudy fieldOfStudy) {
+        this.fieldOfStudy = fieldOfStudy;
+    }
 }
