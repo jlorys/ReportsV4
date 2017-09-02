@@ -152,7 +152,7 @@ public class FieldOfStudyService {
         dto.createdBy = fieldOfStudy.getCreatedBy();
         dto.lastModifiedBy = fieldOfStudy.getLastModifiedBy();
         if(depth<1){
-            dto.subjects = fieldOfStudy.getSubjects().stream().map(subject -> subjectService.toDTO(subject)).collect(Collectors.toList());
+            dto.subjects = fieldOfStudy.getSubjects().stream().map(subject -> subjectService.toDTO(subject, 1)).collect(Collectors.toList());
         }
 
         return dto;

@@ -1,0 +1,63 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="fieldOfStudy" ngForm #fieldOfStudyForm="ngForm">
+  <md-card-title>Dane kierunku studiów</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="name">Nazwa *</label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="name" [(ngModel)]="fieldOfStudy.name" required placeholder="Wymagane" name="name" #name="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
+            <i class="fa fa-close"></i>
+            Nazwa jest wymagana
+          </div>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label for="description">Opis *</label></div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="description" [(ngModel)]="fieldOfStudy.description" required placeholder="Wymagane" name="description" #description="ngModel"/>
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="onSave()" [disabled]="!fieldOfStudyForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
+  </md-card-actions>
+
+  <md-card *ngIf="fieldOfStudy && fieldOfStudy.id">
+    <md-card-subtitle>Relacje kierunku studiów</md-card-subtitle>
+    <md-card-content>
+      <md-tab-group>
+        <md-tab label="Przedmioty">
+          <p-dataTable [value]="fieldOfStudySubjects"
+                       selectionMode="single"
+                       (onRowSelect)="onRowSelect($event)"
+                       [responsive]="true">
+            <p-header>{{header}}</p-header>
+            <p-column field="id" header="Id" sortable="true"></p-column>
+            <p-column field="name" header="nazwa" sortable="true"></p-column>
+            <p-column field="description" header="opis" sortable="true"></p-column>
+            <p-column field="createdDate" header="DataStworzenia" sortable="true">
+              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              </ng-template>
+            </p-column>
+            <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              </ng-template>
+            </p-column>
+            <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+            <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+          </p-dataTable>
+        </md-tab>
+      </md-tab-group>
+    </md-card-content>
+  </md-card>
+</md-card>
+

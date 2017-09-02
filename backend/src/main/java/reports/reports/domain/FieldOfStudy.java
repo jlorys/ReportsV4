@@ -7,7 +7,9 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -94,7 +96,8 @@ public class FieldOfStudy {
     }
 
     public List<Subject> getSubjects() {
-        return subjects;
+        if(Optional.ofNullable(subjects).isPresent()) return subjects;
+        return Collections.EMPTY_LIST;
     }
 
     public void setSubjects(List<Subject> subjects) {

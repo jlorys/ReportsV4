@@ -33,6 +33,10 @@ import {ReportDataService} from "./component/report/report.data.service";
 import {RolesComponent} from "./component/role/role.component";
 import {ReportComponent} from "./component/report/report.component";
 import {ReportsAddComponent} from "./component/report/report.add.component";
+import {FieldOfStudyDataService} from "./component/fieldofstudy/fieldofstudy.data.service";
+import {FieldOfStudyComponent} from "./component/fieldofstudy/fieldofstudy.component";
+import {SubjectDataService} from "./component/subject/subject.data.service";
+import {FieldOfStudyAddComponent} from "./component/fieldofstudy/fieldofstudy.add.component";
 
 @NgModule({
   declarations: [
@@ -43,6 +47,8 @@ import {ReportsAddComponent} from "./component/report/report.add.component";
     RolesComponent,
     ReportComponent,
     ReportsAddComponent,
+    FieldOfStudyComponent,
+    FieldOfStudyAddComponent,
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
     DoughnutChartComponent,
@@ -89,6 +95,8 @@ import {ReportsAddComponent} from "./component/report/report.add.component";
     AppUserDataService,
     RoleDataService,
     ReportDataService,
+    FieldOfStudyDataService,
+    SubjectDataService,
     {provide: LocationStrategy, useClass: HashLocationStrategy}, //With this urls works directly from browser
 
     // our application services

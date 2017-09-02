@@ -14,7 +14,7 @@ export class FieldOfStudy {
   constructor(json? : any) {
     if (json != null) {
       this.id = json.id;
-      this.name = json.description;
+      this.name = json.name;
       this.description = json.description;
       this.createdDate = json.createdDate;
       this.lastModifiedDate = json.lastModifiedDate;

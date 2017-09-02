@@ -129,8 +129,8 @@ export class AppComponent implements OnInit {
         label: 'Kierunki studiów',
         icon: 'fa-arrows',
         items: [
-          {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsofstudies']},
-          {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsofstudies/add']},
+          {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
+          {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsOfStudies/add']},
         ]
       },
 
