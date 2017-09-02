@@ -51,10 +51,9 @@ export class FieldOfStudyComponent {
     this.fieldOfStudyDataService.delete(id).subscribe(
       response => {
         this.currentPage.remove(fieldOfStudyToDelete);
-        this.msgs.push({severity:'info', summary:'Deleted OK', detail: 'Angular Rocks!'});
         this.updateVisibility();
       },
-      error => this.msgs.push({severity:'error', summary:'Could not delete!', detail: error})
+      error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
     );
   }
 
@@ -73,7 +72,7 @@ export class FieldOfStudyComponent {
     this.msgs = []; //this line fix disappearing of messages
     this.fieldOfStudyDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
-      error => this.msgs.push({severity:'error', summary:'Could not get the results!', detail: error})
+      error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );
   }
 

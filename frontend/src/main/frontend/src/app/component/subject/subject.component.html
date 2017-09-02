@@ -1,38 +1,22 @@
 <p-growl [value]="msgs"></p-growl>
 <md-card *ngIf="!sub">
-  <md-card-title>Wyszukuj sprawozdania</md-card-title>
+  <md-card-title>Wyszukuj przedmioty</md-card-title>
   <md-card-content>
-    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #reportForm="ngForm">
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #userForm="ngForm">
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
-          <label for="description">Description</label>
+          <label for="name">Nazwa</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="name" [(ngModel)]="example.name" name="name" #name="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="description">Opis</label>
         </div>
         <div class="ui-grid-col-6">
           <input pInputText id="description" [(ngModel)]="example.description" name="description" #description="ngModel"/>
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          <label for="grade">Grade</label>
-        </div>
-        <div class="ui-grid-col-6">
-          <input pInputText id="grade" [(ngModel)]="example.grade" name="grade" #grade="ngModel"/>
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          <label for="createdBy">CreatedBy</label>
-        </div>
-        <div class="ui-grid-col-6">
-          <input pInputText id="createdBy" [(ngModel)]="example.createdBy" name="createdBy" #createdBy="ngModel"/>
-        </div>
-      </div>
-      <div class="ui-grid-row">
-        <div class="ui-grid-col-2">
-          <label for="lastModifiedBy">LastModifiedBy</label>
-        </div>
-        <div class="ui-grid-col-6">
-          <input pInputText id="lastModifiedBy" [(ngModel)]="example.lastModifiedBy" name="lastModifiedBy" #lastModifiedBy="ngModel"/>
         </div>
       </div>
     </div>
@@ -43,9 +27,8 @@
   </md-card-actions>
 </md-card>
 
-
 <md-card>
-  <md-card-subtitle>DB comment: Raporty są połączone z Użytkownikami relacją wiele do wielu</md-card-subtitle>
+  <md-card-subtitle>DB comment:</md-card-subtitle>
   <md-card-content>
     <p>Lista jest stronicowana po stronie serwera...</p>
 
@@ -62,11 +45,8 @@
                  [responsive]="true">
       <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
       <p-column field="id" header="Id" sortable="true"></p-column>
-      <p-column field="description" header="Description" sortable="true"></p-column>
-      <p-column field="filePath" header="FilePath" sortable="true"></p-column>
-      <p-column field="fileName" header="FileName" sortable="true"></p-column>
-      <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
-      <p-column field="grade" header="Grade" sortable="true"></p-column>
+      <p-column field="name" header="Nazwa" sortable="true"></p-column>
+      <p-column field="description" header="Opis" sortable="true"></p-column>
       <p-column field="createdDate" header="DataStworzenia" sortable="true">
         <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
           <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
@@ -79,7 +59,6 @@
       </p-column>
       <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
       <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
-      <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
       <p-column styleClass="col-icon">
         <ng-template let-user="rowData" pTemplate="body">
           <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>

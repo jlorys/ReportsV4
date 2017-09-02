@@ -157,7 +157,7 @@ public class SubjectService {
         dto.createdBy = subject.getCreatedBy();
         dto.lastModifiedBy = subject.getLastModifiedBy();
         if(depth<1){
-            dto.laboratories = subject.getLaboratories().stream().map(laboratory -> laboratoryService.toDTO(laboratory)).collect(Collectors.toList());
+            dto.laboratories = subject.getLaboratories().stream().map(laboratory -> laboratoryService.toDTO(laboratory, 1)).collect(Collectors.toList());
         }
         dto.fieldOfStudy = fieldOfStudyService.toDTO(subject.getFieldOfStudy(), 1);
 

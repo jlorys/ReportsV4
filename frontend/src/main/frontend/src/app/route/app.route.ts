@@ -11,6 +11,8 @@ import {ReportComponent} from "../component/report/report.component";
 import {ReportsAddComponent} from "../component/report/report.add.component";
 import {FieldOfStudyComponent} from "../component/fieldofstudy/fieldofstudy.component";
 import {FieldOfStudyAddComponent} from "../component/fieldofstudy/fieldofstudy.add.component";
+import {SubjectComponent} from "../component/subject/subject.component";
+import {SubjectAddComponent} from "../component/subject/subject.add.component";
 
 export const appRoutes: Routes = [
   { path: 'users', component: AppUsersComponent },
@@ -19,6 +21,8 @@ export const appRoutes: Routes = [
   { path: 'reports/:id', component: ReportsAddComponent },
   { path: 'fieldsOfStudies', component: FieldOfStudyComponent },
   { path: 'fieldsOfStudies/:id', component: FieldOfStudyAddComponent },
+  { path: 'subjects', component: SubjectComponent },
+  { path: 'subjects/:id', component: SubjectAddComponent },
   { path: 'schedule', component: ScheduleChartComponent },
   { path: 'doughnut', component: DoughnutChartComponent },
   { path: 'roles', component: RolesComponent },

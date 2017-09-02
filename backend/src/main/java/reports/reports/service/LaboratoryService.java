@@ -166,7 +166,7 @@ public class LaboratoryService {
         if(depth<1){
             dto.reports = laboratory.getReports().stream().map(report -> reportService.toDTO(report)).collect(Collectors.toList());
         }
-        dto.subject = subjectService.toDTO(laboratory.getSubject());
+        dto.subject = subjectService.toDTO(laboratory.getSubject(), 1);
 
         return dto;
     }
