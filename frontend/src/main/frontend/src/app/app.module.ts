@@ -41,6 +41,7 @@ import {SubjectComponent} from "./component/subject/subject.component";
 import {LaboratoryDataService} from "./component/laboratory/laboratory.data.service";
 import {SubjectAddComponent} from "./component/subject/subject.add.component";
 import {LaboratoryComponent} from "./component/laboratory/laboratory.component";
+import {LaboratoryAddComponent} from "./component/laboratory/laboratory.add.component";
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import {LaboratoryComponent} from "./component/laboratory/laboratory.component";
     SubjectComponent,
     SubjectAddComponent,
     LaboratoryComponent,
+    LaboratoryAddComponent,
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
     DoughnutChartComponent,
