@@ -40,6 +40,7 @@ import {FieldOfStudyAddComponent} from "./component/fieldofstudy/fieldofstudy.ad
 import {SubjectComponent} from "./component/subject/subject.component";
 import {LaboratoryDataService} from "./component/laboratory/laboratory.data.service";
 import {SubjectAddComponent} from "./component/subject/subject.add.component";
+import {LaboratoryComponent} from "./component/laboratory/laboratory.component";
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import {SubjectAddComponent} from "./component/subject/subject.add.component";
     FieldOfStudyAddComponent,
     SubjectComponent,
     SubjectAddComponent,
+    LaboratoryComponent,
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
     DoughnutChartComponent,

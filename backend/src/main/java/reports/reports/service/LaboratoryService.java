@@ -164,7 +164,7 @@ public class LaboratoryService {
         dto.returnReportDate = laboratory.getReturnReportDate();
         dto.finalReturnReportDate = laboratory.getFinalReturnReportDate();
         if(depth<1){
-            dto.reports = laboratory.getReports().stream().map(report -> reportService.toDTO(report)).collect(Collectors.toList());
+            dto.reports = laboratory.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
         }
         dto.subject = subjectService.toDTO(laboratory.getSubject(), 1);
 

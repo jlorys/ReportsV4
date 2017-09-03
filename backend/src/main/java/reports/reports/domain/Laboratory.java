@@ -6,8 +6,13 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -72,28 +77,40 @@ public class Laboratory {
         this.description = description;
     }
 
-    public LocalDateTime getLabDate() {
-        return labDate;
+    public Long getLabDate() {
+        if(Optional.ofNullable(labDate).isPresent())
+         return labDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+        return null;
     }
 
-    public void setLabDate(LocalDateTime labDate) {
-        this.labDate = labDate;
+    public void setLabDate(Long labDate) {
+        if(Optional.ofNullable(labDate).isPresent())
+            this.labDate = Instant.ofEpochMilli(labDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
+        this.labDate = null;
     }
 
-    public LocalDateTime getReturnReportDate() {
-        return returnReportDate;
+    public Long getReturnReportDate() {
+        if(Optional.ofNullable(returnReportDate).isPresent())
+         return returnReportDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+        return null;
     }
 
-    public void setReturnReportDate(LocalDateTime returnReportDate) {
-        this.returnReportDate = returnReportDate;
+    public void setReturnReportDate(Long returnReportDate) {
+        if(Optional.ofNullable(returnReportDate).isPresent())
+            this.returnReportDate = Instant.ofEpochMilli(returnReportDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
+        this.returnReportDate = null;
     }
 
-    public LocalDateTime getFinalReturnReportDate() {
-        return finalReturnReportDate;
+    public Long getFinalReturnReportDate() {
+        if(Optional.ofNullable(finalReturnReportDate).isPresent())
+         return finalReturnReportDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+        return null;
     }
 
-    public void setFinalReturnReportDate(LocalDateTime finalReturnReportDate) {
-        this.finalReturnReportDate = finalReturnReportDate;
+    public void setFinalReturnReportDate(Long finalReturnReportDate) {
+        if(Optional.ofNullable(finalReturnReportDate).isPresent())
+            this.finalReturnReportDate = Instant.ofEpochMilli(finalReturnReportDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
+        this.finalReturnReportDate = null;
     }
 
     public Long getCreatedDate() {

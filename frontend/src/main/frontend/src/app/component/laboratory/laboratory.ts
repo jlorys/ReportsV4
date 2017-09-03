@@ -6,9 +6,9 @@ export class Laboratory {
   id: number;
   name: string;
   description: string;
-  labDate: Date;
-  returnReportDate: Date;
-  finalReturnReportDate: Date;
+  labDate: string;
+  returnReportDate: string;
+  finalReturnReportDate: string;
   createdDate: string;
   lastModifiedDate: string;
   createdBy: string;
@@ -19,7 +19,7 @@ export class Laboratory {
   constructor(json? : any) {
     if (json != null) {
       this.id = json.id;
-      this.name = json.description;
+      this.name = json.name;
       this.description = json.description;
       this.labDate = json.labDate;
       this.returnReportDate = json.returnReportDate;

@@ -11,9 +11,9 @@ public abstract class Laboratory_ {
     public static volatile SingularAttribute<Laboratory, Integer> id;
     public static volatile SingularAttribute<Laboratory, String> name;
     public static volatile SingularAttribute<Laboratory, String> description;
-    public static volatile SingularAttribute<Laboratory, LocalDateTime> labDate;
-    public static volatile SingularAttribute<Laboratory, LocalDateTime> returnReportDate;
-    public static volatile SingularAttribute<Laboratory, LocalDateTime> finalReturnReportDate;
+    public static volatile SingularAttribute<Laboratory, Long> labDate;
+    public static volatile SingularAttribute<Laboratory, Long> returnReportDate;
+    public static volatile SingularAttribute<Laboratory, Long> finalReturnReportDate;
     public static volatile SingularAttribute<Laboratory, Long> createdDate;
     public static volatile SingularAttribute<Laboratory, Long> lastModifiedDate;
     public static volatile SingularAttribute<Laboratory, String> createdBy;

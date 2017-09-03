@@ -12,9 +12,9 @@ public class LaboratoryDTO {
     public Integer id;
     public String name;
     public String description;
-    public LocalDateTime labDate;
-    public LocalDateTime returnReportDate;
-    public LocalDateTime finalReturnReportDate;
+    public Long labDate;
+    public Long returnReportDate;
+    public Long finalReturnReportDate;
     public Long createdDate;
     public Long lastModifiedDate;
     public String createdBy;

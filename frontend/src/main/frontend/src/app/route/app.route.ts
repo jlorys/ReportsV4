@@ -13,6 +13,7 @@ import {FieldOfStudyComponent} from "../component/fieldofstudy/fieldofstudy.comp
 import {FieldOfStudyAddComponent} from "../component/fieldofstudy/fieldofstudy.add.component";
 import {SubjectComponent} from "../component/subject/subject.component";
 import {SubjectAddComponent} from "../component/subject/subject.add.component";
+import {LaboratoryComponent} from "../component/laboratory/laboratory.component";
 
 export const appRoutes: Routes = [
   { path: 'users', component: AppUsersComponent },
@@ -23,6 +24,7 @@ export const appRoutes: Routes = [
   { path: 'fieldsOfStudies/:id', component: FieldOfStudyAddComponent },
   { path: 'subjects', component: SubjectComponent },
   { path: 'subjects/:id', component: SubjectAddComponent },
+  { path: 'laboratories', component: LaboratoryComponent },
   { path: 'schedule', component: ScheduleChartComponent },
   { path: 'doughnut', component: DoughnutChartComponent },
   { path: 'roles', component: RolesComponent },
