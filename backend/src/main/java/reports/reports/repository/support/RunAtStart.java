@@ -79,6 +79,10 @@ class RunAtStart {
     private void generateFieldsOfStudies() {
         List<FieldOfStudy> fieldsOfStudies = new ArrayList<>();
         fieldsOfStudies.add(new FieldOfStudy("Elektronika", "studia elektroniczne"));
+        fieldsOfStudies.add(new FieldOfStudy("Informatyka", "studia informatyczne"));
+        fieldsOfStudies.add(new FieldOfStudy("Chemia", "studia chemiczne"));
+        fieldsOfStudies.add(new FieldOfStudy("Biologia", "studia biologiczne"));
+        fieldsOfStudies.add(new FieldOfStudy("Matematyka", "studia matematyczne"));
 
         fieldsOfStudies.stream().forEach(fieldOfStudy -> fieldOfStudyRepository.save(fieldOfStudy));
     }

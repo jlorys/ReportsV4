@@ -1,9 +1,11 @@
 import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Message} from "primeng/primeng";
+import {Message, SelectItem} from "primeng/primeng";
 import {Subject} from "../subject/subject";
 import {Laboratory} from "../laboratory/laboratory";
 import {SubjectDataService} from "./subject.data.service";
+import {FieldOfStudyDataService} from "../fieldofstudy/fieldofstudy.data.service";
+import {FieldOfStudy} from "../fieldofstudy/fieldofstudy";
 
 @Component({
   templateUrl: 'subject.add.component.html',
@@ -11,35 +13,51 @@ import {SubjectDataService} from "./subject.data.service";
 })
 export class SubjectAddComponent implements OnDestroy {
 
-  @Input() header = "Przedmioty tego kierunku studiów...";
-  subject : Subject;
+  @Input() header = "Laboratoria z tego przedmiotu...";
+  subject: Subject;
+  fieldOfStudy: FieldOfStudy;
   subjectLaboratories: Laboratory[] = [];
 
   private params_subscription: any;
 
-  @Input() sub : boolean = false;
+  @Input() sub: boolean = false;
   @Output() onSaveClicked = new EventEmitter<Subject>();
 
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private subjectDataService: SubjectDataService) {
+  sourceFieldsOfStudiesSelectItems: SelectItem[];
+
+  constructor(private route: ActivatedRoute, private router: Router, private subjectDataService: SubjectDataService, private fieldOfStudyDataService: FieldOfStudyDataService) {
+    this.sourceFieldsOfStudiesSelectItems = [];
+    this.sourceFieldsOfStudiesSelectItems.push({label: '--------------------------', value: null});
+
     if (this.sub) {
       return;
     }
+
+    fieldOfStudyDataService.findAll().subscribe(fieldOfStudy => fieldOfStudy.forEach((value, index, array) => this.sourceFieldsOfStudiesSelectItems.push({
+        label: value.name,
+        value: value
+      })),
+      error => this.msgs.push({
+        severity: 'error',
+        summary: 'Constructor subject fields of studies error',
+        detail: error
+      }))
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
       console.log('Constructor for Subject-add ' + id);
       if (id === 'add') {
         this.subject = new Subject();
-
+        this.fieldOfStudy = null;
       } else {
         this.subjectDataService.getSubject(id)
           .subscribe(subject => {
               this.subject = subject;
               this.subjectLaboratories = subject.laboratories;
             },
-            error => this.msgs.push({severity:'error', summary:'Constructor error', detail: error})
+            error => this.msgs.push({severity: 'error', summary: 'Constructor error', detail: error})
           );
       }
     });
@@ -52,23 +70,26 @@ export class SubjectAddComponent implements OnDestroy {
   }
 
   onSave() {
-    this.subjectDataService.update(this.subject).
-    subscribe(
+    this.msgs = []; //this line fix disappearing of messages
+
+    this.subject.fieldOfStudy = this.fieldOfStudy;
+
+    this.subjectDataService.update(this.subject).subscribe(
       subject => {
         this.subject = subject;
-        this.msgs = []; //this line fix disappearing of messages
+
         if (this.sub) {
           this.onSaveClicked.emit(this.subject);
         } else {
-          this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
+          this.msgs.push({severity: 'info', summary: 'Zapisano', detail: 'OK!'})
         }
       },
-      error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: 'OK!'})
+      error => this.msgs.push({severity: 'error', summary: 'Nie można zapisać', detail: 'OK!'})
     );
   }
 
-  onRowSelect(event : any) {
-    let id =  event.data.id;
+  onRowSelect(event: any) {
+    let id = event.data.id;
     this.router.navigate(['/laboratories', id]);
   }
 }

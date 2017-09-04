@@ -14,6 +14,7 @@ import reports.reports.service.FieldOfStudyService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -96,5 +97,13 @@ public class FieldOfStudyRestController {
         FieldOfStudyDTO result = fieldOfStudyService.save(fieldOfStudyDTO);
 
         return ResponseEntity.created(new URI("/api/fieldOfStudy" + result.id)).body(result);
+    }
+
+    @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FieldOfStudyDTO>> findAll() throws URISyntaxException {
+
+        List<FieldOfStudyDTO> results = fieldOfStudyService.findAll();
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 }

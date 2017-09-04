@@ -157,4 +157,10 @@ public class FieldOfStudyService {
 
         return dto;
     }
+
+    @Transactional(readOnly = true)
+    public List<FieldOfStudyDTO> findAll() {
+        List<FieldOfStudy> results = fieldOfStudyRepository.findAll();
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
 }

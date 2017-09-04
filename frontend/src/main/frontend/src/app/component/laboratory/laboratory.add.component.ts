@@ -11,7 +11,7 @@ import {LaboratoryDataService} from "./laboratory.data.service";
 })
 export class LaboratoryAddComponent implements OnDestroy {
 
-  @Input() header = "Laboratoria...";
+  @Input() header = "Sprawozdania z tego laboratorium...";
   laboratory : Laboratory;
   laboratoryReports: Report[] = [];
 

@@ -56,6 +56,15 @@ export class FieldOfStudyDataService {
       .catch(this.handleError);
   }
 
+  /**
+   * Find all FieldsOfStudies.
+   */
+  findAll() : Observable<FieldOfStudy[]> {
+    return this.http.get('/api/fieldOfStudy/findAll/')
+      .map(response => FieldOfStudy.toArray(response.json()))
+      .catch(this.handleError);
+  }
+
   // method from angular documentation
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :
