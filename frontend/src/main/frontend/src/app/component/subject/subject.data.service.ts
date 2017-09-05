@@ -56,6 +56,15 @@ export class SubjectDataService {
       .catch(this.handleError);
   }
 
+  /**
+   * Find all Subjects.
+   */
+  findAll() : Observable<Subject[]> {
+    return this.http.get('/api/subject/findAll/')
+      .map(response => Subject.toArray(response.json()))
+      .catch(this.handleError);
+  }
+
   // method from angular documentation
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :

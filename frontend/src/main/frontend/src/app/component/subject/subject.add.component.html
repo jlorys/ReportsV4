@@ -36,8 +36,8 @@
 
 <md-card *ngIf="subject && subject.id">
   <md-card-subtitle>Relacje przedmiotu</md-card-subtitle>
-  <p *ngIf="subject.fieldOfStudy">Aktualnie wybrany kierunek: {{subject.fieldOfStudy.name}}</p>
-  <p *ngIf="!subject.fieldOfStudy">Wybrany kierunek: {{'brak'}}</p>
+  <p *ngIf="subject.fieldOfStudy">Kierunek: {{subject.fieldOfStudy.name}}</p>
+  <p *ngIf="!subject.fieldOfStudy">Kierunek: {{'brak'}}</p>
   <md-card-subtitle>Zmiana kierunku</md-card-subtitle>
   <p-dropdown [options]="sourceFieldsOfStudiesSelectItems" [(ngModel)]="fieldOfStudy" filter="filter"></p-dropdown>
 </md-card>

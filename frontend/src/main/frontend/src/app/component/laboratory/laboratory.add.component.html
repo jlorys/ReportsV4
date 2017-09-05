@@ -6,10 +6,12 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="name">Nazwa *</label></div>
         <div class="ui-grid-col-6">
-          <input pInputText id="name" [(ngModel)]="laboratory.name" required placeholder="Wymagane" name="name" #name="ngModel"/>
+          <input pInputText id="name" [(ngModel)]="laboratory.name" required placeholder="Wymagane" name="name"
+                 #name="ngModel"/>
         </div>
         <div class="ui-grid-col-4">
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!name.valid && name.dirty && name.errors['required']">
+          <div class="ui-message ui-messages-error ui-corner-all"
+               *ngIf="!name.valid && name.dirty && name.errors['required']">
             <i class="fa fa-close"></i>
             Nazwa jest wymagana
           </div>
@@ -18,49 +20,84 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="description">Opis *</label></div>
         <div class="ui-grid-col-6">
-          <input pInputText id="description" [(ngModel)]="laboratory.description" required placeholder="Wymagane" name="description" #description="ngModel"/>
+          <input pInputText id="description" [(ngModel)]="laboratory.description" required placeholder="Wymagane"
+                 name="description" #description="ngModel"/>
         </div>
         <div class="ui-grid-col-4">
         </div>
       </div>
     </div>
   </md-card-content>
-  <md-card-actions>
-    <button md-raised-button (click)="onSave()" [disabled]="!laboratoryForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
-  </md-card-actions>
 
-  <md-card *ngIf="laboratory && laboratory.id">
-    <md-card-subtitle>Relacje laboratorium</md-card-subtitle>
-    <md-card-content>
-      <md-tab-group>
-        <md-tab label="Sprawozdania">
-          <p-dataTable [value]="laboratoryReports"
-                       selectionMode="single"
-                       (onRowSelect)="onRowSelect($event)"
-                       [responsive]="true">
-            <p-header>{{header}}</p-header>
-            <p-column field="id" header="Id" sortable="true"></p-column>
-            <p-column field="description" header="description" sortable="true"></p-column>
-            <p-column field="filePath" header="FilePath" sortable="true"></p-column>
-            <p-column field="fileName" header="FileName" sortable="true"></p-column>
-            <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
-            <p-column field="grade" header="Grade" sortable="true"></p-column>
-            <p-column field="createdDate" header="DataStworzenia" sortable="true">
-              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
-              </ng-template>
-            </p-column>
-            <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
-              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
-              </ng-template>
-            </p-column>
-            <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
-            <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
-            <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
-          </p-dataTable>
-        </md-tab>
-      </md-tab-group>
-    </md-card-content>
-  </md-card>
+  <md-card-actions>
+    <button md-raised-button (click)="onSave()" [disabled]="!laboratoryForm.form.valid">
+      <md-icon>save</md-icon>
+      Zapisz
+    </button>
+  </md-card-actions>
+</md-card>
+
+<md-card>
+  <md-card-content>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4">
+        <p>Data laboratoriów</p>
+        <p-calendar [(ngModel)]="labDate" [showTime]="true"></p-calendar>
+        {{labDate}}
+      </div>
+      <div class="ui-grid-col-4">
+        <p>Data oddania sprawozdania</p>
+        <p-calendar [(ngModel)]="returnReportDate" [showTime]="true"></p-calendar>
+        {{returnReportDate}}
+      </div>
+      <div class="ui-grid-col-4">
+        <p>Ostateczna data oddania sprawozdania</p>
+        <p-calendar [(ngModel)]="finalReturnReportDate" [showTime]="true"></p-calendar>
+        {{finalReturnReportDate}}
+      </div>
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card *ngIf="laboratory && laboratory.id">
+  <md-card-subtitle>Relacje przedmiotu</md-card-subtitle>
+  <p *ngIf="laboratory.subject">Przedmiot: {{laboratory.subject.name}}</p>
+  <p *ngIf="!laboratory.subject">Przedmiot: {{'brak'}}</p>
+  <md-card-subtitle>Zmiana przedmiotu</md-card-subtitle>
+  <p-dropdown [options]="sourceSubjectsSelectItems" [(ngModel)]="subject" filter="filter"></p-dropdown>
+</md-card>
+
+<md-card *ngIf="laboratory && laboratory.id">
+  <md-card-subtitle>Relacje laboratorium</md-card-subtitle>
+  <md-card-content>
+    <md-tab-group>
+      <md-tab label="Sprawozdania">
+        <p-dataTable [value]="laboratoryReports"
+                     selectionMode="single"
+                     (onRowSelect)="onRowSelect($event)"
+                     [responsive]="true">
+          <p-header>{{header}}</p-header>
+          <p-column field="id" header="Id" sortable="true"></p-column>
+          <p-column field="description" header="description" sortable="true"></p-column>
+          <p-column field="filePath" header="FilePath" sortable="true"></p-column>
+          <p-column field="fileName" header="FileName" sortable="true"></p-column>
+          <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
+          <p-column field="grade" header="Grade" sortable="true"></p-column>
+          <p-column field="createdDate" header="DataStworzenia" sortable="true">
+            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+            <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+          <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+          <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
+        </p-dataTable>
+      </md-tab>
+    </md-tab-group>
+  </md-card-content>
 </md-card>

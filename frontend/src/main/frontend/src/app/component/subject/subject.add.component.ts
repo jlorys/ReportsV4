@@ -15,7 +15,6 @@ export class SubjectAddComponent implements OnDestroy {
 
   @Input() header = "Laboratoria z tego przedmiotu...";
   subject: Subject;
-  fieldOfStudy: FieldOfStudy;
   subjectLaboratories: Laboratory[] = [];
 
   private params_subscription: any;
@@ -25,6 +24,7 @@ export class SubjectAddComponent implements OnDestroy {
 
   msgs: Message[] = [];
 
+  fieldOfStudy: FieldOfStudy;
   sourceFieldsOfStudiesSelectItems: SelectItem[];
 
   constructor(private route: ActivatedRoute, private router: Router, private subjectDataService: SubjectDataService, private fieldOfStudyDataService: FieldOfStudyDataService) {
@@ -43,7 +43,7 @@ export class SubjectAddComponent implements OnDestroy {
         severity: 'error',
         summary: 'Constructor subject fields of studies error',
         detail: error
-      }))
+      }));
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
@@ -56,6 +56,7 @@ export class SubjectAddComponent implements OnDestroy {
           .subscribe(subject => {
               this.subject = subject;
               this.subjectLaboratories = subject.laboratories;
+              this.fieldOfStudy = subject.fieldOfStudy;
             },
             error => this.msgs.push({severity: 'error', summary: 'Constructor error', detail: error})
           );

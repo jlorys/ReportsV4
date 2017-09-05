@@ -79,38 +79,44 @@ public class Laboratory {
 
     public Long getLabDate() {
         if(Optional.ofNullable(labDate).isPresent())
-         return labDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+         return labDate.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
         return null;
     }
 
     public void setLabDate(Long labDate) {
-        if(Optional.ofNullable(labDate).isPresent())
-            this.labDate = Instant.ofEpochMilli(labDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
-        this.labDate = null;
+        if(Optional.ofNullable(labDate).isPresent()){
+            this.labDate = Instant.ofEpochMilli(labDate).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }else {
+            this.labDate = null;
+        }
     }
 
     public Long getReturnReportDate() {
         if(Optional.ofNullable(returnReportDate).isPresent())
-         return returnReportDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+         return returnReportDate.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
         return null;
     }
 
     public void setReturnReportDate(Long returnReportDate) {
-        if(Optional.ofNullable(returnReportDate).isPresent())
-            this.returnReportDate = Instant.ofEpochMilli(returnReportDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
-        this.returnReportDate = null;
+        if(Optional.ofNullable(returnReportDate).isPresent()){
+            this.returnReportDate = Instant.ofEpochMilli(returnReportDate).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }else {
+            this.returnReportDate = null;
+        }
     }
 
     public Long getFinalReturnReportDate() {
         if(Optional.ofNullable(finalReturnReportDate).isPresent())
-         return finalReturnReportDate.toInstant(ZoneOffset.ofTotalSeconds(0)).toEpochMilli();
+         return finalReturnReportDate.atZone(ZoneOffset.systemDefault()).toInstant().toEpochMilli();
         return null;
     }
 
     public void setFinalReturnReportDate(Long finalReturnReportDate) {
-        if(Optional.ofNullable(finalReturnReportDate).isPresent())
-            this.finalReturnReportDate = Instant.ofEpochMilli(finalReturnReportDate).atZone(ZoneId.of("UTC")).toLocalDateTime();
-        this.finalReturnReportDate = null;
+        if(Optional.ofNullable(finalReturnReportDate).isPresent()){
+            this.finalReturnReportDate = Instant.ofEpochMilli(finalReturnReportDate).atZone(ZoneId.systemDefault()).toLocalDateTime();
+        }else{
+            this.finalReturnReportDate = null;
+        }
     }
 
     public Long getCreatedDate() {
@@ -154,7 +160,8 @@ public class Laboratory {
     }
 
     public List<Report> getReports() {
-        return reports;
+        if(Optional.ofNullable(reports).isPresent()) return reports;
+        return Collections.EMPTY_LIST;
     }
 
     public void setReports(List<Report> reports) {

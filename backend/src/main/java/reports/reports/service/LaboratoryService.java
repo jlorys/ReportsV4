@@ -82,33 +82,37 @@ public class LaboratoryService {
             return null;
         }
 
-        final Laboratory fieldOfStudy;
+        final Laboratory laboratory;
 
         if (dto.isIdSet()) {
-            Laboratory userTmp = laboratoryRepository.findOne(dto.id);
-            if (userTmp != null) {
-                fieldOfStudy = userTmp;
+            Laboratory labTmp = laboratoryRepository.findOne(dto.id);
+            if (labTmp != null) {
+                laboratory = labTmp;
             } else {
-                fieldOfStudy = new Laboratory();
-                fieldOfStudy.setId(dto.id);
+                laboratory = new Laboratory();
+                laboratory.setId(dto.id);
             }
         } else {
-            fieldOfStudy = new Laboratory();
+            laboratory = new Laboratory();
         }
 
-        fieldOfStudy.setName(dto.name);
-        fieldOfStudy.setDescription(dto.description);
-        fieldOfStudy.setCreatedDate(dto.createdDate);
-        fieldOfStudy.setLastModifiedDate(dto.lastModifiedDate);
-        fieldOfStudy.setCreatedBy(dto.createdBy);
-        fieldOfStudy.setLastModifiedBy(dto.lastModifiedBy);
+        laboratory.setName(dto.name);
+        laboratory.setDescription(dto.description);
+        laboratory.setLabDate(dto.labDate);
+        laboratory.setReturnReportDate(dto.returnReportDate);
+        laboratory.setFinalReturnReportDate(dto.finalReturnReportDate);
+        laboratory.setCreatedDate(dto.createdDate);
+        laboratory.setLastModifiedDate(dto.lastModifiedDate);
+        laboratory.setCreatedBy(dto.createdBy);
+        laboratory.setLastModifiedBy(dto.lastModifiedBy);
 
-        fieldOfStudy.getReports().clear();
+        laboratory.getReports().clear();
         if (dto.reports != null) {
-            dto.reports.stream().forEach(report -> fieldOfStudy.addReport(reportRepository.findOne(report.id)));
+            dto.reports.stream().forEach(report -> laboratory.addReport(reportRepository.findOne(report.id)));
         }
+        laboratory.setSubject(subjectService.toEntity(dto.subject));
 
-        return toDTO(laboratoryRepository.save(fieldOfStudy));
+        return toDTO(laboratoryRepository.save(laboratory));
     }
 
     /**

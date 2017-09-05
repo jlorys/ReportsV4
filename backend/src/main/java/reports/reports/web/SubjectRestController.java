@@ -14,6 +14,7 @@ import reports.reports.service.SubjectService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -96,5 +97,13 @@ public class SubjectRestController {
         SubjectDTO result = subjectService.save(subjectDTO);
 
         return ResponseEntity.created(new URI("/api/subject" + result.id)).body(result);
+    }
+
+    @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDTO>> findAll() throws URISyntaxException {
+
+        List<SubjectDTO> results = subjectService.findAll();
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 }

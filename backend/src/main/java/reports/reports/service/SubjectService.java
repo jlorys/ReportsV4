@@ -6,8 +6,10 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reports.reports.domain.FieldOfStudy;
 import reports.reports.domain.Subject;
 import reports.reports.domain.Subject_;
+import reports.reports.dto.FieldOfStudyDTO;
 import reports.reports.dto.SubjectDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -162,6 +164,12 @@ public class SubjectService {
         dto.fieldOfStudy = fieldOfStudyService.toDTO(subject.getFieldOfStudy(), 1);
 
         return dto;
+    }
+
+    @Transactional(readOnly = true)
+    public List<SubjectDTO> findAll() {
+        List<Subject> results = subjectRepository.findAll();
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
 }

@@ -6,11 +6,11 @@ export class Laboratory {
   id: number;
   name: string;
   description: string;
-  labDate: string;
-  returnReportDate: string;
-  finalReturnReportDate: string;
-  createdDate: string;
-  lastModifiedDate: string;
+  labDate: number;
+  returnReportDate: number;
+  finalReturnReportDate: number;
+  createdDate: number;
+  lastModifiedDate: number;
   createdBy: string;
   lastModifiedBy: string;
   subject: Subject;

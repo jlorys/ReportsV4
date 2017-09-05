@@ -1,9 +1,11 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Message} from "primeng/primeng";
+import {Message, SelectItem} from "primeng/primeng";
 import {Laboratory} from "../laboratory/laboratory";
 import {Report} from "../report/report";
 import {LaboratoryDataService} from "./laboratory.data.service";
+import {SubjectDataService} from "../subject/subject.data.service";
+import {Subject} from "../subject/subject";
 
 @Component({
   templateUrl: 'laboratory.add.component.html',
@@ -22,22 +24,49 @@ export class LaboratoryAddComponent implements OnDestroy {
 
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private laboratoryDataService: LaboratoryDataService) {
+  subject: Subject;
+  sourceSubjectsSelectItems: SelectItem[];
+
+  labDate: Date;
+  returnReportDate: Date;
+  finalReturnReportDate: Date;
+
+  constructor(private route: ActivatedRoute, private router: Router, private laboratoryDataService: LaboratoryDataService, private subjectDataService: SubjectDataService) {
+    this.sourceSubjectsSelectItems = [];
+    this.sourceSubjectsSelectItems.push({label: '--------------------------', value: null});
+
     if (this.sub) {
       return;
     }
+
+    subjectDataService.findAll().subscribe(subject => subject.forEach((value, index, array) => this.sourceSubjectsSelectItems.push({
+        label: value.name,
+        value: value
+      })),
+      error => this.msgs.push({
+        severity: 'error',
+        summary: 'Constructor subject of laboratory error',
+        detail: error
+      }));
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
       console.log('Constructor for Laboratory-add ' + id);
       if (id === 'add') {
         this.laboratory = new Laboratory();
-
+        this.subject = null;
+        this.labDate = null;
+        this.returnReportDate = null;
+        this.finalReturnReportDate = null;
       } else {
         this.laboratoryDataService.getLaboratory(id)
           .subscribe(laboratory => {
               this.laboratory = laboratory;
               this.laboratoryReports = laboratory.reports;
+              this.subject = laboratory.subject;
+              this.labDate = new Date(laboratory.labDate);
+              this.returnReportDate = new Date(laboratory.returnReportDate);
+              this.finalReturnReportDate = new Date(laboratory.finalReturnReportDate);
             },
             error => this.msgs.push({severity:'error', summary:'Constructor error', detail: error})
           );
@@ -52,11 +81,24 @@ export class LaboratoryAddComponent implements OnDestroy {
   }
 
   onSave() {
+    this.msgs = []; //this line fix disappearing of messages
+
+    if(!this.labDate === null  ){
+      this.laboratory.labDate = this.labDate.getTime();
+    }
+    if(!this.returnReportDate === null){
+      this.laboratory.returnReportDate = this.returnReportDate.getTime();
+    }
+    if(!this.finalReturnReportDate === null){
+      this.laboratory.finalReturnReportDate = this.finalReturnReportDate.getTime();
+    }
+
+    this.laboratory.subject = this.subject;
+
     this.laboratoryDataService.update(this.laboratory).
     subscribe(
       laboratory => {
         this.laboratory = laboratory;
-        this.msgs = []; //this line fix disappearing of messages
         if (this.sub) {
           this.onSaveClicked.emit(this.laboratory);
         } else {
