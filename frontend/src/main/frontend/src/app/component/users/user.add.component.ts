@@ -23,7 +23,6 @@ export class AppUsersAddComponent implements OnDestroy {
 
   @Input() sub : boolean = false;
   @Output() onSaveClicked = new EventEmitter<AppUser>();
-  @Output() onCancelClicked = new EventEmitter();
 
   msgs: Message[] = [];
 
@@ -85,5 +84,32 @@ export class AppUsersAddComponent implements OnDestroy {
   onRowSelect(event : any) {
     let id =  event.data.id;
     this.router.navigate(['/reports', id]);
+  }
+
+  changePassword: boolean = false;
+  wantChangePassword(){
+    this.changePassword = true;
+  }
+
+  oldPassword: string;
+  newPassword: string;
+  newPasswordRepeat: string;
+  onChangePassword(){
+    this.msgs = []; //this line fix disappearing of messages
+
+    this.userService.changePassword(this.user.id, this.oldPassword, this.newPassword, this.newPasswordRepeat).
+    subscribe(
+      user => {
+        this.user = user;
+        this.msgs = []; //this line fix disappearing of messages
+        if (this.sub) {
+          this.onSaveClicked.emit(this.user);
+        } else {
+          this.msgs.push({severity:'info', summary:'Zmieniono hasło', detail: 'OK!'})
+
+        }
+      },
+      error => this.msgs.push({severity:'error', summary:'Nie można zmienić hasła', detail: 'OK!'})
+    );
   }
 }

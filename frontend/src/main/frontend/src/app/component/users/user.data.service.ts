@@ -5,6 +5,7 @@ import {AppUser} from "./user";
 import {Observable} from "rxjs/Observable";
 import {PageRequestByExample, PageResponse} from "../../support/paging";
 import {LazyLoadEvent} from "primeng/primeng";
+import {_ParseAST} from "@angular/compiler";
 
 @Injectable()
 export class AppUserDataService {
@@ -70,6 +71,15 @@ export class AppUserDataService {
     let body = JSON.stringify(user);
 
     return this.http.put('/api/users/', body, this.options)
+      .map(response => new AppUser(response.json()))
+      .catch(this.handleError);
+  }
+
+  /**
+   * Update the passed user password.
+   */
+  changePassword(userId: number, oldPassword: string, newPassword: string, newPasswordRepeat: string): Observable<AppUser> {
+    return this.http.put('/api/users/changePassword/'+userId+'/'+oldPassword+'/'+newPassword+'/'+newPasswordRepeat+'', this.options)
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }

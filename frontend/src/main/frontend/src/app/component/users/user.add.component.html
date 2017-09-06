@@ -1,4 +1,13 @@
 <p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="changePassword">
+  <input type="password" promptLabel="Proszę podać stare hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword [(ngModel)]="oldPassword" required placeholder="Wymagane"/>
+  <input type="password" promptLabel="Proszę podać nowe hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword [(ngModel)]="newPassword" required placeholder="Wymagane"/>
+  <input type="password" promptLabel="Proszę podać nowe hasło drugi raz" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword [(ngModel)]="newPasswordRepeat" required placeholder="Wymagane"/>
+
+  <md-card-actions>
+    <button md-raised-button (click)="onChangePassword()"><md-icon>save</md-icon>Zapisz hasło</button>
+  </md-card-actions>
+</md-card>
 <md-card *ngIf="user" ngForm #userForm="ngForm">
   <md-card-title>Dane użytkownika</md-card-title>
   <md-card-content>
@@ -15,7 +24,15 @@
           </div>
         </div>
       </div>
-      <div class="ui-grid-row">
+      <div *ngIf="user.id" class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Hasło</label></div>
+        <div class="ui-grid-col-6">
+            {{user.password}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div *ngIf="!user.id" class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="password">Hasło *</label></div>
         <div class="ui-grid-col-6">
           <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword
@@ -55,8 +72,8 @@
     </div>
   </md-card-content>
   <md-card-actions>
-    <button md-raised-button *ngIf="sub" (click)="onCancel()"><md-icon>cancel</md-icon>Anuluj</button>
-    <button md-raised-button (click)="onSave()" [disabled]="!userForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
+    <button md-raised-button (click)="onSave()" [disabled]="!userForm.form.valid"><md-icon>save</md-icon>Zapisz dane</button>
+    <button *ngIf="user.id" md-raised-button (click)="wantChangePassword()"><md-icon>replay</md-icon>Zmień hasło</button>
   </md-card-actions>
 
   <md-card *ngIf="user && user.id">

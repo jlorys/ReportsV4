@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.AppUser;
@@ -35,6 +36,9 @@ public class AppUserService {
 
     @Autowired
     private ReportService reportService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public PageResponse<AppUserDTO> findAll(PageRequestByExample<AppUserDTO> req) {
@@ -106,7 +110,10 @@ public class AppUserService {
         }
 
         user.setUserName(dto.userName);
-        user.setPassword(dto.password);
+
+        if (dto.isIdSet()) {user.setPassword(dto.password); }
+        else{ user.setPassword(passwordEncoder.encode(dto.password)); }
+
         user.setFirstName(dto.firstName);
         user.setLastName(dto.lastName);
         user.setEmail(dto.email);
@@ -126,6 +133,26 @@ public class AppUserService {
         }
 
         return toDTO(appUserRepository.save(user));
+    }
+
+
+    @Transactional
+    public AppUserDTO changePassword(AppUserDTO dto, String oldPassword, String newPassword, String newPasswordRepeat) {
+        if (dto == null) {
+            return null;
+        }
+
+        AppUser appUser = appUserRepository.findOne(dto.id);
+
+        if(newPassword.matches(newPasswordRepeat)){
+            if(passwordEncoder.matches(oldPassword, appUser.getPassword())){
+
+                appUser.setPassword(passwordEncoder.encode(newPassword));
+                return toDTO(appUserRepository.save(appUser));
+            }
+        }
+
+        return null;
     }
 
     /**
