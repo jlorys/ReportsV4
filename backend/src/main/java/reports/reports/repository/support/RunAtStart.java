@@ -1,6 +1,7 @@
 package reports.reports.repository.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import reports.reports.domain.*;
 import reports.reports.repository.*;
@@ -20,6 +21,7 @@ class RunAtStart {
     private final ReportRepository reportRepository;
     private final RoleRepository roleRepository;
     private final SubjectRepository subjectRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public RunAtStart(AppUserRepository appUserRepository,
@@ -27,13 +29,15 @@ class RunAtStart {
                       LaboratoryRepository laboratoryRepository,
                       ReportRepository reportRepository,
                       RoleRepository roleRepository,
-                      SubjectRepository subjectRepository) {
+                      SubjectRepository subjectRepository,
+                      PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.fieldOfStudyRepository = fieldOfStudyRepository;
         this.laboratoryRepository = laboratoryRepository;
         this.reportRepository = reportRepository;
         this.roleRepository = roleRepository;
         this.subjectRepository = subjectRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
@@ -50,20 +54,20 @@ class RunAtStart {
 
     private void generateManyUsers() {
         List<AppUser> appUsers = new ArrayList<>();
-        appUsers.add(new AppUser("admin", "admin", "Jakub", "Loryś", "kuba35@vp.pl"));
-        appUsers.add(new AppUser("user1", "user1", "Dylon", "Sanawabicz", "ds@x.pl"));
-        appUsers.add(new AppUser("user2", "user2", "Arkadiusz", "Głowa", "ag@x.pl"));
-        appUsers.add(new AppUser("user3", "user3", "Mateusz", "Morfeusz", "mm@x.pl"));
-        appUsers.add(new AppUser("user4", "user4", "Rafał", "Śmigacz", "rs@x.pl"));
-        appUsers.add(new AppUser("user5", "user5", "Alojzy", "Wichajster", "aw@x.pl"));
-        appUsers.add(new AppUser("user6", "user6", "Bob", "Malajski", "bm@x.pl"));
-        appUsers.add(new AppUser("user7", "user7", "James", "Łatana", "jl@x.pl"));
-        appUsers.add(new AppUser("user8", "user8", "Czesław", "Korcipa", "ck@x.pl"));
-        appUsers.add(new AppUser("user9", "user9", "Jan", "Łasica", "jl@x.pl"));
-        appUsers.add(new AppUser("user10", "user10", "Dominik", "Jahaś", "dj@x.pl"));
-        appUsers.add(new AppUser("user11", "user11", "Bogusław", "Łęcina", "bl@x.pl"));
-        appUsers.add(new AppUser("user12", "user12", "Mariusz", "Tracz", "mt@x.pl"));
-        appUsers.add(new AppUser("user13", "user13", "Sylwester", "Kasztan", "sk@x.pl"));
+        appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl"));
+        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "ds@x.pl"));
+        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "ag@x.pl"));
+        appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "mm@x.pl"));
+        appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "rs@x.pl"));
+        appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "aw@x.pl"));
+        appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "bm@x.pl"));
+        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "jl@x.pl"));
+        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "ck@x.pl"));
+        appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "jl@x.pl"));
+        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "dj@x.pl"));
+        appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "bl@x.pl"));
+        appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "mt@x.pl"));
+        appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "sk@x.pl"));
 
         appUsers.stream().forEach(appUser -> appUserRepository.save(appUser));
     }
