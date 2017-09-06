@@ -201,7 +201,7 @@ export class AppComponent implements OnInit {
   }
 
   userInfo() {
-    this.appUserDataService.getUserByUserName(this.username).subscribe(
+    this.appUserDataService.getLoggedUser().subscribe(
       pageResponse => {
         this.loggedUser = pageResponse;
         this.msgs = []; //this line fix disappearing of messages

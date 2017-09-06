@@ -55,6 +55,15 @@ export class AppUserDataService {
   }
 
   /**
+   * Get logged User.
+   */
+  getLoggedUser(): Observable<AppUser> {
+    return this.http.get('/api/loggedUser/')
+      .map(response => new AppUser(response.json()))
+      .catch(this.handleError);
+  }
+
+  /**
    * Update the passed user.
    */
   update(user: AppUser): Observable<AppUser> {
