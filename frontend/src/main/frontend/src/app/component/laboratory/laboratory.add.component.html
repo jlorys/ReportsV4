@@ -40,21 +40,16 @@
 <md-card>
   <md-card-content>
     <div class="ui-grid-row">
-      <div class="ui-grid-col-4">
-        <p>Data laboratoriów</p>
-        <p-calendar [(ngModel)]="labDate" [showTime]="true"></p-calendar>
-        {{labDate}}
-      </div>
-      <div class="ui-grid-col-4">
-        <p>Data oddania sprawozdania</p>
-        <p-calendar [(ngModel)]="returnReportDate" [showTime]="true"></p-calendar>
-        {{returnReportDate}}
-      </div>
-      <div class="ui-grid-col-4">
-        <p>Ostateczna data oddania sprawozdania</p>
-        <p-calendar [(ngModel)]="finalReturnReportDate" [showTime]="true"></p-calendar>
-        {{finalReturnReportDate}}
-      </div>
+      <div class="ui-grid-col-2">Data laboratoriów</div>
+        <p-calendar [locale]="pl" [(ngModel)]="labDate" [showTime]="true"></p-calendar>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Data oddania sprawozdania</div>
+        <p-calendar [locale]="pl" [(ngModel)]="returnReportDate" [showTime]="true"></p-calendar>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Ostateczna data oddania sprawozdania</div>
+        <p-calendar [locale]="pl" [(ngModel)]="finalReturnReportDate" [showTime]="true"></p-calendar>
     </div>
   </md-card-content>
 </md-card>

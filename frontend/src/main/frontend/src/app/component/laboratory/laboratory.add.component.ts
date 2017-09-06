@@ -11,7 +11,7 @@ import {Subject} from "../subject/subject";
   templateUrl: 'laboratory.add.component.html',
   selector: 'laboratories-add',
 })
-export class LaboratoryAddComponent implements OnDestroy {
+export class LaboratoryAddComponent implements OnInit, OnDestroy {
 
   @Input() header = "Sprawozdania z tego laboratorium...";
   laboratory : Laboratory;
@@ -72,6 +72,17 @@ export class LaboratoryAddComponent implements OnDestroy {
           );
       }
     });
+  }
+
+  pl: any;
+  ngOnInit() {
+    this.pl = {
+      firstDayOfWeek: 1,
+      dayNamesMin: [ "ndz","pn","wt","śr","cz","pt","sob" ],
+      monthNames: [ "styczeń","luty","marzec","kwiecień","maj","czerwiec","lipiec","sierpień","wrzesień","październik","listopad","grudzień" ],
+      today: 'Dzisiaj',
+      clear: 'Wyczyść'
+    }
   }
 
   ngOnDestroy() {
