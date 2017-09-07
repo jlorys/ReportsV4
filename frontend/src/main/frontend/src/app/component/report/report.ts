@@ -1,4 +1,5 @@
 import {AppUser} from "../users/user";
+import {Laboratory} from "../laboratory/laboratory";
 
 export class Report {
 
@@ -14,6 +15,7 @@ export class Report {
   lastModifiedBy: string;
   isSendInTime: boolean;
   users : AppUser[];
+  laboratory: Laboratory;
 
   constructor(json? : any) {
     if (json != null) {
@@ -31,6 +33,7 @@ export class Report {
       if (json.users != null) {
         this.users = AppUser.toArray(json.users);
       }
+      this.laboratory = json.laboratory;
     }
   }
 

@@ -6,10 +6,12 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label for="description">Description *</label></div>
         <div class="ui-grid-col-8">
-          <input pInputText id="description" [(ngModel)]="report.description"  required placeholder="Wymagane"  name="description" #description="ngModel"/>
+          <input pInputText id="description" [(ngModel)]="report.description" required placeholder="Wymagane"
+                 name="description" #description="ngModel"/>
         </div>
         <div class="ui-grid-col-4">
-          <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!description.valid && description.dirty && description.errors['required']">
+          <div class="ui-message ui-messages-error ui-corner-all"
+               *ngIf="!description.valid && description.dirty && description.errors['required']">
             <i class="fa fa-close"></i>
             Opis jest wymagany
           </div>
@@ -18,10 +20,13 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label>Plik *</label></div>
         <div class="ui-grid-col-8">
-          <p-fileUpload *ngIf="report.description && !report.id" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
+          <p-fileUpload *ngIf="report.description && !report.id" customUpload="true"
+                        (uploadHandler)="myUploader($event)"></p-fileUpload>
           <label *ngIf="report.id">
             {{report.fileName}}{{report.fileExtension}}
-            <button md-raised-button (click)="onDownloadFile()"><md-icon>attachment</md-icon></button>
+            <button md-raised-button (click)="onDownloadFile()">
+              <md-icon>attachment</md-icon>
+            </button>
           </label>
         </div>
         <div class="ui-grid-col-4">
@@ -29,27 +34,40 @@
       </div>
       <div class="ui-grid-row">
       </div>
-      </div>
+    </div>
   </md-card-content>
 
   <md-card *ngIf="report && report.id">
     <md-card-subtitle>Relacje sprawozdania</md-card-subtitle>
-    <md-card-content>
-      <md-tab-group>
+  <md-card-content>
+    <md-tab-group>
 
-        <md-tab label="Autorzy">
-          <p-pickList sourceFilterPlaceholder="Szukaj po nazwisku" filterBy="lastName" [source]="sourceUsers" [target]="report.users" sourceHeader="Użytkownicy możliwi do dodania" targetHeader="Autorzy sprawozdania" [responsive]="true">
-            <ng-template let-user pTemplate="item">
-              {{user.userName}} {{user.firstName}} {{user.lastName}}
-            </ng-template>
-          </p-pickList>
-        </md-tab>
+      <md-tab label="Autorzy">
+        <p-pickList sourceFilterPlaceholder="Szukaj po nazwisku" filterBy="lastName" [source]="sourceUsers"
+                    [target]="report.users" sourceHeader="Użytkownicy możliwi do dodania"
+                    targetHeader="Autorzy sprawozdania" [responsive]="true">
+          <ng-template let-user pTemplate="item">
+            {{user.userName}} {{user.firstName}} {{user.lastName}}
+          </ng-template>
+        </p-pickList>
+      </md-tab>
 
-      </md-tab-group>
-    </md-card-content>
-    <md-card-actions>
-      <button md-raised-button (click)="onUpdate()" [disabled]="!reportForm.form.valid"><md-icon>save</md-icon>Zapisz</button>
-    </md-card-actions>
-  </md-card>
+    </md-tab-group>
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="onUpdate()" [disabled]="!reportForm.form.valid">
+      <md-icon>save</md-icon>
+      Zapisz
+    </button>
+  </md-card-actions>
+</md-card>
+</md-card>
 
+<md-card *ngIf="report && report.id">
+  <md-card-content>
+    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}}</p>
+    <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
+    <md-card-subtitle>Zmiana laboratorium</md-card-subtitle>
+    <p-dropdown [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>
+  </md-card-content>
 </md-card>

@@ -44,6 +44,9 @@ public class ReportService {
     @Autowired
     private AppUserService appUserService;
 
+    @Autowired
+    private LaboratoryService laboratoryService;
+
     @Transactional(readOnly = true)
     public ReportDTO findOne(Integer id) {
         Report report = reportRepository.findOne(id);
@@ -124,6 +127,7 @@ public class ReportService {
         if (dto.users != null) {
             dto.users.stream().forEach(user -> report.addUser(appUserRepository.findOne(user.id)));
         }
+        report.setLaboratory(laboratoryService.toEntity(dto.laboratory));
 
         return toDTO(reportRepository.save(report));
     }
@@ -181,8 +185,10 @@ public class ReportService {
         dto.createdBy = report.getCreatedBy();
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
-        if (depth < 1)
+        if (depth < 1) {
             dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user, 1)).collect(Collectors.toList());
+        }
+        dto.laboratory = laboratoryService.toDTO(report.getLaboratory(), 1);
 
         return dto;
     }

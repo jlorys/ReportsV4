@@ -174,4 +174,10 @@ public class LaboratoryService {
 
         return dto;
     }
+
+    @Transactional(readOnly = true)
+    public List<LaboratoryDTO> findAll() {
+        List<Laboratory> results = laboratoryRepository.findAll();
+        return results.stream().map(this::toDTO).collect(Collectors.toList());
+    }
 }

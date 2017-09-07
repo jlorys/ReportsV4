@@ -1,6 +1,7 @@
 package reports.reports.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import reports.reports.domain.Laboratory;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class ReportDTO {
     public String createdBy;
     public String lastModifiedBy;
     public Boolean isSendInTime;
+
+    public LaboratoryDTO laboratory;
 
     public List<AppUserDTO> users;
 

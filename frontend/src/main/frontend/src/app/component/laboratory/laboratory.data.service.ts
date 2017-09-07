@@ -56,6 +56,15 @@ export class LaboratoryDataService {
       .catch(this.handleError);
   }
 
+  /**
+   * Find all Laboratories.
+   */
+  findAll() : Observable<Laboratory[]> {
+    return this.http.get('/api/laboratory/findAll/')
+      .map(response => Laboratory.toArray(response.json()))
+      .catch(this.handleError);
+  }
+
   // method from angular documentation
   private handleError(error: any) {
     let errMsg = (error.message) ? error.message :

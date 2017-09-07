@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reports.reports.domain.Laboratory;
 import reports.reports.dto.LaboratoryDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -14,6 +15,7 @@ import reports.reports.service.LaboratoryService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -96,5 +98,13 @@ public class LaboratoryRestController {
         LaboratoryDTO result = laboratoryService.save(laboratoryDTO);
 
         return ResponseEntity.created(new URI("/api/laboratory" + result.id)).body(result);
+    }
+
+    @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<LaboratoryDTO>> findAll() throws URISyntaxException {
+
+        List<LaboratoryDTO> results = laboratoryService.findAll();
+
+        return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
 }
