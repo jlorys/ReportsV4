@@ -6,7 +6,6 @@ import {Router} from "@angular/router";
 import {SubjectDataService} from "./subject.data.service";
 import {MdDialog} from "@angular/material";
 import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
-import {MessageService} from "../../service/message.service";
 
 @Component({
   selector: 'subjects',
@@ -29,7 +28,7 @@ export class SubjectComponent {
 
   msgs: Message[] = [];
 
-  constructor(private messageService: MessageService, private router: Router,
+  constructor(private router: Router,
               private subjectDataService: SubjectDataService,
               private confirmDeleteDialog: MdDialog) {
   }

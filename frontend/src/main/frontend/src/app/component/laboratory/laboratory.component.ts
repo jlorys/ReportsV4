@@ -4,7 +4,6 @@ import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Router} from "@angular/router";
 import {MdDialog} from "@angular/material";
 import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
-import {MessageService} from "../../service/message.service";
 import {Laboratory} from "./laboratory";
 import {LaboratoryDataService} from "app/component/laboratory/laboratory.data.service";
 
@@ -29,7 +28,7 @@ export class LaboratoryComponent {
 
   msgs: Message[] = [];
 
-  constructor(private messageService: MessageService, private router: Router,
+  constructor(private router: Router,
               private laboratoryDataService: LaboratoryDataService,
               private confirmDeleteDialog: MdDialog) {
   }

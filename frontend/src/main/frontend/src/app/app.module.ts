@@ -20,7 +20,6 @@ import {MaterialModule} from '@angular/material';
 import {ConfirmationService} from "primeng/components/common/api";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {LocationStrategy, HashLocationStrategy} from "@angular/common";
-import {MessageService} from "./service/message.service";
 import {AuthService} from "./service/auth.service";
 import {HomeComponent} from "./component/home/home.component";
 import {ConfirmDeleteDialogComponent} from "./support/confirm-delete-dialog.component";
@@ -111,7 +110,6 @@ import {LaboratoryAddComponent} from "./component/laboratory/laboratory.add.comp
 
     // our application services
     AuthService,
-    MessageService,
 
     // primeng service
     ConfirmationService

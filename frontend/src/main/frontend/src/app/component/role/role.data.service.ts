@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {PageRequestByExample, PageResponse} from "../../support/paging";
 import {LazyLoadEvent} from "primeng/primeng";
-import {MessageService} from "../../service/message.service";
 import {Role} from "./role";
 
 @Injectable()
@@ -68,7 +67,6 @@ export class RoleDataService {
 
   // sample method from angular doc
   private handleError (error: any) {
-    // TODO: seems we cannot use messageService from here...
     let errMsg = (error.message) ? error.message :
       error.status ? `Status: ${error.status} - Text: ${error.statusText}` : 'Server error';
     console.error(errMsg); // log to console instead
