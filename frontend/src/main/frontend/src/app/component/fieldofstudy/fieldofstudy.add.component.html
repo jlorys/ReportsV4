@@ -43,13 +43,13 @@
             <p-column field="name" header="nazwa" sortable="true"></p-column>
             <p-column field="description" header="opis" sortable="true"></p-column>
             <p-column field="createdDate" header="DataStworzenia" sortable="true">
-              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
               </ng-template>
             </p-column>
             <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
-              <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-                <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+              <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+                <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
               </ng-template>
             </p-column>
             <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>

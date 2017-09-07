@@ -62,18 +62,18 @@
    <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
    <p-column field="id" header="Id" sortable="true"></p-column>
    <p-column field="userName" header="UserName" sortable="true"></p-column>
-   <p-column field="password" header="Password" sortable="true"></p-column>
+   <p-column field="password" header="Hasło" sortable="true"></p-column>
    <p-column field="firstName" header="Imię" sortable="true"></p-column>
    <p-column field="lastName" header="Nazwisko" sortable="true"></p-column>
    <p-column field="email" header="Email" sortable="true"></p-column>
    <p-column field="createdDate" header="DataStworzenia" sortable="true">
-     <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-       <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+     <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+       <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
      </ng-template>
    </p-column>
    <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
-     <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
-       <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+     <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+       <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
      </ng-template>
    </p-column>
    <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
