@@ -99,20 +99,19 @@ public class AppUserRestController {
 	 * Update User password.
 	 */
 	@PutMapping(value = "/changePassword/{userId}/{oldPassword}/{newPassword}/{newPasswordRepeat}", produces = APPLICATION_JSON_VALUE)
-	public ResponseEntity<AppUserDTO> updatePassword(@PathVariable Integer userId,
+	public ResponseEntity<?> updatePassword(@PathVariable Integer userId,
 													 @PathVariable String oldPassword,
 													 @PathVariable String newPassword,
 													 @PathVariable String newPasswordRepeat) throws URISyntaxException {
 
 		AppUserDTO appUserDTO = appUserService.findOne(userId);
 
-		if (appUserDTO.isIdSet()) {
-
+		if(Optional.ofNullable(appUserDTO).isPresent()){
 			AppUserDTO result = appUserService.changePassword(appUserDTO, oldPassword, newPassword, newPasswordRepeat);
 			return ResponseEntity.ok().body(result);
 		}
 
-		return ResponseEntity.ok(null);
+		return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
 	}
 
 	/**

@@ -10,19 +10,27 @@ export class DoughnutChartComponent  {
 
   constructor() {
     this.data = {
-      labels: ['A','B','C'],
+      labels: ['2','2.5','3','3.5','4','4.5','5'],
       datasets: [
         {
-          data: [300, 50, 100],
+          data: [300, 50, 100, 100, 30, 70, 90],
           backgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56"
+            "#ff000c",
+            "#eb8c97",
+            "#fff25c",
+            "#00e8ff",
+            "#5763ff",
+            "#050fff",
+            "#1eff06",
           ],
           hoverBackgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56"
+            "#ff000c",
+            "#eb8c97",
+            "#fff25c",
+            "#00e8ff",
+            "#5763ff",
+            "#050fff",
+            "#1eff06",
           ]
         }]
     };

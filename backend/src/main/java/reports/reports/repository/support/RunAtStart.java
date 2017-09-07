@@ -105,15 +105,15 @@ class RunAtStart {
 
         List<Laboratory> laboratories = new ArrayList<>();
         laboratories.add(new Laboratory("Laboratorium1", "Pomiary napięcia",
-                LocalDateTime.of(2017, Month.of(9), 12, 12, 0),
-                LocalDateTime.of(2017, Month.of(9), 15, 12, 0),
-                LocalDateTime.of(2017, Month.of(9), 16, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 12, 12, 30),
+                LocalDateTime.of(2017, Month.of(9), 15, 12, 30),
+                LocalDateTime.of(2017, Month.of(9), 16, 12, 30),
                 subject));
 
         laboratories.add(new Laboratory("Laboratorium2", "Pomiary mocy",
-                LocalDateTime.of(2017, Month.of(9), 13, 12, 0),
-                LocalDateTime.of(2017, Month.of(9), 16, 12, 0),
-                LocalDateTime.of(2017, Month.of(9), 17, 12, 0),
+                LocalDateTime.of(2017, Month.of(9), 13, 12, 15),
+                LocalDateTime.of(2017, Month.of(9), 16, 12, 15),
+                LocalDateTime.of(2017, Month.of(9), 17, 12, 15),
                 subject));
 
         laboratories.stream().forEach(lab -> laboratoryRepository.save(lab));

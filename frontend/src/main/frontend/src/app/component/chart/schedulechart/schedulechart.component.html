@@ -1,3 +1,21 @@
 <div class="ui-grid-col-6">
-<p-schedule locale="pl" [events]="events" (onViewRender)="loadEvents($event)"></p-schedule>
+<p-schedule locale="pl" [events]="events" (onViewRender)="loadEvents($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
 </div>
+
+<p-dialog header="Szczegóły" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+          [style]="{'overflow':'visible'}" [resizable]="false">
+  <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Tytuł</label></div>
+      <div class="ui-grid-col-8">{{event.title}}</div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Data</label></div>
+      <div class="ui-grid-col-8">{{event.start | date:'dd.MM.yyyy'}}</div>
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-4"><label>Koniec</label></div>
+      <div class="ui-grid-col-8">{{event.end | date:'dd.MM.yyyy'}}</div>
+    </div>
+  </div>
+</p-dialog>
