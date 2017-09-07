@@ -94,13 +94,13 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
   onSave() {
     this.msgs = []; //this line fix disappearing of messages
 
-    if(!this.labDate === null  ){
+    if(this.labDate){
       this.laboratory.labDate = this.labDate.getTime();
     }
-    if(!this.returnReportDate === null){
+    if(this.returnReportDate){
       this.laboratory.returnReportDate = this.returnReportDate.getTime();
     }
-    if(!this.finalReturnReportDate === null){
+    if(this.finalReturnReportDate) {
       this.laboratory.finalReturnReportDate = this.finalReturnReportDate.getTime();
     }
 
