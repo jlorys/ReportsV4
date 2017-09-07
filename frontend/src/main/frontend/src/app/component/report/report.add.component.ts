@@ -27,12 +27,24 @@ export class ReportsAddComponent implements OnDestroy {
   laboratory: Laboratory;
   sourceLaboratoriesSelectItems: SelectItem[];
 
+  grade: string;
+  grades: SelectItem[];
+
   constructor(private route: ActivatedRoute, private router: Router, private reportService: ReportDataService, private appUserDataService: AppUserDataService, private laboratoryDataService: LaboratoryDataService) {
+    this.grades = [];
+    this.grades.push({label:'2', value:2});
+    this.grades.push({label:'2.5', value:2.5});
+    this.grades.push({label:'3', value:3});
+    this.grades.push({label:'3.5', value:3.5});
+    this.grades.push({label:'4', value:4});
+    this.grades.push({label:'4.5', value:4.5});
+    this.grades.push({label:'5', value:5});
+
     this.sourceLaboratoriesSelectItems = [];
     this.sourceLaboratoriesSelectItems.push({label: '--------------------------', value: null});
 
     laboratoryDataService.findAll().subscribe(subject => subject.forEach((value, index, array) => this.sourceLaboratoriesSelectItems.push({
-        label: value.name,
+        label: value.name + " " + value.description + " " + new Date(value.labDate).toString(),
         value: value
       })),
       error => this.msgs.push({
@@ -47,6 +59,7 @@ export class ReportsAddComponent implements OnDestroy {
       if (id === 'add') {
         this.report = new Report();
         this.laboratory = null;
+        this.grade = null;
 
         appUserDataService.findAllAppUsersWhichDoNotHaveReportWithThisId(0).//0 means find all
         subscribe(users => this.sourceUsers = users,
@@ -57,6 +70,7 @@ export class ReportsAddComponent implements OnDestroy {
           .subscribe(report => {
               this.report = report;
               this.laboratory = report.laboratory;
+              this.grade = report.grade;
 
               appUserDataService.findAllAppUsersWhichDoNotHaveReportWithThisId(this.report.id).subscribe(users => this.sourceUsers = users,
                 error => this.msgs.push({severity: 'error', summary: 'Constructor user reports error', detail: error}))
@@ -76,6 +90,7 @@ export class ReportsAddComponent implements OnDestroy {
     this.msgs = []; //this line fix disappearing of messages
 
     this.report.laboratory = this.laboratory;
+    this.report.grade = this.grade;
 
     this.reportService.update(this.report).subscribe(
       report => {

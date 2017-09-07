@@ -5,7 +5,7 @@
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #reportForm="ngForm">
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
-          <label for="description">Description</label>
+          <label for="description">Opis</label>
         </div>
         <div class="ui-grid-col-6">
           <input pInputText id="description" [(ngModel)]="example.description" name="description" #description="ngModel"/>
@@ -13,7 +13,7 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
-          <label for="grade">Grade</label>
+          <label for="grade">Ocena</label>
         </div>
         <div class="ui-grid-col-6">
           <input pInputText id="grade" [(ngModel)]="example.grade" name="grade" #grade="ngModel"/>
@@ -21,7 +21,7 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
-          <label for="createdBy">CreatedBy</label>
+          <label for="createdBy">Stworzone przez</label>
         </div>
         <div class="ui-grid-col-6">
           <input pInputText id="createdBy" [(ngModel)]="example.createdBy" name="createdBy" #createdBy="ngModel"/>
@@ -29,7 +29,7 @@
       </div>
       <div class="ui-grid-row">
         <div class="ui-grid-col-2">
-          <label for="lastModifiedBy">LastModifiedBy</label>
+          <label for="lastModifiedBy">Ostatnio modyfikowane przez</label>
         </div>
         <div class="ui-grid-col-6">
           <input pInputText id="lastModifiedBy" [(ngModel)]="example.lastModifiedBy" name="lastModifiedBy" #lastModifiedBy="ngModel"/>
@@ -62,11 +62,11 @@
                  [responsive]="true">
       <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
       <p-column field="id" header="Id" sortable="true"></p-column>
-      <p-column field="description" header="Description" sortable="true"></p-column>
-      <p-column field="filePath" header="FilePath" sortable="true"></p-column>
-      <p-column field="fileName" header="FileName" sortable="true"></p-column>
-      <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
-      <p-column field="grade" header="Grade" sortable="true"></p-column>
+      <p-column field="description" header="Opis" sortable="true"></p-column>
+      <p-column field="filePath" header="Ścieżka do pliku" sortable="true"></p-column>
+      <p-column field="fileName" header="Nazwa pliku" sortable="true"></p-column>
+      <p-column field="fileExtension" header="Rozszerzenie pliku" sortable="true"></p-column>
+      <p-column field="grade" header="Ocena" sortable="true"></p-column>
       <p-column field="createdDate" header="DataStworzenia" sortable="true">
         <ng-template let-col let-car="rowData" let-ri="rowIndex" pTemplate="body">
           <span>{{car[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>

@@ -1,4 +1,12 @@
 <p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="report && report.id">
+  <md-card-content>
+    <p *ngIf="report.grade">Ocena: {{report.grade}}</p>
+    <p *ngIf="!report.grade">Ocena: {{'brak'}}</p>
+    Zmiana oceny
+    <p-dropdown [options]="grades" [(ngModel)]="grade" filter="filter"></p-dropdown>
+  </md-card-content>
+</md-card>
 <md-card *ngIf="report" ngForm #reportForm="ngForm">
   <md-card-title>Dane sprawozdania</md-card-title>
   <md-card-content>
@@ -65,7 +73,7 @@
 
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}}</p>
+    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}} / {{report.laboratory.description}} / {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}}</p>
     <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
     <md-card-subtitle>Zmiana laboratorium</md-card-subtitle>
     <p-dropdown [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>
