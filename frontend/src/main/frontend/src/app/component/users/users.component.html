@@ -78,7 +78,7 @@
    </p-column>
    <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
    <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
-   <p-column styleClass="col-icon">
+   <p-column *ngIf="userHasRoleAdmin" styleClass="col-icon">
      <ng-template let-user="rowData" pTemplate="body">
        <button type="button" pButton icon="fa-trash" (click)="showDeleteDialog(user)" style="float:left"></button>
      </ng-template>

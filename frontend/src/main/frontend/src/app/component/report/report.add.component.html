@@ -73,7 +73,9 @@
 
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}} / {{report.laboratory.description}} / {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}}</p>
+    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}} / {{report.laboratory.description}}
+      / {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} / {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
+      / {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
     <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
     <md-card-subtitle>Zmiana laboratorium</md-card-subtitle>
     <p-dropdown [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>

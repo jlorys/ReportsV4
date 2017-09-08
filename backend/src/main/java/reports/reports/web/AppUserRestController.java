@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import reports.reports.config.security.UserRoleService;
 import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -29,6 +30,9 @@ public class AppUserRestController {
 	@Autowired
 	private AppUserService appUserService;
 
+	@Autowired
+	private UserRoleService userRoleService;
+
 	/**
 	 * Find a Page of User using query by example.
 	 */
@@ -43,14 +47,18 @@ public class AppUserRestController {
 	 */
 	@DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
+		if(userRoleService.isLoggedUserHasRoleAdmin()) {
 
-		log.debug("Delete by id User : {}", id);
+			log.debug("Delete by id User : {}", id);
 
-		try {
-			appUserService.delete(id);
-			return ResponseEntity.ok().build();
-		} catch (Exception x) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			try {
+				appUserService.delete(id);
+				return ResponseEntity.ok().build();
+			} catch (Exception x) {
+				return ResponseEntity.status(HttpStatus.CONFLICT).build();
+			}
+		}else{
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
 	}
 

@@ -6,6 +6,7 @@ import {LazyLoadEvent, Message} from "primeng/primeng";
 import {MdDialog} from '@angular/material';
 import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
 import {Router} from "@angular/router";
+import {AuthService} from "../../service/auth.service";
 
 @Component({
   selector: 'users',
@@ -28,9 +29,24 @@ export class AppUsersComponent {
 
   msgs: Message[] = [];
 
+  userHasRoleAdmin: boolean;
+  userHasRoleUser: boolean;
+
   constructor(private router: Router,
               private appUserDataService: AppUserDataService,
-              private confirmDeleteDialog: MdDialog) {
+              private confirmDeleteDialog: MdDialog,
+              private authService: AuthService) {
+
+    this.authService.isLoggedUserHasRoleAdmin().subscribe(
+      result => this.userHasRoleAdmin = result,
+      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
+    );
+
+    this.authService.isLoggedUserHasRoleUser().subscribe(
+      result => this.userHasRoleUser = result,
+      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
+    );
+
   }
 
   showDeleteDialog(rowData: any) {

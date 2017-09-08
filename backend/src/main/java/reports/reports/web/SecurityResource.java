@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reports.reports.config.security.UserContext;
+import reports.reports.config.security.UserRoleService;
 import reports.reports.dto.AppUserDTO;
 import reports.reports.service.AppUserService;
 
@@ -23,9 +23,22 @@ public class SecurityResource {
     @Autowired
     private AppUserService appUserService;
 
+    @Autowired
+    private UserRoleService userRoleService;
+
     @GetMapping(value = "/authenticated", produces = APPLICATION_JSON_VALUE)
     public boolean isAuthenticated() {
         return UserContext.getId() != null;
+    }
+
+    @GetMapping(value = "/isLoggedUserHasRoleAdmin", produces = APPLICATION_JSON_VALUE)
+    public boolean isLoggedUserHasRoleAdmin() {
+        return userRoleService.isLoggedUserHasRoleAdmin();
+    }
+
+    @GetMapping(value = "/isLoggedUserHasRoleUser", produces = APPLICATION_JSON_VALUE)
+    public boolean isLoggedUserHasRoleUser() {
+        return userRoleService.isLoggedUserHasRoleUser();
     }
 
     /**
