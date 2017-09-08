@@ -25,6 +25,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -56,6 +57,17 @@ public class ReportRestController {
 
         return Optional.ofNullable(reportService.findOne(id)).map(reportDTO -> new ResponseEntity<>(reportDTO, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Find all report grades.
+     */
+    @GetMapping(value = "/getAllGrades", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Long>> getAllGrades() throws URISyntaxException {
+
+        log.debug("Find all grades");
+
+        return new ResponseEntity<>(reportService.findAllGrades(), HttpStatus.OK);
     }
 
     /**

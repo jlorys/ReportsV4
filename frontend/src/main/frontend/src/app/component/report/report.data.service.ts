@@ -23,6 +23,15 @@ export class ReportDataService {
   }
 
   /**
+   * Get a Report all grades.
+   */
+  getGrades() : Observable<number[]> {
+    return this.http.get('/api/reports/getAllGrades')
+      .map(response => response.json())
+      .catch(this.handleError);
+  }
+
+  /**
    * Update the passed report.
    */
   update(report : Report) : Observable<Report> {

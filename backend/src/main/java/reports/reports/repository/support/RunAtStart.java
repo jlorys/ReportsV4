@@ -125,9 +125,9 @@ class RunAtStart {
         List<Report> reports = new ArrayList<>();
         reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true, laboratory));
         reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true, laboratory));
-        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "2.0", true, laboratory));
         reports.add(new Report("Opis4", "files/", "sprawozdanie4", ".pdf", "4.0", true, laboratory));
-        reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "3.5", true, laboratory));
+        reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "2.5", true, laboratory));
         reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true, laboratory));
         reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true, laboratory));
         reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "3.0", true, laboratory));

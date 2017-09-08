@@ -26,6 +26,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,25 @@ public class ReportService {
     public ReportDTO findOne(Integer id) {
         Report report = reportRepository.findOne(id);
         return toDTO(report);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Long> findAllGrades() {
+        List<Report> reports = reportRepository.findAll();
+        List<String> grades = new ArrayList<>();
+        reports.stream().forEach(report -> grades.add(report.getGrade()));
+
+        List<Long> gradesAmount = new ArrayList<>();
+
+        gradesAmount.add(grades.stream().filter(s -> s.matches("2.0")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("2.5")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("3.0")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("3.5")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("4.0")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("4.5")).count());
+        gradesAmount.add(grades.stream().filter(s -> s.matches("5.0")).count());
+
+        return gradesAmount;
     }
 
     @Transactional(readOnly = true)
