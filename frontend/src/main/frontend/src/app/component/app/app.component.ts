@@ -3,8 +3,8 @@ import {Observable} from 'rxjs/Observable';
 import {MenuItem} from 'primeng/primeng';
 import {AuthService} from '../../service/auth.service';
 import {Message} from 'primeng/primeng';
-import {AppUserDataService} from "../users/user.data.service";
-import {AppUser} from "../users/user";
+import {AppUserDataService} from "../component.admin/users/user.data.service";
+import {AppUser} from "../component.admin/users/user";
 import {Router} from "@angular/router";
 
 @Component({
@@ -64,6 +64,7 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   private items: MenuItem[];
+  private itemAdmin: MenuItem[];
 
   msgs: Message[] = [];
 
@@ -80,59 +81,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {label: 'Strona główna', routerLink: ['/'], icon: 'fa-home'},
-
-      {
-        label: 'Sprawozdania',
-        icon: 'fa-file-text-o',
-        items: [
-          {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
-          {label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/reports/add']},
-        ]
-      },
-
-      {
-        label: 'Użytkownicy',
-        icon: 'fa-user-circle',
-        items: [
-          {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
-          {label: 'Tworzenie Użytkownika', icon: 'fa-gavel', routerLink: ['/users/add']},
-        ]
-      },
-
-      {
-        label: 'Role',
-        icon: 'fa-universal-access',
-        items: [
-          {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
-        ]
-      },
-
-      {
-        label: 'Laboratoria',
-        icon: 'fa-columns',
-        items: [
-          {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
-          {label: 'Tworzenie Laboratoriów', icon: 'fa-gavel', routerLink: ['/laboratories/add']},
-        ]
-      },
-
-      {
-        label: 'Przemioty',
-        icon: 'fa-square',
-        items: [
-          {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
-          {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/subjects/add']},
-        ]
-      },
-
-      {
-        label: 'Kierunki studiów',
-        icon: 'fa-arrows',
-        items: [
-          {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
-          {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsOfStudies/add']},
-        ]
-      },
 
       {
         label: 'Wykresy',
@@ -164,7 +112,10 @@ export class AppComponent implements OnInit {
         this.displayLoginDialog = !this.authenticated;
         this.msgs = []; //this line fix disappearing of messages
         if (this.authenticated) {
-          this.items.push({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
+          this.ifLoggedUserIsUserPushUserItem();
+          this.ifLoggedUserIsReviewerPushReviewerItem();
+          this.ifLoggedUserIsAdminPushAdminItem();
+          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
           console.log('You are authenticated...', '');
         } else {
           console.log('You are NOT authenticated...', '');
@@ -180,7 +131,10 @@ export class AppComponent implements OnInit {
         if (loginOk) {
           this.displayLoginDialog = false;
           this.authenticated = true;
-          this.items.push({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
+          this.ifLoggedUserIsUserPushUserItem();
+          this.ifLoggedUserIsReviewerPushReviewerItem();
+          this.ifLoggedUserIsAdminPushAdminItem();
+          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
           this.msgs.push({severity:'info', summary:'Jesteś teraz zalogowany', detail: ""});
@@ -210,6 +164,206 @@ export class AppComponent implements OnInit {
       },
       error => this.msgs.push({severity:'error', summary:'Nie dało się otrzymać wyników', detail: error})
     )
+  }
+
+  ifLoggedUserIsAdminPushAdminItem(){
+    this.authService.isLoggedUserHasRoleAdmin().subscribe(
+      response =>{ if(response){this.pushAdminItem()}}
+    );
+  }
+
+  ifLoggedUserIsReviewerPushReviewerItem(){
+    this.authService.isLoggedUserHasRoleReviewer().subscribe(
+      response =>{ if(response){this.pushReviewerItem()}}
+    );
+  }
+
+  ifLoggedUserIsUserPushUserItem(){
+    this.authService.isLoggedUserHasRoleUser().subscribe(
+      response =>{ if(response){this.pushUserItem()}}
+    );
+  }
+
+  pushAdminItem(){
+    this.items.push(
+      {
+        label: 'Admin',
+        icon: 'fa-fort-awesome',
+        items: [
+          {
+            label: 'Sprawozdania',
+            icon: 'fa-file-text-o',
+            items: [
+              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
+            ]
+          },
+
+          {
+            label: 'Użytkownicy',
+            icon: 'fa-user-circle',
+            items: [
+              {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
+              {label: 'Tworzenie Użytkownika', icon: 'fa-gavel', routerLink: ['/users/add']},
+            ]
+          },
+
+          {
+            label: 'Role',
+            icon: 'fa-universal-access',
+            items: [
+              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
+            ]
+          },
+
+          {
+            label: 'Laboratoria',
+            icon: 'fa-columns',
+            items: [
+              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
+              {label: 'Tworzenie Laboratoriów', icon: 'fa-gavel', routerLink: ['/laboratories/add']},
+            ]
+          },
+
+          {
+            label: 'Przemioty',
+            icon: 'fa-square',
+            items: [
+              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
+              {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/subjects/add']},
+            ]
+          },
+
+          {
+            label: 'Kierunki studiów',
+            icon: 'fa-arrows',
+            items: [
+              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
+              {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsOfStudies/add']},
+            ]
+          },
+        ]
+      }
+    );
+  }
+
+  pushReviewerItem(){
+    this.items.push(
+      {
+        label: 'Recenzent',
+        icon: 'fa-balance-scale',
+        items: [
+          {
+            label: 'Sprawozdania',
+            icon: 'fa-file-text-o',
+            items: [
+              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
+            ]
+          },
+
+          {
+            label: 'Użytkownicy',
+            icon: 'fa-user-circle',
+            items: [
+              {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
+            ]
+          },
+
+          {
+            label: 'Role',
+            icon: 'fa-universal-access',
+            items: [
+              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
+            ]
+          },
+
+          {
+            label: 'Laboratoria',
+            icon: 'fa-columns',
+            items: [
+              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
+              {label: 'Tworzenie Laboratoriów', icon: 'fa-gavel', routerLink: ['/laboratories/add']},
+            ]
+          },
+
+          {
+            label: 'Przemioty',
+            icon: 'fa-square',
+            items: [
+              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
+              {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/subjects/add']},
+            ]
+          },
+
+          {
+            label: 'Kierunki studiów',
+            icon: 'fa-arrows',
+            items: [
+              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
+              {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsOfStudies/add']},
+            ]
+          },
+        ]
+      }
+    );
+  }
+
+  pushUserItem(){
+    this.items.push(
+      {
+        label: 'Użytkownik',
+        icon: 'fa-eercast',
+        items: [
+          {
+            label: 'Sprawozdania',
+            icon: 'fa-file-text-o',
+            items: [
+              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
+              {label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/reports/add']},
+            ]
+          },
+
+          {
+            label: 'Użytkownicy',
+            icon: 'fa-user-circle',
+            items: [
+              {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
+            ]
+          },
+
+          {
+            label: 'Role',
+            icon: 'fa-universal-access',
+            items: [
+              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
+            ]
+          },
+
+          {
+            label: 'Laboratoria',
+            icon: 'fa-columns',
+            items: [
+              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
+            ]
+          },
+
+          {
+            label: 'Przemioty',
+            icon: 'fa-square',
+            items: [
+              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
+            ]
+          },
+
+          {
+            label: 'Kierunki studiów',
+            icon: 'fa-arrows',
+            items: [
+              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
+            ]
+          },
+        ]
+      }
+    );
   }
 
   // sample method from angular doc

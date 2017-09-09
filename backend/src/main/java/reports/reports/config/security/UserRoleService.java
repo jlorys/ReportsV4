@@ -1,20 +1,17 @@
 package reports.reports.config.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import reports.reports.service.AppUserService;
 
 @Service
 public class UserRoleService {
 
-    @Autowired
-    private AppUserService appUserService;
+    public Boolean isLoggedUserHasRoleAdmin() { return UserContext.hasRole("Admin"); }
 
-    public Boolean isLoggedUserHasRoleAdmin() {
-        return appUserService.findOne(UserContext.getId()).roles.stream().anyMatch(roleDTO -> roleDTO.roleName.matches("Admin"));
+    public Boolean isLoggedUserHasRoleReviewer() {
+        return UserContext.hasRole("Reviewer");
     }
 
     public Boolean isLoggedUserHasRoleUser() {
-        return appUserService.findOne(UserContext.getId()).roles.stream().anyMatch(roleDTO -> roleDTO.roleName.matches("User"));
+        return UserContext.hasRole("User");
     }
 }

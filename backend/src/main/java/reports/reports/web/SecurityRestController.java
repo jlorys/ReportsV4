@@ -18,7 +18,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api")
-public class SecurityResource {
+public class SecurityRestController {
 
     @Autowired
     private AppUserService appUserService;
@@ -34,6 +34,11 @@ public class SecurityResource {
     @GetMapping(value = "/isLoggedUserHasRoleAdmin", produces = APPLICATION_JSON_VALUE)
     public boolean isLoggedUserHasRoleAdmin() {
         return userRoleService.isLoggedUserHasRoleAdmin();
+    }
+
+    @GetMapping(value = "/isLoggedUserHasRoleReviewer", produces = APPLICATION_JSON_VALUE)
+    public boolean isLoggedUserHasRoleReviewer() {
+        return userRoleService.isLoggedUserHasRoleReviewer();
     }
 
     @GetMapping(value = "/isLoggedUserHasRoleUser", produces = APPLICATION_JSON_VALUE)

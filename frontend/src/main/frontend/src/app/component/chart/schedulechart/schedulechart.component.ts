@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {LaboratoryDataService} from "../../laboratory/laboratory.data.service";
+import {LaboratoryDataService} from "../../component.admin/laboratory/laboratory.data.service";
 import {PageResponse} from "../../../support/paging";
-import {Laboratory} from "../../laboratory/laboratory";
+import {Laboratory} from "../../component.admin/laboratory/laboratory";
 import {Message} from "primeng/primeng";
 
 @Component({

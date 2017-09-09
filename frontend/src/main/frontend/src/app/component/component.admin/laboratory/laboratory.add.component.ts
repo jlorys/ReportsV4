@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message, SelectItem} from "primeng/primeng";
-import {Laboratory} from "../laboratory/laboratory";
+import {Laboratory} from "./laboratory";
 import {Report} from "../report/report";
 import {LaboratoryDataService} from "./laboratory.data.service";
 import {SubjectDataService} from "../subject/subject.data.service";

@@ -16,7 +16,7 @@ import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
-import reports.reports.web.AppUserRestController;
+import reports.reports.web.admin.AppUserRestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;

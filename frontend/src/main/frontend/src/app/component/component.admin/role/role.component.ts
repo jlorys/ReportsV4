@@ -2,7 +2,7 @@ import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Component, Input, SimpleChanges} from "@angular/core";
 import {RoleDataService} from "./role.data.service";
 import {Role} from "./role";
-import {PageResponse} from "../../support/paging";
+import {PageResponse} from "../../../support/paging";
 
 @Component({
   selector: 'roles',

@@ -17,6 +17,10 @@ export class AuthService {
     return this.http.get('/api/isLoggedUserHasRoleUser').map(response => <boolean> response.json()).catch(this.handleError);
   }
 
+  isLoggedUserHasRoleReviewer(): Observable<boolean> {
+    return this.http.get('/api/isLoggedUserHasRoleReviewer').map(response => <boolean> response.json()).catch(this.handleError);
+  }
+
   isLoggedUserHasRoleAdmin(): Observable<boolean> {
     return this.http.get('/api/isLoggedUserHasRoleAdmin').map(response => <boolean> response.json()).catch(this.handleError);
   }

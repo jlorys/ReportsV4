@@ -74,8 +74,9 @@ class RunAtStart {
 
     private void generateRoles() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("User"));
-        roles.add(new Role("Admin"));
+        roles.add(new Role("USER"));
+        roles.add(new Role("REVIEWER"));
+        roles.add(new Role("ADMIN"));
 
         roles.stream().forEach(role -> roleRepository.save(role));
     }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {ReportDataService} from "../../report/report.data.service";
+import {ReportDataService} from "../../component.admin/report/report.data.service";
 import {Message} from "primeng/primeng";
 
 @Component({

@@ -1,4 +1,4 @@
-package reports.reports.web;
+package reports.reports.web.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

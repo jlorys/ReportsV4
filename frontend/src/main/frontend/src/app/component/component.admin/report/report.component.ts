@@ -1,23 +1,23 @@
 import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
-import {PageResponse} from "../../support/paging";
-import {FieldOfStudy} from "./fieldofstudy";
+import {PageResponse} from "../../../support/paging";
+import {Report} from "./report";
 import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Router} from "@angular/router";
-import {FieldOfStudyDataService} from "./fieldofstudy.data.service";
 import {MdDialog} from "@angular/material";
-import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
+import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
+import {ReportDataService} from "./report.data.service";
 
 @Component({
-  selector: 'fieldsOfStudies',
-  templateUrl: './fieldofstudy.component.html'
+  selector: 'reports',
+  templateUrl: './report.component.html'
 })
-export class FieldOfStudyComponent {
+export class ReportComponent {
 
-  @Input() header = "Kierunki studiów...";
+  @Input() header = "Raporty...";
   // list is paginated
-  currentPage: PageResponse<FieldOfStudy> = new PageResponse<FieldOfStudy>(0, 0, []);
+  currentPage: PageResponse<Report> = new PageResponse<Report>(0, 0, []);
   // basic search criterias (visible if not in 'sub' mode)
-  example: FieldOfStudy = new FieldOfStudy();
+  example: Report = new Report();
   /** When 'sub' is true, it means this list is used as a one-to-many list.
    * It belongs to a parent entity, as a result the addNew operation
    * must prefill the parent entity. The prefill is not done here, instead we
@@ -29,28 +29,28 @@ export class FieldOfStudyComponent {
   msgs: Message[] = [];
 
   constructor(private router: Router,
-              private fieldOfStudyDataService: FieldOfStudyDataService,
+              private reportDataService: ReportDataService,
               private confirmDeleteDialog: MdDialog) {
   }
 
   showDeleteDialog(rowData: any) {
-    let fieldOfStudyToDelete: FieldOfStudy = <FieldOfStudy> rowData;
+    let reportToDelete: Report = <Report> rowData;
 
     let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        this.delete(fieldOfStudyToDelete);
+        this.delete(reportToDelete);
       }
     });
   }
 
-  private delete(fieldOfStudyToDelete: FieldOfStudy) {
-    let id = fieldOfStudyToDelete.id;
+  private delete(reportToDelete: Report) {
+    let id = reportToDelete.id;
 
     this.msgs = []; //this line fix disappearing of messages
-    this.fieldOfStudyDataService.delete(id).subscribe(
+    this.reportDataService.delete(id).subscribe(
       response => {
-        this.currentPage.remove(fieldOfStudyToDelete);
+        this.currentPage.remove(reportToDelete);
         this.updateVisibility();
       },
       error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
@@ -70,7 +70,7 @@ export class FieldOfStudyComponent {
    */
   loadPage(event: LazyLoadEvent) {
     this.msgs = []; //this line fix disappearing of messages
-    this.fieldOfStudyDataService.getPage(this.example, event).subscribe(
+    this.reportDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
       error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );
@@ -80,13 +80,13 @@ export class FieldOfStudyComponent {
     if (this.sub) {
       this.onAddNewClicked.emit("addNew");
     } else {
-      this.router.navigate(['/fieldsOfStudies/add']);
+      this.router.navigate(['/reports/add']);
     }
   }
 
   onRowSelect(event : any) {
     let id =  event.data.id;
-    this.router.navigate(['/fieldsOfStudies', id]);
+    this.router.navigate(['/reports', id]);
   }
 
   //This method is for refreshing dataTable

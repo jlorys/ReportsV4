@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
-import {PageRequestByExample, PageResponse} from "../../support/paging";
+import {PageRequestByExample, PageResponse} from "../../../support/paging";
 import {LazyLoadEvent} from "primeng/primeng";
 import {FieldOfStudy} from "./fieldofstudy";
 

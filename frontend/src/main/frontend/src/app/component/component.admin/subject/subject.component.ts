@@ -1,24 +1,23 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {AppUser} from './user';
-import {AppUserDataService} from './user.data.service';
-import {PageResponse} from "../../support/paging";
+import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
+import {PageResponse} from "../../../support/paging";
+import {Subject} from "./subject";
 import {LazyLoadEvent, Message} from "primeng/primeng";
-import {MdDialog} from '@angular/material';
-import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
 import {Router} from "@angular/router";
-import {AuthService} from "../../service/auth.service";
+import {SubjectDataService} from "./subject.data.service";
+import {MdDialog} from "@angular/material";
+import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
 
 @Component({
-  selector: 'users',
-  templateUrl: './users.component.html'
+  selector: 'subjects',
+  templateUrl: './subject.component.html'
 })
-export class AppUsersComponent {
+export class SubjectComponent {
 
-  @Input() header = "Użytkownicy...";
+  @Input() header = "Przedmioty...";
   // list is paginated
-  currentPage: PageResponse<AppUser> = new PageResponse<AppUser>(0, 0, []);
+  currentPage: PageResponse<Subject> = new PageResponse<Subject>(0, 0, []);
   // basic search criterias (visible if not in 'sub' mode)
-  example: AppUser = new AppUser();
+  example: Subject = new Subject();
   /** When 'sub' is true, it means this list is used as a one-to-many list.
    * It belongs to a parent entity, as a result the addNew operation
    * must prefill the parent entity. The prefill is not done here, instead we
@@ -29,44 +28,29 @@ export class AppUsersComponent {
 
   msgs: Message[] = [];
 
-  userHasRoleAdmin: boolean;
-  userHasRoleUser: boolean;
-
   constructor(private router: Router,
-              private appUserDataService: AppUserDataService,
-              private confirmDeleteDialog: MdDialog,
-              private authService: AuthService) {
-
-    this.authService.isLoggedUserHasRoleAdmin().subscribe(
-      result => this.userHasRoleAdmin = result,
-      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
-    );
-
-    this.authService.isLoggedUserHasRoleUser().subscribe(
-      result => this.userHasRoleUser = result,
-      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
-    );
-
+              private subjectDataService: SubjectDataService,
+              private confirmDeleteDialog: MdDialog) {
   }
 
   showDeleteDialog(rowData: any) {
-    let userToDelete: AppUser = <AppUser> rowData;
+    let subjectToDelete: Subject = <Subject> rowData;
 
     let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        this.delete(userToDelete);
+        this.delete(subjectToDelete);
       }
     });
   }
 
-  private delete(userToDelete: AppUser) {
-    let id = userToDelete.id;
+  private delete(subjectToDelete: Subject) {
+    let id = subjectToDelete.id;
 
     this.msgs = []; //this line fix disappearing of messages
-    this.appUserDataService.delete(id).subscribe(
+    this.subjectDataService.delete(id).subscribe(
       response => {
-        this.currentPage.remove(userToDelete);
+        this.currentPage.remove(subjectToDelete);
         this.updateVisibility();
       },
       error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
@@ -86,7 +70,7 @@ export class AppUsersComponent {
    */
   loadPage(event: LazyLoadEvent) {
     this.msgs = []; //this line fix disappearing of messages
-    this.appUserDataService.getPage(this.example, event).subscribe(
+    this.subjectDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
       error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );
@@ -96,13 +80,13 @@ export class AppUsersComponent {
     if (this.sub) {
       this.onAddNewClicked.emit("addNew");
     } else {
-      this.router.navigate(['/users/add']);
+      this.router.navigate(['/subjects/add']);
     }
   }
 
   onRowSelect(event : any) {
     let id =  event.data.id;
-    this.router.navigate(['/users', id]);
+    this.router.navigate(['/subjects', id]);
   }
 
   //This method is for refreshing dataTable

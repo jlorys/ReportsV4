@@ -1,23 +1,24 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
-import {PageResponse} from "../../support/paging";
+import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
+import {AppUser} from './user';
+import {AppUserDataService} from './user.data.service';
+import {PageResponse} from "../../../support/paging";
 import {LazyLoadEvent, Message} from "primeng/primeng";
+import {MdDialog} from '@angular/material';
+import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
 import {Router} from "@angular/router";
-import {MdDialog} from "@angular/material";
-import {ConfirmDeleteDialogComponent} from "../../support/confirm-delete-dialog.component";
-import {Laboratory} from "./laboratory";
-import {LaboratoryDataService} from "app/component/laboratory/laboratory.data.service";
+import {AuthService} from "../../../service/auth.service";
 
 @Component({
-  selector: 'laboratories',
-  templateUrl: './laboratory.component.html'
+  selector: 'users',
+  templateUrl: './users.component.html'
 })
-export class LaboratoryComponent {
+export class AppUsersComponent {
 
-  @Input() header = "Laboratoria...";
+  @Input() header = "Użytkownicy...";
   // list is paginated
-  currentPage: PageResponse<Laboratory> = new PageResponse<Laboratory>(0, 0, []);
+  currentPage: PageResponse<AppUser> = new PageResponse<AppUser>(0, 0, []);
   // basic search criterias (visible if not in 'sub' mode)
-  example: Laboratory = new Laboratory();
+  example: AppUser = new AppUser();
   /** When 'sub' is true, it means this list is used as a one-to-many list.
    * It belongs to a parent entity, as a result the addNew operation
    * must prefill the parent entity. The prefill is not done here, instead we
@@ -28,29 +29,44 @@ export class LaboratoryComponent {
 
   msgs: Message[] = [];
 
+  userHasRoleAdmin: boolean;
+  userHasRoleUser: boolean;
+
   constructor(private router: Router,
-              private laboratoryDataService: LaboratoryDataService,
-              private confirmDeleteDialog: MdDialog) {
+              private appUserDataService: AppUserDataService,
+              private confirmDeleteDialog: MdDialog,
+              private authService: AuthService) {
+
+    this.authService.isLoggedUserHasRoleAdmin().subscribe(
+      result => this.userHasRoleAdmin = result,
+      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
+    );
+
+    this.authService.isLoggedUserHasRoleUser().subscribe(
+      result => this.userHasRoleUser = result,
+      error =>this.msgs.push({severity:'error', summary:'Błąd pobierania roli!', detail: error})
+    );
+
   }
 
   showDeleteDialog(rowData: any) {
-    let laboratoryToDelete: Laboratory = <Laboratory> rowData;
+    let userToDelete: AppUser = <AppUser> rowData;
 
     let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        this.delete(laboratoryToDelete);
+        this.delete(userToDelete);
       }
     });
   }
 
-  private delete(laboratoryToDelete: Laboratory) {
-    let id = laboratoryToDelete.id;
+  private delete(userToDelete: AppUser) {
+    let id = userToDelete.id;
 
     this.msgs = []; //this line fix disappearing of messages
-    this.laboratoryDataService.delete(id).subscribe(
+    this.appUserDataService.delete(id).subscribe(
       response => {
-        this.currentPage.remove(laboratoryToDelete);
+        this.currentPage.remove(userToDelete);
         this.updateVisibility();
       },
       error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
@@ -70,7 +86,7 @@ export class LaboratoryComponent {
    */
   loadPage(event: LazyLoadEvent) {
     this.msgs = []; //this line fix disappearing of messages
-    this.laboratoryDataService.getPage(this.example, event).subscribe(
+    this.appUserDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
       error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );
@@ -80,13 +96,13 @@ export class LaboratoryComponent {
     if (this.sub) {
       this.onAddNewClicked.emit("addNew");
     } else {
-      this.router.navigate(['/laboratories/add']);
+      this.router.navigate(['/users/add']);
     }
   }
 
   onRowSelect(event : any) {
     let id =  event.data.id;
-    this.router.navigate(['/laboratories', id]);
+    this.router.navigate(['/users', id]);
   }
 
   //This method is for refreshing dataTable

@@ -4,8 +4,8 @@ import {FormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './component/app/app.component';
-import {AppUsersComponent} from './component/users/users.component';
-import {AppUserDataService} from "./component/users/user.data.service";
+import {AppUsersComponent} from './component/component.admin/users/users.component';
+import {AppUserDataService} from "./component/component.admin/users/user.data.service";
 import {routing} from './route/app.route';
 import {PageNotFoundComponent} from "./component/pagenotfound/pagenotfound.component";
 
@@ -25,22 +25,22 @@ import {HomeComponent} from "./component/home/home.component";
 import {ConfirmDeleteDialogComponent} from "./support/confirm-delete-dialog.component";
 import {DoughnutChartComponent} from "./component/chart/doughnutchart/doughnutchart.component";
 import {ScheduleChartComponent} from "./component/chart/schedulechart/schedulechart.component";
-import {AppUsersAddComponent} from "./component/users/user.add.component";
-import {RoleDataService} from "./component/role/role.data.service";
+import {AppUsersAddComponent} from "./component/component.admin/users/user.add.component";
+import {RoleDataService} from "./component/component.admin/role/role.data.service";
 import {EmailValidator} from "./support/email.validator";
-import {ReportDataService} from "./component/report/report.data.service";
-import {RolesComponent} from "./component/role/role.component";
-import {ReportComponent} from "./component/report/report.component";
-import {ReportsAddComponent} from "./component/report/report.add.component";
-import {FieldOfStudyDataService} from "./component/fieldofstudy/fieldofstudy.data.service";
-import {FieldOfStudyComponent} from "./component/fieldofstudy/fieldofstudy.component";
-import {SubjectDataService} from "./component/subject/subject.data.service";
-import {FieldOfStudyAddComponent} from "./component/fieldofstudy/fieldofstudy.add.component";
-import {SubjectComponent} from "./component/subject/subject.component";
-import {LaboratoryDataService} from "./component/laboratory/laboratory.data.service";
-import {SubjectAddComponent} from "./component/subject/subject.add.component";
-import {LaboratoryComponent} from "./component/laboratory/laboratory.component";
-import {LaboratoryAddComponent} from "./component/laboratory/laboratory.add.component";
+import {ReportDataService} from "./component/component.admin/report/report.data.service";
+import {RolesComponent} from "./component/component.admin/role/role.component";
+import {ReportComponent} from "./component/component.admin/report/report.component";
+import {ReportsAddComponent} from "./component/component.admin/report/report.add.component";
+import {FieldOfStudyDataService} from "./component/component.admin/fieldofstudy/fieldofstudy.data.service";
+import {FieldOfStudyComponent} from "./component/component.admin/fieldofstudy/fieldofstudy.component";
+import {SubjectDataService} from "./component/component.admin/subject/subject.data.service";
+import {FieldOfStudyAddComponent} from "./component/component.admin/fieldofstudy/fieldofstudy.add.component";
+import {SubjectComponent} from "./component/component.admin/subject/subject.component";
+import {LaboratoryDataService} from "./component/component.admin/laboratory/laboratory.data.service";
+import {SubjectAddComponent} from "./component/component.admin/subject/subject.add.component";
+import {LaboratoryComponent} from "./component/component.admin/laboratory/laboratory.component";
+import {LaboratoryAddComponent} from "./component/component.admin/laboratory/laboratory.add.component";
 
 @NgModule({
   declarations: [
