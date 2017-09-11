@@ -1,24 +1,23 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {AppUser} from './user';
-import {AppUserDataService} from './user.data.service';
+import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
 import {PageResponse} from "../../../support/paging";
 import {LazyLoadEvent, Message} from "primeng/primeng";
-import {MdDialog} from '@angular/material';
-import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
 import {Router} from "@angular/router";
-import {AuthService} from "../../../service/auth.service";
+import {MdDialog} from "@angular/material";
+import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
+import {Report} from "../../component.admin/report/report";
+import {UserReportDataService} from "./report.data.service";
 
 @Component({
-  selector: 'users',
-  templateUrl: './users.component.html'
+  selector: 'userReports',
+  templateUrl: './report.component.html'
 })
-export class AppUsersComponent {
+export class UserReportComponent {
 
-  @Input() header = "Użytkownicy...";
+  @Input() header = "Raporty...";
   // list is paginated
-  currentPage: PageResponse<AppUser> = new PageResponse<AppUser>(0, 0, []);
+  currentPage: PageResponse<Report> = new PageResponse<Report>(0, 0, []);
   // basic search criterias (visible if not in 'sub' mode)
-  example: AppUser = new AppUser();
+  example: Report = new Report();
   /** When 'sub' is true, it means this list is used as a one-to-many list.
    * It belongs to a parent entity, as a result the addNew operation
    * must prefill the parent entity. The prefill is not done here, instead we
@@ -30,27 +29,28 @@ export class AppUsersComponent {
   msgs: Message[] = [];
 
   constructor(private router: Router,
-              private appUserDataService: AppUserDataService,
-              private confirmDeleteDialog: MdDialog) {}
+              private userReportDataService: UserReportDataService,
+              private confirmDeleteDialog: MdDialog) {
+  }
 
   showDeleteDialog(rowData: any) {
-    let userToDelete: AppUser = <AppUser> rowData;
+    let reportToDelete: Report = <Report> rowData;
 
     let dialogRef = this.confirmDeleteDialog.open(ConfirmDeleteDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'delete') {
-        this.delete(userToDelete);
+        this.delete(reportToDelete);
       }
     });
   }
 
-  private delete(userToDelete: AppUser) {
-    let id = userToDelete.id;
+  private delete(reportToDelete: Report) {
+    let id = reportToDelete.id;
 
     this.msgs = []; //this line fix disappearing of messages
-    this.appUserDataService.delete(id).subscribe(
+    this.userReportDataService.delete(id).subscribe(
       response => {
-        this.currentPage.remove(userToDelete);
+        this.currentPage.remove(reportToDelete);
         this.updateVisibility();
       },
       error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
@@ -70,7 +70,7 @@ export class AppUsersComponent {
    */
   loadPage(event: LazyLoadEvent) {
     this.msgs = []; //this line fix disappearing of messages
-    this.appUserDataService.getPage(this.example, event).subscribe(
+    this.userReportDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
       error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );
@@ -80,13 +80,13 @@ export class AppUsersComponent {
     if (this.sub) {
       this.onAddNewClicked.emit("addNew");
     } else {
-      this.router.navigate(['/users/add']);
+      this.router.navigate(['/userReports/add']);
     }
   }
 
   onRowSelect(event : any) {
     let id =  event.data.id;
-    this.router.navigate(['/users', id]);
+    this.router.navigate(['/userReports', id]);
   }
 
   //This method is for refreshing dataTable

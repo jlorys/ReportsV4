@@ -317,8 +317,8 @@ export class AppComponent implements OnInit {
             label: 'Sprawozdania',
             icon: 'fa-file-text-o',
             items: [
-              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
-              {label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/reports/add']},
+              {label: 'Moje Sprawozdania', icon: 'fa-search', routerLink: ['/userReports']},
+              {label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/userReports/add']},
             ]
           },
 
@@ -326,7 +326,7 @@ export class AppComponent implements OnInit {
             label: 'Użytkownicy',
             icon: 'fa-user-circle',
             items: [
-              {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
+              {label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount']},
             ]
           },
 

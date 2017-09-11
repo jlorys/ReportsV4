@@ -41,11 +41,18 @@ import {LaboratoryDataService} from "./component/component.admin/laboratory/labo
 import {SubjectAddComponent} from "./component/component.admin/subject/subject.add.component";
 import {LaboratoryComponent} from "./component/component.admin/laboratory/laboratory.component";
 import {LaboratoryAddComponent} from "./component/component.admin/laboratory/laboratory.add.component";
+import {UserReportComponent} from "./component/component.user/report/report.component";
+import {UserReportsAddComponent} from "./component/component.user/report/report.add.component";
+import {UserReportDataService} from "./component/component.user/report/report.data.service";
+import {UserAccountDataService} from "./component/component.user/user.account/user.data.service";
+import {UserAccountComponent} from "./component/component.user/user.account/user.account.component";
 
 @NgModule({
   declarations: [
     HomeComponent,
     AppComponent,
+
+    //Admin components
     AppUsersComponent,
     AppUsersAddComponent,
     RolesComponent,
@@ -57,6 +64,12 @@ import {LaboratoryAddComponent} from "./component/component.admin/laboratory/lab
     SubjectAddComponent,
     LaboratoryComponent,
     LaboratoryAddComponent,
+
+    //User components
+    UserReportComponent,
+    UserReportsAddComponent,
+    UserAccountComponent,
+
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
     DoughnutChartComponent,
@@ -100,12 +113,18 @@ import {LaboratoryAddComponent} from "./component/component.admin/laboratory/lab
     routing
   ],
   providers: [
+    //Admin role data services
     AppUserDataService,
     RoleDataService,
     ReportDataService,
     FieldOfStudyDataService,
     SubjectDataService,
     LaboratoryDataService,
+
+    //User role data services
+    UserReportDataService,
+    UserAccountDataService,
+
     {provide: LocationStrategy, useClass: HashLocationStrategy}, //With this urls works directly from browser
 
     // our application services

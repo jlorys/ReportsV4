@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import reports.reports.domain.AppUser;
 import reports.reports.dto.AppUserDTO;
-import reports.reports.service.AppUserService;
+import reports.reports.service.admin.AppUserService;
 
 import java.util.ArrayList;
 import java.util.List;

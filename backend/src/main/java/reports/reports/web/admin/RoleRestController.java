@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
-import reports.reports.service.RoleService;
+import reports.reports.service.admin.RoleService;
 
 import java.net.URISyntaxException;
 import java.util.List;

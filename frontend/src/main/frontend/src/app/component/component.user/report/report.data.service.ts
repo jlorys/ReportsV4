@@ -4,10 +4,10 @@ import 'rxjs/add/operator/map';
 import {Observable} from "rxjs/Observable";
 import {PageRequestByExample, PageResponse} from "../../../support/paging";
 import {LazyLoadEvent} from "primeng/primeng";
-import {Report} from "./report";
+import {Report} from "app/component/component.admin/report/report";
 
 @Injectable()
-export class ReportDataService {
+export class UserReportDataService {
 
   private options = new RequestOptions({ headers: new Headers({ 'Content-Type': 'application/json' }) });
 
@@ -17,17 +17,8 @@ export class ReportDataService {
    * Get a Report by id.
    */
   getReport(id : any) : Observable<Report> {
-    return this.http.get('/api/reports/' + id)
+    return this.http.get('/api/userReports/' + id)
       .map(response => new Report(response.json()))
-      .catch(this.handleError);
-  }
-
-  /**
-   * Get a Report all grades.
-   */
-  getGrades() : Observable<number[]> {
-    return this.http.get('/api/reports/getAllGrades')
-      .map(response => response.json())
       .catch(this.handleError);
   }
 
@@ -37,7 +28,7 @@ export class ReportDataService {
   update(report : Report) : Observable<Report> {
     let body = JSON.stringify(report);
 
-    return this.http.put('/api/reports/', body, this.options)
+    return this.http.put('/api/userReports/', body, this.options)
       .map(response => new Report(response.json()))
       .catch(this.handleError);
   }
@@ -57,7 +48,7 @@ export class ReportDataService {
     let req = new PageRequestByExample(report, event);
     let body = JSON.stringify(req);
 
-    return this.http.post('/api/reports/page', body, this.options)
+    return this.http.post('/api/userReports/page', body, this.options)
       .map(response => {
         let pr : any = response.json();
         return new PageResponse<Report>(pr.totalPages, pr.totalElements, Report.toArray(pr.content));
@@ -69,7 +60,7 @@ export class ReportDataService {
    * Delete an Report by id.
    */
   delete(id : any) {
-    return this.http.delete('/api/reports/' + id).catch(this.handleError);
+    return this.http.delete('/api/userReports/' + id).catch(this.handleError);
   }
 
   // sample method from angular doc

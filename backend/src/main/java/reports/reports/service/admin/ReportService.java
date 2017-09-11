@@ -1,4 +1,4 @@
-package reports.reports.service;
+package reports.reports.service.admin;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import reports.reports.config.security.UserContext;
+import reports.reports.domain.AppUser;
 import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
 import reports.reports.dto.ReportDTO;
@@ -35,7 +37,9 @@ public class ReportService {
 
     //Save the uploaded file to this folder
     private static final String UPLOAD_FOLDER = "uploaded_files//";
-    private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
+
+    private final Logger log = LoggerFactory.getLogger(ReportService.class);
+
     @Autowired
     private ReportRepository reportRepository;
 
@@ -101,6 +105,7 @@ public class ReportService {
             page = reportRepository.findAll(req.toPageable());
         }
 
+
         List<ReportDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
@@ -121,9 +126,9 @@ public class ReportService {
         final Report report;
 
         if (dto.isIdSet()) {
-            Report userTmp = reportRepository.findOne(dto.id);
-            if (userTmp != null) {
-                report = userTmp;
+            Report reportTmp = reportRepository.findOne(dto.id);
+            if (reportTmp != null) {
+                report = reportTmp;
             } else {
                 report = new Report();
                 report.setId(dto.id);

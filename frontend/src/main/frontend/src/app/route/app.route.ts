@@ -15,8 +15,12 @@ import {SubjectComponent} from "../component/component.admin/subject/subject.com
 import {SubjectAddComponent} from "../component/component.admin/subject/subject.add.component";
 import {LaboratoryComponent} from "../component/component.admin/laboratory/laboratory.component";
 import {LaboratoryAddComponent} from "../component/component.admin/laboratory/laboratory.add.component";
+import {UserReportComponent} from "../component/component.user/report/report.component";
+import {UserReportsAddComponent} from "../component/component.user/report/report.add.component";
+import {UserAccountComponent} from "../component/component.user/user.account/user.account.component";
 
 export const appRoutes: Routes = [
+  //Admin routes
   { path: 'users', component: AppUsersComponent },
   { path: 'users/:id', component: AppUsersAddComponent },
   { path: 'reports', component: ReportComponent },
@@ -27,6 +31,13 @@ export const appRoutes: Routes = [
   { path: 'subjects/:id', component: SubjectAddComponent },
   { path: 'laboratories', component: LaboratoryComponent },
   { path: 'laboratories/:id', component: LaboratoryAddComponent },
+
+  //User routes
+  { path: 'userReports', component: UserReportComponent },
+  { path: 'userReports/:id', component: UserReportsAddComponent },
+  { path: 'userAccount', component: UserAccountComponent },
+
+  //Other routes
   { path: 'schedule', component: ScheduleChartComponent },
   { path: 'doughnut', component: DoughnutChartComponent },
   { path: 'roles', component: RolesComponent },

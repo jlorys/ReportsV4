@@ -1,4 +1,4 @@
-package reports.reports.service;
+package reports.reports.service.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;

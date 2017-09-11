@@ -1,4 +1,4 @@
-package reports.reports.web.admin;
+package reports.reports.web.user;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,35 +7,32 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.service.admin.ReportService;
+import reports.reports.service.user.UserReportService;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/api/reports")
-public class ReportRestController {
+@RequestMapping("/api/userReports")
+public class UserReportRestController {
 
-    private final Logger log = LoggerFactory.getLogger(ReportRestController.class);
+    private final Logger log = LoggerFactory.getLogger(UserReportRestController.class);
     @Autowired
-    private ReportService reportService;
+    private UserReportService userReportService;
 
     /**
      * Find a Page of Reports using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<PageResponse<ReportDTO>> findAll(@RequestBody PageRequestByExample<ReportDTO> prbe) throws URISyntaxException {
-        PageResponse<ReportDTO> pageResponse = reportService.findAll(prbe);
+        PageResponse<ReportDTO> pageResponse = userReportService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -47,19 +44,8 @@ public class ReportRestController {
 
         log.debug("Find by id Report : {}", id);
 
-        return Optional.ofNullable(reportService.findOne(id)).map(reportDTO -> new ResponseEntity<>(reportDTO, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    /**
-     * Find all report grades.
-     */
-    @GetMapping(value = "/getAllGrades", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Long>> getAllGrades() throws URISyntaxException {
-
-        log.debug("Find all grades");
-
-        return new ResponseEntity<>(reportService.findAllGrades(), HttpStatus.OK);
+        return Optional.ofNullable(userReportService.findOne(id)).map(reportDTO -> new ResponseEntity<>(reportDTO, HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.FORBIDDEN));
     }
 
     /**
@@ -71,7 +57,7 @@ public class ReportRestController {
         log.debug("Delete by id Report : {}", id);
 
         try {
-            reportService.delete(id);
+            userReportService.delete(id);
             return ResponseEntity.ok().build();
         } catch (Exception x) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
@@ -90,7 +76,7 @@ public class ReportRestController {
             return create(reportDTO);
         }
 
-        ReportDTO result = reportService.save(reportDTO);
+        ReportDTO result = userReportService.save(reportDTO);
 
         return ResponseEntity.ok().body(result);
     }
@@ -107,18 +93,8 @@ public class ReportRestController {
             return ResponseEntity.badRequest().header("Failure", "Cannot create Report with existing ID").body(null);
         }
 
-        ReportDTO result = reportService.save(reportDTO);
+        ReportDTO result = userReportService.save(reportDTO);
 
         return ResponseEntity.created(new URI("/api/users/" + result.id)).body(result);
-    }
-
-    @PostMapping(value = "/upload", consumes = "multipart/form-data")
-    public String uploadFile(@RequestParam("file") MultipartFile file) {
-        return reportService.uploadFile(file);
-    }
-
-    @GetMapping("/file/{reportId}")
-    public void downloadFile (@PathVariable Integer reportId, HttpServletResponse response) throws IOException {
-            reportService.downloadFile(reportId, response);
     }
 }

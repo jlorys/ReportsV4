@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.FieldOfStudyDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
-import reports.reports.service.FieldOfStudyService;
+import reports.reports.service.admin.FieldOfStudyService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/api/fieldOfStudy")
 public class FieldOfStudyRestController {
 
-    private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
+    private final Logger log = LoggerFactory.getLogger(FieldOfStudyRestController.class);
 
     @Autowired
     private FieldOfStudyService fieldOfStudyService;

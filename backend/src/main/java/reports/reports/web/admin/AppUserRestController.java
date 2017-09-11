@@ -12,7 +12,7 @@ import reports.reports.config.security.UserRoleService;
 import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
-import reports.reports.service.AppUserService;
+import reports.reports.service.admin.AppUserService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -66,7 +66,7 @@ public class AppUserRestController {
      * Find by id User.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<AppUserDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id User : {}", id);

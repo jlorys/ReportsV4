@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import reports.reports.config.security.UserContext;
 import reports.reports.config.security.UserRoleService;
 import reports.reports.dto.AppUserDTO;
-import reports.reports.service.AppUserService;
+import reports.reports.service.admin.AppUserService;
 
 import java.net.URISyntaxException;
 import java.util.Optional;
