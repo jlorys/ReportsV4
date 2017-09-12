@@ -6,8 +6,8 @@ import {Report} from "../../component.admin/report/report";
 import {UserAccountDataService} from "./user.data.service";
 
 @Component({
-  templateUrl: 'user.account.component.html',
   selector: 'usersAccount',
+  templateUrl: 'user.account.component.html',
 })
 export class UserAccountComponent {
 

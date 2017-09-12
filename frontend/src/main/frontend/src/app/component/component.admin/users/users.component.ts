@@ -6,7 +6,6 @@ import {LazyLoadEvent, Message} from "primeng/primeng";
 import {MdDialog} from '@angular/material';
 import {ConfirmDeleteDialogComponent} from "../../../support/confirm-delete-dialog.component";
 import {Router} from "@angular/router";
-import {AuthService} from "../../../service/auth.service";
 
 @Component({
   selector: 'users',

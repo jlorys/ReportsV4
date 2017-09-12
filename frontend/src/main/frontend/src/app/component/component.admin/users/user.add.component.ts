@@ -8,8 +8,8 @@ import {RoleDataService} from "../role/role.data.service";
 import {Report} from "../report/report";
 
 @Component({
-  templateUrl: 'user.add.component.html',
   selector: 'users-add',
+  templateUrl: 'user.add.component.html',
 })
 export class AppUsersAddComponent implements OnDestroy {
 

@@ -2,8 +2,8 @@ import {Component} from "@angular/core";
 import {SubjectAddComponent} from "../../component.admin/subject/subject.add.component";
 
 @Component({
-  templateUrl: '../../component.admin/subject/subject.add.component.html',
   selector: 'reviewerSubjects-add',
+  templateUrl: '../../component.admin/subject/subject.add.component.html',
 })
 export class ReviewerSubjectAddComponent extends SubjectAddComponent{
 

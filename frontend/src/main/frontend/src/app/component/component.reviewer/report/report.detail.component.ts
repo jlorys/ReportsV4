@@ -10,8 +10,8 @@ import {AppUserDataService} from "../../component.admin/users/user.data.service"
 import {LaboratoryDataService} from "../../component.admin/laboratory/laboratory.data.service";
 
 @Component({
-  templateUrl: 'report.detail.component.html',
   selector: 'reviewerReports-detail',
+  templateUrl: 'report.detail.component.html',
 })
 export class ReviewerReportsDetailComponent implements OnDestroy {
 

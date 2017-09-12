@@ -7,8 +7,8 @@ import {FieldOfStudy} from "../../component.admin/fieldofstudy/fieldofstudy";
 import {SubjectDataService} from "../../component.admin/subject/subject.data.service";
 
 @Component({
-  templateUrl: 'subject.detail.component.html',
   selector: 'userSubjects-detail',
+  templateUrl: 'subject.detail.component.html',
 })
 export class UserSubjectDetailComponent implements OnDestroy {
 

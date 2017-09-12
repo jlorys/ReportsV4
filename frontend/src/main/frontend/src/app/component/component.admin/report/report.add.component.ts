@@ -10,8 +10,8 @@ import {LaboratoryDataService} from "../laboratory/laboratory.data.service";
 import {Laboratory} from "../laboratory/laboratory";
 
 @Component({
-  templateUrl: 'report.add.component.html',
   selector: 'reports-add',
+  templateUrl: 'report.add.component.html',
 })
 export class ReportsAddComponent implements OnDestroy {
 

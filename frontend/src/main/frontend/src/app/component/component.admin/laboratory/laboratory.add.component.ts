@@ -8,8 +8,8 @@ import {SubjectDataService} from "../subject/subject.data.service";
 import {Subject} from "../subject/subject";
 
 @Component({
-  templateUrl: 'laboratory.add.component.html',
   selector: 'laboratories-add',
+  templateUrl: 'laboratory.add.component.html',
 })
 export class LaboratoryAddComponent implements OnInit, OnDestroy {
 

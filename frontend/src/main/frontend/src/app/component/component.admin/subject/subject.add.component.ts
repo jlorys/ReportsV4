@@ -8,8 +8,8 @@ import {FieldOfStudyDataService} from "../fieldofstudy/fieldofstudy.data.service
 import {FieldOfStudy} from "../fieldofstudy/fieldofstudy";
 
 @Component({
-  templateUrl: 'subject.add.component.html',
   selector: 'subjects-add',
+  templateUrl: 'subject.add.component.html',
 })
 export class SubjectAddComponent implements OnDestroy {
 
