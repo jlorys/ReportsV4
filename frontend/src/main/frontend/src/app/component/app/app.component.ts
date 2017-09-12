@@ -252,7 +252,7 @@ export class AppComponent implements OnInit {
             label: 'Sprawozdania',
             icon: 'fa-file-text-o',
             items: [
-              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reports']},
+              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reviewerReports']},
             ]
           },
 
@@ -260,7 +260,7 @@ export class AppComponent implements OnInit {
             label: 'Użytkownicy',
             icon: 'fa-user-circle',
             items: [
-              {label: 'Wyszukiwanie Użytkownika', icon: 'fa-search', routerLink: ['/users']},
+              {label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount']},
             ]
           },
 
@@ -346,7 +346,7 @@ export class AppComponent implements OnInit {
             label: 'Przemioty',
             icon: 'fa-square',
             items: [
-              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
+              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/userSubjects']},
             ]
           },
 
@@ -354,7 +354,7 @@ export class AppComponent implements OnInit {
             label: 'Kierunki studiów',
             icon: 'fa-arrows',
             items: [
-              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
+              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/userFieldsOfStudies']},
             ]
           },
         ]

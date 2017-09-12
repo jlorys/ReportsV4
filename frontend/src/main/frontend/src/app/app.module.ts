@@ -49,6 +49,13 @@ import {UserAccountComponent} from "./component/component.user/user.account/user
 import {UserLaboratoryDetailComponent} from "./component/component.user/laboratory/laboratory.detail.component";
 import {UserLaboratoryDataService} from "./component/component.user/laboratory/laboratory.data.service";
 import {UserLaboratoryComponent} from "./component/component.user/laboratory/laboratory.component";
+import {UserSubjectComponent} from "./component/component.user/subject/subject.component";
+import {UserSubjectDetailComponent} from "./component/component.user/subject/subject.detail.component";
+import {UserFieldOfStudyComponent} from "./component/component.user/fieldofstudy/fieldofstudy.component";
+import {UserFieldOfStudyDetailComponent} from "./component/component.user/fieldofstudy/fieldofstudy.detail.component";
+import {ReviewerReportComponent} from "./component/component.reviewer/report/report.component";
+import {ReviewerReportsDetailComponent} from "./component/component.reviewer/report/report.detail.component";
+import {ReviewerReportDataService} from "./component/component.reviewer/report/report.data.service";
 
 @NgModule({
   declarations: [
@@ -74,6 +81,14 @@ import {UserLaboratoryComponent} from "./component/component.user/laboratory/lab
     UserAccountComponent,
     UserLaboratoryComponent,
     UserLaboratoryDetailComponent,
+    UserSubjectComponent,
+    UserSubjectDetailComponent,
+    UserFieldOfStudyComponent,
+    UserFieldOfStudyDetailComponent,
+
+    //Reviewer components
+    ReviewerReportComponent,
+    ReviewerReportsDetailComponent,
 
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
@@ -131,12 +146,15 @@ import {UserLaboratoryComponent} from "./component/component.user/laboratory/lab
     UserAccountDataService,
     UserLaboratoryDataService,
 
+    //Reviewer role data services
+    ReviewerReportDataService,
+
     {provide: LocationStrategy, useClass: HashLocationStrategy}, //With this urls works directly from browser
 
-    // our application services
+    //our application services
     AuthService,
 
-    // primeng service
+    //primeng service
     ConfirmationService
   ],
   entryComponents: [ConfirmDeleteDialogComponent],

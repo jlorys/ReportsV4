@@ -1,0 +1,85 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="!sub">
+  <md-card-title>Wyszukuj sprawozdania</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #reportForm="ngForm">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="description">Opis</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="description" [(ngModel)]="example.description" name="description" #description="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="grade">Ocena</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="grade" [(ngModel)]="example.grade" name="grade" #grade="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="createdBy">Stworzone przez</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="createdBy" [(ngModel)]="example.createdBy" name="createdBy" #createdBy="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="lastModifiedBy">Ostatnio modyfikowane przez</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="lastModifiedBy" [(ngModel)]="example.lastModifiedBy" name="lastModifiedBy" #lastModifiedBy="ngModel"/>
+        </div>
+      </div>
+    </div>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="updateVisibility()"><md-icon>search</md-icon>Szukaj</button>
+  </md-card-actions>
+</md-card>
+
+
+<md-card>
+  <md-card-subtitle>DB comment: Raporty są połączone z Użytkownikami relacją wiele do wielu</md-card-subtitle>
+  <md-card-content>
+    <p>Lista jest stronicowana po stronie serwera...</p>
+
+    <p-dataTable *ngIf="visible"
+                 [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+      <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
+      <p-column field="id" header="Id" sortable="true"></p-column>
+      <p-column field="description" header="Opis" sortable="true"></p-column>
+      <p-column field="filePath" header="Ścieżka do pliku" sortable="true"></p-column>
+      <p-column field="fileName" header="Nazwa pliku" sortable="true"></p-column>
+      <p-column field="fileExtension" header="Rozszerzenie pliku" sortable="true"></p-column>
+      <p-column field="grade" header="Ocena" sortable="true"></p-column>
+      <p-column field="createdDate" header="DataStworzenia" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+      <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+      <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
+    </p-dataTable>
+  </md-card-content>
+</md-card>

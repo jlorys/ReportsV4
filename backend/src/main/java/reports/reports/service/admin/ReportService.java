@@ -9,8 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import reports.reports.config.security.UserContext;
-import reports.reports.domain.AppUser;
 import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
 import reports.reports.dto.ReportDTO;
@@ -18,7 +16,6 @@ import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
-import reports.reports.web.admin.AppUserRestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;

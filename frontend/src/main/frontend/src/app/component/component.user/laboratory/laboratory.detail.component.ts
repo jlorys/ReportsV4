@@ -1,4 +1,4 @@
-import {Component, Input} from "@angular/core";
+import {Component, Input, OnDestroy} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/primeng";
 import {Laboratory} from "../../component.admin/laboratory/laboratory";
@@ -10,7 +10,7 @@ import {UserLaboratoryDataService} from "app/component/component.user/laboratory
   templateUrl: 'laboratory.detail.component.html',
   selector: 'userLaboratories-detail',
 })
-export class UserLaboratoryDetailComponent {
+export class UserLaboratoryDetailComponent implements OnDestroy {
 
   @Input() header = "Moje sprawozdania z tego laboratorium...";
   laboratory : Laboratory;
@@ -30,7 +30,7 @@ export class UserLaboratoryDetailComponent {
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
-      console.log('Constructor for Laboratory-detail ' + id);
+      console.log('Constructor for userLaboratories-detail ' + id);
 
       this.userLaboratoryDataService.getLaboratory(id)
           .subscribe(laboratory => {
@@ -44,6 +44,10 @@ export class UserLaboratoryDetailComponent {
             error => this.msgs.push({severity:'error', summary:'Constructor error', detail: error})
           );
     });
+  }
+
+  ngOnDestroy() {
+      this.params_subscription.unsubscribe();
   }
 
   onRowSelect(event : any) {

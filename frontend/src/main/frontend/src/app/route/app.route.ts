@@ -20,6 +20,12 @@ import {UserReportsAddComponent} from "../component/component.user/report/report
 import {UserAccountComponent} from "../component/component.user/user.account/user.account.component";
 import {UserLaboratoryComponent} from "../component/component.user/laboratory/laboratory.component";
 import {UserLaboratoryDetailComponent} from "../component/component.user/laboratory/laboratory.detail.component";
+import {UserSubjectComponent} from "../component/component.user/subject/subject.component";
+import {UserSubjectDetailComponent} from "../component/component.user/subject/subject.detail.component";
+import {UserFieldOfStudyDetailComponent} from "../component/component.user/fieldofstudy/fieldofstudy.detail.component";
+import {UserFieldOfStudyComponent} from "../component/component.user/fieldofstudy/fieldofstudy.component";
+import {ReviewerReportsDetailComponent} from "../component/component.reviewer/report/report.detail.component";
+import {ReviewerReportComponent} from "../component/component.reviewer/report/report.component";
 
 export const appRoutes: Routes = [
   //Admin routes
@@ -40,6 +46,14 @@ export const appRoutes: Routes = [
   { path: 'userAccount', component: UserAccountComponent },
   { path: 'userLaboratories', component: UserLaboratoryComponent },
   { path: 'userLaboratories/:id', component: UserLaboratoryDetailComponent },
+  { path: 'userSubjects', component: UserSubjectComponent },
+  { path: 'userSubjects/:id', component: UserSubjectDetailComponent },
+  { path: 'userFieldsOfStudies', component: UserFieldOfStudyComponent },
+  { path: 'userFieldsOfStudies/:id', component: UserFieldOfStudyDetailComponent },
+
+  //Reviewer routes
+  { path: 'reviewerReports/:id', component: ReviewerReportsDetailComponent },
+  { path: 'reviewerReports', component: ReviewerReportComponent },
 
   //Other routes
   { path: 'schedule', component: ScheduleChartComponent },

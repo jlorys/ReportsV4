@@ -1,0 +1,79 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="subject" ngForm #subjectForm="ngForm">
+  <md-card-title>Dane przedmiotu</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Nazwa </label></div>
+        <div class="ui-grid-col-6">
+          {{subject.name}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Opis </label></div>
+        <div class="ui-grid-col-6">
+          {{subject.description}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card *ngIf="subject && subject.id">
+  <md-card-subtitle>Relacje przedmiotu</md-card-subtitle>
+  <p *ngIf="subject.fieldOfStudy">Kierunek: {{subject.fieldOfStudy.name}}</p>
+  <p *ngIf="!subject.fieldOfStudy">Kierunek: {{'brak'}}</p>
+</md-card>
+
+<md-card *ngIf="subject && subject.id">
+  <md-card-content>
+    <md-tab-group>
+      <md-tab label="Laboratoria">
+        <p-dataTable [value]="subjectLaboratories"
+                     selectionMode="single"
+                     (onRowSelect)="onRowSelect($event)"
+                     [responsive]="true">
+          <p-header>{{header}}</p-header>
+          <p-column field="id" header="Id" sortable="true"></p-column>
+          <p-column field="name" header="nazwa" sortable="true"></p-column>
+          <p-column field="description" header="opis" sortable="true"></p-column>
+          <p-column field="createdDate" header="DataStworzenia" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+          <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+          <p-column field="labDate" header="DataLaboratoriów" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="returnReportDate" header="DataOddaniaSprawozdania" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="finalReturnReportDate" header="FinalnaDataOddaniaSprawozdania" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+        </p-dataTable>
+      </md-tab>
+    </md-tab-group>
+  </md-card-content>
+</md-card>
+
+
+
+
