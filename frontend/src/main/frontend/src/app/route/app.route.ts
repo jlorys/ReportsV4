@@ -26,6 +26,10 @@ import {UserFieldOfStudyDetailComponent} from "../component/component.user/field
 import {UserFieldOfStudyComponent} from "../component/component.user/fieldofstudy/fieldofstudy.component";
 import {ReviewerReportsDetailComponent} from "../component/component.reviewer/report/report.detail.component";
 import {ReviewerReportComponent} from "../component/component.reviewer/report/report.component";
+import {ReviewerLaboratoryAddComponent} from "../component/component.reviewer/laboratory/laboratory.add.component";
+import {ReviewerLaboratoryComponent} from "../component/component.reviewer/laboratory/laboratory.component";
+import {ReviewerFieldOfStudyComponent} from "../component/component.reviewer/fieldofstudy/fieldofstudy.component";
+import {ReviewerFieldOfStudyAddComponent} from "../component/component.reviewer/fieldofstudy/fieldofstudy.add.component";
 
 export const appRoutes: Routes = [
   //Admin routes
@@ -52,8 +56,14 @@ export const appRoutes: Routes = [
   { path: 'userFieldsOfStudies/:id', component: UserFieldOfStudyDetailComponent },
 
   //Reviewer routes
-  { path: 'reviewerReports/:id', component: ReviewerReportsDetailComponent },
   { path: 'reviewerReports', component: ReviewerReportComponent },
+  { path: 'reviewerReports/:id', component: ReviewerReportsDetailComponent },
+  { path: 'reviewerLaboratories', component: ReviewerLaboratoryComponent },
+  { path: 'reviewerLaboratories/:id', component: ReviewerLaboratoryAddComponent },
+  { path: 'reviewerSubjects', component: ReviewerLaboratoryComponent },
+  { path: 'reviewerSubjects/:id', component: ReviewerLaboratoryAddComponent },
+  { path: 'reviewerFieldsOfStudies', component: ReviewerFieldOfStudyComponent },
+  { path: 'reviewerFieldsOfStudies/:id', component: ReviewerFieldOfStudyAddComponent },
 
   //Other routes
   { path: 'schedule', component: ScheduleChartComponent },

@@ -56,6 +56,12 @@ import {UserFieldOfStudyDetailComponent} from "./component/component.user/fieldo
 import {ReviewerReportComponent} from "./component/component.reviewer/report/report.component";
 import {ReviewerReportsDetailComponent} from "./component/component.reviewer/report/report.detail.component";
 import {ReviewerReportDataService} from "./component/component.reviewer/report/report.data.service";
+import {ReviewerLaboratoryComponent} from "./component/component.reviewer/laboratory/laboratory.component";
+import {ReviewerLaboratoryAddComponent} from "./component/component.reviewer/laboratory/laboratory.add.component";
+import {ReviewerSubjectComponent} from "./component/component.reviewer/subject/subject.component";
+import {ReviewerSubjectAddComponent} from "./component/component.reviewer/subject/subject.add.component";
+import {ReviewerFieldOfStudyComponent} from "./component/component.reviewer/fieldofstudy/fieldofstudy.component";
+import {ReviewerFieldOfStudyAddComponent} from "./component/component.reviewer/fieldofstudy/fieldofstudy.add.component";
 
 @NgModule({
   declarations: [
@@ -89,6 +95,12 @@ import {ReviewerReportDataService} from "./component/component.reviewer/report/r
     //Reviewer components
     ReviewerReportComponent,
     ReviewerReportsDetailComponent,
+    ReviewerLaboratoryComponent,
+    ReviewerLaboratoryAddComponent,
+    ReviewerSubjectComponent,
+    ReviewerSubjectAddComponent,
+    ReviewerFieldOfStudyComponent,
+    ReviewerFieldOfStudyAddComponent,
 
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,

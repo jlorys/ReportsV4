@@ -31,7 +31,7 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
   returnReportDate: Date;
   finalReturnReportDate: Date;
 
-  constructor(private route: ActivatedRoute, private router: Router, private laboratoryDataService: LaboratoryDataService, private subjectDataService: SubjectDataService) {
+  constructor(private route: ActivatedRoute, protected router: Router, private laboratoryDataService: LaboratoryDataService, private subjectDataService: SubjectDataService) {
     this.sourceSubjectsSelectItems = [];
     this.sourceSubjectsSelectItems.push({label: '--------------------------', value: null});
 

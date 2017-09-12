@@ -28,7 +28,7 @@ export class SubjectComponent {
 
   msgs: Message[] = [];
 
-  constructor(private router: Router,
+  constructor(protected router: Router,
               private subjectDataService: SubjectDataService,
               private confirmDeleteDialog: MdDialog) {
   }

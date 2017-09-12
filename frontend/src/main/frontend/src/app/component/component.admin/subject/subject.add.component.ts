@@ -27,7 +27,7 @@ export class SubjectAddComponent implements OnDestroy {
   fieldOfStudy: FieldOfStudy;
   sourceFieldsOfStudiesSelectItems: SelectItem[];
 
-  constructor(private route: ActivatedRoute, private router: Router, private subjectDataService: SubjectDataService, private fieldOfStudyDataService: FieldOfStudyDataService) {
+  constructor(private route: ActivatedRoute, protected router: Router, private subjectDataService: SubjectDataService, private fieldOfStudyDataService: FieldOfStudyDataService) {
     this.sourceFieldsOfStudiesSelectItems = [];
     this.sourceFieldsOfStudiesSelectItems.push({label: '--------------------------', value: null});
 

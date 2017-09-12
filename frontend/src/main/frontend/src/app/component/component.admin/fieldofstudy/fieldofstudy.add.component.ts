@@ -22,7 +22,7 @@ export class FieldOfStudyAddComponent implements OnDestroy {
 
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private fieldOfStudyService: FieldOfStudyDataService) {
+  constructor(private route: ActivatedRoute, protected router: Router, private fieldOfStudyService: FieldOfStudyDataService) {
     if (this.sub) {
       return;
     }

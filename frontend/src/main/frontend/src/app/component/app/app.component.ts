@@ -276,8 +276,8 @@ export class AppComponent implements OnInit {
             label: 'Laboratoria',
             icon: 'fa-columns',
             items: [
-              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
-              {label: 'Tworzenie Laboratoriów', icon: 'fa-gavel', routerLink: ['/laboratories/add']},
+              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/reviewerLaboratories']},
+              {label: 'Tworzenie Laboratoriów', icon: 'fa-gavel', routerLink: ['/reviewerLaboratories/add']},
             ]
           },
 
@@ -285,8 +285,8 @@ export class AppComponent implements OnInit {
             label: 'Przemioty',
             icon: 'fa-square',
             items: [
-              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/subjects']},
-              {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/subjects/add']},
+              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/reviewerSubjects']},
+              {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/reviewerSubjects/add']},
             ]
           },
 
@@ -294,8 +294,8 @@ export class AppComponent implements OnInit {
             label: 'Kierunki studiów',
             icon: 'fa-arrows',
             items: [
-              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/fieldsOfStudies']},
-              {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/fieldsOfStudies/add']},
+              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/reviewerFieldsOfStudies']},
+              {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/reviewerFieldsOfStudies/add']},
             ]
           },
         ]

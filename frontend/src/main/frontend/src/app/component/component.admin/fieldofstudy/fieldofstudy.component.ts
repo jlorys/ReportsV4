@@ -28,7 +28,7 @@ export class FieldOfStudyComponent {
 
   msgs: Message[] = [];
 
-  constructor(private router: Router,
+  constructor(protected router: Router,
               private fieldOfStudyDataService: FieldOfStudyDataService,
               private confirmDeleteDialog: MdDialog) {
   }

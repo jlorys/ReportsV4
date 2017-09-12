@@ -28,7 +28,7 @@ export class LaboratoryComponent {
 
   msgs: Message[] = [];
 
-  constructor(private router: Router,
+  constructor(protected router: Router,
               private laboratoryDataService: LaboratoryDataService,
               private confirmDeleteDialog: MdDialog) {
   }
