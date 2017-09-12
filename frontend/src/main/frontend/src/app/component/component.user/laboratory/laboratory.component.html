@@ -1,0 +1,80 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card>
+  <md-card-title>Wyszukuj laboratoria</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #userForm="ngForm">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="name">Nazwa</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="name" [(ngModel)]="example.name" name="name" #name="ngModel"/>
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2">
+          <label for="description">Opis</label>
+        </div>
+        <div class="ui-grid-col-6">
+          <input pInputText id="description" [(ngModel)]="example.description" name="description" #description="ngModel"/>
+        </div>
+      </div>
+    </div>
+
+  </md-card-content>
+  <md-card-actions>
+    <button md-raised-button (click)="updateVisibility()"><md-icon>search</md-icon>Szukaj</button>
+  </md-card-actions>
+</md-card>
+
+<md-card>
+  <md-card-subtitle>DB comment:</md-card-subtitle>
+  <md-card-content>
+    <p>Lista jest stronicowana po stronie serwera...</p>
+
+    <p-dataTable *ngIf="visible"
+                 [value]="currentPage.content"
+                 [lazy]="true"
+                 [rows]="10"
+                 [paginator]="currentPage.totalElements > 10"
+                 [totalRecords]="currentPage.totalElements"
+                 (onLazyLoad)="loadPage($event)"
+                 selectionMode="single"
+                 (onRowSelect)="onRowSelect($event)"
+                 [rowsPerPageOptions]="[5,10,20,50,100]"
+                 [responsive]="true">
+      <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
+      <p-column field="id" header="Id" sortable="true"></p-column>
+      <p-column field="name" header="Nazwa" sortable="true"></p-column>
+      <p-column field="description" header="Opis" sortable="true"></p-column>
+      <p-column field="createdDate" header="DataStworzenia" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+      <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+      <p-column field="labDate" header="DataLaboratoriów" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="returnReportDate" header="DataOddaniaSprawozdania" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+      <p-column field="finalReturnReportDate" header="FinalnaDataOddaniaSprawozdania" sortable="true">
+        <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+          <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+        </ng-template>
+      </p-column>
+    </p-dataTable>
+
+  </md-card-content>
+</md-card>

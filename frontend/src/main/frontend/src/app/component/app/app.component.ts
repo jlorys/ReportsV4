@@ -112,9 +112,7 @@ export class AppComponent implements OnInit {
         this.displayLoginDialog = !this.authenticated;
         this.msgs = []; //this line fix disappearing of messages
         if (this.authenticated) {
-          this.ifLoggedUserIsUserPushUserItem();
-          this.ifLoggedUserIsReviewerPushReviewerItem();
-          this.ifLoggedUserIsAdminPushAdminItem();
+          this.addProperRoleItems();
           this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
           console.log('You are authenticated...', '');
         } else {
@@ -131,9 +129,7 @@ export class AppComponent implements OnInit {
         if (loginOk) {
           this.displayLoginDialog = false;
           this.authenticated = true;
-          this.ifLoggedUserIsUserPushUserItem();
-          this.ifLoggedUserIsReviewerPushReviewerItem();
-          this.ifLoggedUserIsAdminPushAdminItem();
+          this.addProperRoleItems();
           this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
@@ -166,21 +162,21 @@ export class AppComponent implements OnInit {
     )
   }
 
-  ifLoggedUserIsAdminPushAdminItem(){
-    this.authService.isLoggedUserHasRoleAdmin().subscribe(
-      response =>{ if(response){this.pushAdminItem()}}
-    );
-  }
-
-  ifLoggedUserIsReviewerPushReviewerItem(){
-    this.authService.isLoggedUserHasRoleReviewer().subscribe(
-      response =>{ if(response){this.pushReviewerItem()}}
-    );
-  }
-
-  ifLoggedUserIsUserPushUserItem(){
+  addProperRoleItems(){
     this.authService.isLoggedUserHasRoleUser().subscribe(
-      response =>{ if(response){this.pushUserItem()}}
+      response =>{
+        if(response){this.pushUserItem()}
+
+        this.authService.isLoggedUserHasRoleReviewer().subscribe(
+          response =>{
+            if(response){this.pushReviewerItem()}
+
+            this.authService.isLoggedUserHasRoleAdmin().subscribe(
+              response =>{ if(response){this.pushAdminItem()}}
+            );
+          }
+        );
+      }
     );
   }
 
@@ -342,7 +338,7 @@ export class AppComponent implements OnInit {
             label: 'Laboratoria',
             icon: 'fa-columns',
             items: [
-              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/laboratories']},
+              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/userLaboratories']},
             ]
           },
 

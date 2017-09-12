@@ -46,6 +46,9 @@ import {UserReportsAddComponent} from "./component/component.user/report/report.
 import {UserReportDataService} from "./component/component.user/report/report.data.service";
 import {UserAccountDataService} from "./component/component.user/user.account/user.data.service";
 import {UserAccountComponent} from "./component/component.user/user.account/user.account.component";
+import {UserLaboratoryDetailComponent} from "./component/component.user/laboratory/laboratory.detail.component";
+import {UserLaboratoryDataService} from "./component/component.user/laboratory/laboratory.data.service";
+import {UserLaboratoryComponent} from "./component/component.user/laboratory/laboratory.component";
 
 @NgModule({
   declarations: [
@@ -69,6 +72,8 @@ import {UserAccountComponent} from "./component/component.user/user.account/user
     UserReportComponent,
     UserReportsAddComponent,
     UserAccountComponent,
+    UserLaboratoryComponent,
+    UserLaboratoryDetailComponent,
 
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,
@@ -124,6 +129,7 @@ import {UserAccountComponent} from "./component/component.user/user.account/user
     //User role data services
     UserReportDataService,
     UserAccountDataService,
+    UserLaboratoryDataService,
 
     {provide: LocationStrategy, useClass: HashLocationStrategy}, //With this urls works directly from browser
 

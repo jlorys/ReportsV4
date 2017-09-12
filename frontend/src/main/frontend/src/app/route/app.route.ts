@@ -18,6 +18,8 @@ import {LaboratoryAddComponent} from "../component/component.admin/laboratory/la
 import {UserReportComponent} from "../component/component.user/report/report.component";
 import {UserReportsAddComponent} from "../component/component.user/report/report.add.component";
 import {UserAccountComponent} from "../component/component.user/user.account/user.account.component";
+import {UserLaboratoryComponent} from "../component/component.user/laboratory/laboratory.component";
+import {UserLaboratoryDetailComponent} from "../component/component.user/laboratory/laboratory.detail.component";
 
 export const appRoutes: Routes = [
   //Admin routes
@@ -36,6 +38,8 @@ export const appRoutes: Routes = [
   { path: 'userReports', component: UserReportComponent },
   { path: 'userReports/:id', component: UserReportsAddComponent },
   { path: 'userAccount', component: UserAccountComponent },
+  { path: 'userLaboratories', component: UserLaboratoryComponent },
+  { path: 'userLaboratories/:id', component: UserLaboratoryDetailComponent },
 
   //Other routes
   { path: 'schedule', component: ScheduleChartComponent },

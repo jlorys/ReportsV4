@@ -1,0 +1,82 @@
+<p-growl [value]="msgs"></p-growl>
+<md-card *ngIf="laboratory" ngForm #laboratoryForm="ngForm">
+  <md-card-title>Dane laboratorium</md-card-title>
+  <md-card-content>
+    <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Nazwa </label></div>
+        <div class="ui-grid-col-6">
+          {{laboratory.name}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Opis </label></div>
+        <div class="ui-grid-col-6">
+          {{laboratory.description}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card>
+  <md-card-content>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Data laboratoriów</div>
+        {{labDate | date:'dd.MM.yyyy HH:mm'}}
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Data oddania sprawozdania</div>
+        {{returnReportDate | date:'dd.MM.yyyy HH:mm'}}
+    </div>
+    <div class="ui-grid-row">
+      <div class="ui-grid-col-2">Ostateczna data oddania sprawozdania</div>
+        {{finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}
+    </div>
+  </md-card-content>
+</md-card>
+
+<md-card *ngIf="laboratory && laboratory.id">
+  <md-card-subtitle>Relacje przedmiotu</md-card-subtitle>
+  <p *ngIf="laboratory.subject">Przedmiot: {{laboratory.subject.name}}</p>
+  <p *ngIf="!laboratory.subject">Przedmiot: {{'brak'}}</p>
+</md-card>
+
+<md-card *ngIf="laboratory && laboratory.id">
+  <md-card-subtitle>Relacje laboratorium</md-card-subtitle>
+  <md-card-content>
+    <md-tab-group>
+      <md-tab label="Sprawozdania">
+        <p-dataTable [value]="laboratoryReports"
+                     selectionMode="single"
+                     (onRowSelect)="onRowSelect($event)"
+                     [responsive]="true">
+          <p-header>{{header}}</p-header>
+          <p-column field="id" header="Id" sortable="true"></p-column>
+          <p-column field="description" header="description" sortable="true"></p-column>
+          <p-column field="filePath" header="FilePath" sortable="true"></p-column>
+          <p-column field="fileName" header="FileName" sortable="true"></p-column>
+          <p-column field="fileExtension" header="FileExtension" sortable="true"></p-column>
+          <p-column field="grade" header="Grade" sortable="true"></p-column>
+          <p-column field="createdDate" header="DataStworzenia" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="lastModifiedDate" header="DataModyfikacji" sortable="true">
+            <ng-template let-col let-date="rowData" let-ri="rowIndex" pTemplate="body">
+              <span>{{date[col.field] | date:'dd.MM.yyyy HH:mm'}}</span>
+            </ng-template>
+          </p-column>
+          <p-column field="createdBy" header="StworzonePrzez" sortable="true"></p-column>
+          <p-column field="lastModifiedBy" header="OstatnioModyfikowanePrzez" sortable="true"></p-column>
+          <p-column field="isSendInTime" header="IsSendInTime" sortable="true"></p-column>
+        </p-dataTable>
+      </md-tab>
+    </md-tab-group>
+  </md-card-content>
+</md-card>
