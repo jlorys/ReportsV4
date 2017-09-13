@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.SubjectDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -32,6 +33,7 @@ public class SubjectRestController {
      * Find a Page of Subject using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<PageResponse<SubjectDTO>> findAll(@RequestBody PageRequestByExample<SubjectDTO> prbe) throws URISyntaxException {
         PageResponse<SubjectDTO> pageResponse = subjectService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -41,6 +43,7 @@ public class SubjectRestController {
      * Delete by id Subject.
      */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id Subject : {}", id);
@@ -57,6 +60,7 @@ public class SubjectRestController {
      * Find by id Subject.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<SubjectDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Subject : {}", id);
@@ -69,6 +73,7 @@ public class SubjectRestController {
      * Update Subject.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<SubjectDTO> update(@RequestBody SubjectDTO subjectDTO) throws URISyntaxException {
 
         log.debug("Update Subject : {}", subjectDTO);
@@ -86,6 +91,7 @@ public class SubjectRestController {
      * Create a new Subject.
      */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<SubjectDTO> create(@RequestBody SubjectDTO subjectDTO) throws URISyntaxException {
 
         log.debug("Create SubjectDTO : {}", subjectDTO);
@@ -100,6 +106,7 @@ public class SubjectRestController {
     }
 
     @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<List<SubjectDTO>> findAll() throws URISyntaxException {
 
         List<SubjectDTO> results = subjectService.findAll();

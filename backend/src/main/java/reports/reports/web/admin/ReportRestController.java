@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reports.reports.dto.ReportDTO;
@@ -34,6 +35,7 @@ public class ReportRestController {
      * Find a Page of Reports using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<PageResponse<ReportDTO>> findAll(@RequestBody PageRequestByExample<ReportDTO> prbe) throws URISyntaxException {
         PageResponse<ReportDTO> pageResponse = reportService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -43,6 +45,7 @@ public class ReportRestController {
      * Find by id Report.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Report : {}", id);
@@ -66,6 +69,7 @@ public class ReportRestController {
      * Delete by id Report.
      */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id Report : {}", id);
@@ -82,12 +86,13 @@ public class ReportRestController {
      * Update Report.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
         log.debug("Update ReportDTO : {}", reportDTO);
 
         if (!reportDTO.isIdSet()) {
-            return create(reportDTO);
+            return null;
         }
 
         ReportDTO result = reportService.save(reportDTO);
@@ -95,29 +100,14 @@ public class ReportRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Create a new Report.
-     */
-    @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReportDTO> create(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
-
-        log.debug("Create ReportDTO : {}", reportDTO);
-
-        if (reportDTO.isIdSet()) {
-            return ResponseEntity.badRequest().header("Failure", "Cannot create Report with existing ID").body(null);
-        }
-
-        ReportDTO result = reportService.save(reportDTO);
-
-        return ResponseEntity.created(new URI("/api/users/" + result.id)).body(result);
-    }
-
     @PostMapping(value = "/upload", consumes = "multipart/form-data")
+    @PreAuthorize("hasAuthority('USER')")
     public String uploadFile(@RequestParam("file") MultipartFile file) {
         return reportService.uploadFile(file);
     }
 
     @GetMapping("/file/{reportId}")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public void downloadFile (@PathVariable Integer reportId, HttpServletResponse response) throws IOException {
             reportService.downloadFile(reportId, response);
     }

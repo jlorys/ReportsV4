@@ -15,6 +15,14 @@ import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
 import reports.reports.service.admin.ReportService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -88,5 +96,15 @@ public class UserReportService {
         }
 
         return reportService.save(dto);
+    }
+
+    public void downloadFile(Integer reportId, HttpServletResponse response) throws IOException {
+
+        Report report = reportRepository.findOne(reportId);
+        if (report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))) {
+            log.error("This is not logged user report");
+        } else {
+            reportService.downloadFile(reportId, response);
+        }
     }
 }

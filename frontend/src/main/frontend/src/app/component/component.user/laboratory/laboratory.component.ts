@@ -2,8 +2,8 @@ import {Component, Input, SimpleChanges} from "@angular/core";
 import {PageResponse} from "../../../support/paging";
 import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Router} from "@angular/router";
-import {LaboratoryDataService} from "app/component/component.admin/laboratory/laboratory.data.service";
 import {Laboratory} from "../../component.admin/laboratory/laboratory";
+import {UserLaboratoryDataService} from "./laboratory.data.service";
 
 @Component({
   selector: 'userLaboratories',
@@ -20,7 +20,7 @@ export class UserLaboratoryComponent {
   msgs: Message[] = [];
 
   constructor(private router: Router,
-              private laboratoryDataService: LaboratoryDataService) {}
+              private userLaboratoryDataService: UserLaboratoryDataService) {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.loadPage({first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null});
@@ -31,7 +31,7 @@ export class UserLaboratoryComponent {
    */
   loadPage(event: LazyLoadEvent) {
     this.msgs = []; //this line fix disappearing of messages
-    this.laboratoryDataService.getPage(this.example, event).subscribe(
+    this.userLaboratoryDataService.getPage(this.example, event).subscribe(
       pageResponse => this.currentPage = pageResponse,
       error => this.msgs.push({severity:'error', summary:'Błąd pobierania danych!', detail: error})
     );

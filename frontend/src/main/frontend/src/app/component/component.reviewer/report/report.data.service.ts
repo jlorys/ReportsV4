@@ -28,7 +28,7 @@ export class ReviewerReportDataService {
   update(report : Report) : Observable<Report> {
     let body = JSON.stringify(report);
 
-    return this.http.put('/api/reports/', body, this.options)
+    return this.http.put('/api/reviewerReports/', body, this.options)
       .map(response => new Report(response.json()))
       .catch(this.handleError);
   }

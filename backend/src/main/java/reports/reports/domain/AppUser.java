@@ -24,6 +24,7 @@ public class AppUser {
 	private String password;
 	private String firstName;
 	private String lastName;
+	@Column(unique = true)
 	private String email;
 	@CreatedDate
 	private Long createdDate;

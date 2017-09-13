@@ -37,6 +37,7 @@ public class AppUserRestController {
      * Find a Page of User using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<PageResponse<AppUserDTO>> findAll(@RequestBody PageRequestByExample<AppUserDTO> prbe) throws URISyntaxException {
         PageResponse<AppUserDTO> pageResponse = appUserService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -46,6 +47,7 @@ public class AppUserRestController {
      * Delete by id User.
      */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
         if (userRoleService.isLoggedUserHasRoleAdmin()) {
 
@@ -66,7 +68,7 @@ public class AppUserRestController {
      * Find by id User.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    //@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id User : {}", id);
@@ -79,6 +81,7 @@ public class AppUserRestController {
      * Find by userName.
      */
     @GetMapping(value = "/name/{userName}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> findByUserName(@PathVariable String userName) throws URISyntaxException {
 
         log.debug("Find by userName : {}", userName);
@@ -91,6 +94,7 @@ public class AppUserRestController {
      * Update User.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> update(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
 
         log.debug("Update UserDTO : {}", userDTO);
@@ -127,6 +131,7 @@ public class AppUserRestController {
      * Create a new User.
      */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> create(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
 
         log.debug("Create UserDTO : {}", userDTO);
@@ -141,6 +146,7 @@ public class AppUserRestController {
     }
 
     @GetMapping(value = "/findAllAppUsersWhichDoNotHaveReportWithThisId/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public ResponseEntity<List<AppUserDTO>> findAllAppUsersWhichDoNotHaveReportWithThisId(@PathVariable Integer id) throws URISyntaxException {
 
         List<AppUserDTO> results = appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(id);

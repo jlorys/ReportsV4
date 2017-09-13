@@ -35,7 +35,7 @@ export class UserReportDataService {
 
   downloadFile(id): Observable<Blob> {
     let options = new RequestOptions({responseType: ResponseContentType.Blob });
-    return this.http.get('/api/reports/file/' + id, options)
+    return this.http.get('/api/userReports/file/' + id, options)
       .map(res => res.blob())
       .catch(this.handleError)
   }

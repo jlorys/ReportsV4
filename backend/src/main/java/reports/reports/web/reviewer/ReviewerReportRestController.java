@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -26,30 +27,10 @@ public class ReviewerReportRestController {
     private ReviewerReportService reviewerReportService;
 
     /**
-     * Find a Page of Reports using query by example.
-     */
-    @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<PageResponse<ReportDTO>> findAll(@RequestBody PageRequestByExample<ReportDTO> prbe) throws URISyntaxException {
-        PageResponse<ReportDTO> pageResponse = reviewerReportService.findAll(prbe);
-        return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
-    }
-
-    /**
-     * Find by id Report.
-     */
-    @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
-
-        log.debug("Find by id Report : {}", id);
-
-        return Optional.ofNullable(reviewerReportService.findOne(id)).map(reportDTO -> new ResponseEntity<>(reportDTO, HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
-    }
-
-    /**
      * Update Report.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('REVIEWER')")
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
 
         log.debug("Update ReportDTO : {}", reportDTO);

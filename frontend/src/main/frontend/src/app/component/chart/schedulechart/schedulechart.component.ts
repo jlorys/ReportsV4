@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {LaboratoryDataService} from "../../component.admin/laboratory/laboratory.data.service";
 import {PageResponse} from "../../../support/paging";
 import {Laboratory} from "../../component.admin/laboratory/laboratory";
 import {Message} from "primeng/primeng";
+import {UserLaboratoryDataService} from "../../component.user/laboratory/laboratory.data.service";
 
 @Component({
   selector: 'schedule',
@@ -17,11 +17,11 @@ export class ScheduleChartComponent implements OnInit{
   example: Laboratory = new Laboratory();
   msgs: Message[] = [];
 
-  constructor(private laboratoryDataService : LaboratoryDataService) {}
+  constructor(private userLaboratoryDataService : UserLaboratoryDataService) {}
 
   ngOnInit() {
     this.events = [];
-    this.laboratoryDataService.getPage(this.example, {first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null})
+    this.userLaboratoryDataService.getPage(this.example, {first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null})
       .subscribe(pageResponse => {
           pageResponse.content.forEach((value, index, array) => {
             this.events.push({

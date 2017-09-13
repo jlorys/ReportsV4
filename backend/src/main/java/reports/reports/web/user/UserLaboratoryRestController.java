@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.LaboratoryDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -32,6 +33,7 @@ public class UserLaboratoryRestController {
      * Find a Page of Laboratory using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<PageResponse<LaboratoryDTO>> findAll(@RequestBody PageRequestByExample<LaboratoryDTO> prbe) throws URISyntaxException {
         PageResponse<LaboratoryDTO> pageResponse = laboratoryService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -41,6 +43,7 @@ public class UserLaboratoryRestController {
      * Find by id Laboratory.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<LaboratoryDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Laboratory : {}", id);
@@ -50,6 +53,7 @@ public class UserLaboratoryRestController {
     }
 
     @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<LaboratoryDTO>> findAll() throws URISyntaxException {
 
         List<LaboratoryDTO> results = laboratoryService.findAll();

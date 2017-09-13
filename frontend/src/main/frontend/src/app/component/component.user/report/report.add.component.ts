@@ -6,8 +6,8 @@ import {Report} from "../../component.admin/report/report";
 import {AppUser} from "../../component.admin/users/user";
 import {Laboratory} from "../../component.admin/laboratory/laboratory";
 import {AppUserDataService} from "../../component.admin/users/user.data.service";
-import {LaboratoryDataService} from "../../component.admin/laboratory/laboratory.data.service";
 import {UserReportDataService} from "./report.data.service";
+import {UserLaboratoryDataService} from "../laboratory/laboratory.data.service";
 
 @Component({
   selector: 'userReports-add',
@@ -29,12 +29,12 @@ export class UserReportsAddComponent implements OnDestroy {
 
   grade: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private userReportDataService: UserReportDataService, private appUserDataService: AppUserDataService, private laboratoryDataService: LaboratoryDataService) {
+  constructor(private route: ActivatedRoute, private router: Router, private userReportDataService: UserReportDataService, private appUserDataService: AppUserDataService, private userLaboratoryDataService: UserLaboratoryDataService) {
 
     this.sourceLaboratoriesSelectItems = [];
     this.sourceLaboratoriesSelectItems.push({label: '--------------------------', value: null});
 
-    laboratoryDataService.findAll().subscribe(subject => subject.forEach((value, index, array) => this.sourceLaboratoriesSelectItems.push({
+    userLaboratoryDataService.findAll().subscribe(subject => subject.forEach((value, index, array) => this.sourceLaboratoriesSelectItems.push({
         label: value.name + " " + value.description + " " + new Date(value.labDate).toString(),
         value: value
       })),

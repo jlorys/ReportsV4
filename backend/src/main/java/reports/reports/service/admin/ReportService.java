@@ -27,6 +27,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -60,16 +61,17 @@ public class ReportService {
         List<Report> reports = reportRepository.findAll();
         List<String> grades = new ArrayList<>();
         reports.stream().forEach(report -> grades.add(report.getGrade()));
+        List<String> gradesFilteredNull = grades.stream().filter(s -> Optional.ofNullable(s).isPresent()).collect(Collectors.toList());
 
         List<Long> gradesAmount = new ArrayList<>();
 
-        gradesAmount.add(grades.stream().filter(s -> s.matches("2.0")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("2.5")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("3.0")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("3.5")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("4.0")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("4.5")).count());
-        gradesAmount.add(grades.stream().filter(s -> s.matches("5.0")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("2.0")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("2.5")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("3.0")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("3.5")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("4.0")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("4.5")).count());
+        gradesAmount.add(gradesFilteredNull.stream().filter(s -> s.matches("5.0")).count());
 
         return gradesAmount;
     }

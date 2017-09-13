@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.LaboratoryDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -32,6 +33,7 @@ public class LaboratoryRestController {
      * Find a Page of Laboratory using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<PageResponse<LaboratoryDTO>> findAll(@RequestBody PageRequestByExample<LaboratoryDTO> prbe) throws URISyntaxException {
         PageResponse<LaboratoryDTO> pageResponse = laboratoryService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -41,6 +43,7 @@ public class LaboratoryRestController {
      * Delete by id Laboratory.
      */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id Laboratory : {}", id);
@@ -57,6 +60,7 @@ public class LaboratoryRestController {
      * Find by id Laboratory.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Laboratory : {}", id);
@@ -69,6 +73,7 @@ public class LaboratoryRestController {
      * Update Laboratory.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> update(@RequestBody LaboratoryDTO laboratoryDTO) throws URISyntaxException {
 
         log.debug("Update Laboratory : {}", laboratoryDTO);
@@ -86,6 +91,7 @@ public class LaboratoryRestController {
      * Create a new Laboratory.
      */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> create(@RequestBody LaboratoryDTO laboratoryDTO) throws URISyntaxException {
 
         log.debug("Create LaboratoryDTO : {}", laboratoryDTO);
@@ -100,6 +106,7 @@ public class LaboratoryRestController {
     }
 
     @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<List<LaboratoryDTO>> findAll() throws URISyntaxException {
 
         List<LaboratoryDTO> results = laboratoryService.findAll();

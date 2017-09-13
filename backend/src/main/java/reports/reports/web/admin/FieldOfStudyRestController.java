@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.FieldOfStudyDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -41,6 +42,7 @@ public class FieldOfStudyRestController {
      * Delete by id FieldOfStudy.
      */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id FieldOfStudy : {}", id);
@@ -69,6 +71,7 @@ public class FieldOfStudyRestController {
      * Update FieldOfStudy.
      */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<FieldOfStudyDTO> update(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {
 
         log.debug("Update FieldOfStudyDTO : {}", fieldOfStudyDTO);
@@ -86,6 +89,7 @@ public class FieldOfStudyRestController {
      * Create a new FieldOfStudy.
      */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<FieldOfStudyDTO> create(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {
 
         log.debug("Create FieldOfStudyDTO : {}", fieldOfStudyDTO);

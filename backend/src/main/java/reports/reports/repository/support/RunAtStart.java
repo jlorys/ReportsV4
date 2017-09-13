@@ -55,19 +55,19 @@ class RunAtStart {
     private void generateManyUsers() {
         List<AppUser> appUsers = new ArrayList<>();
         appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl"));
-        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "ds@x.pl"));
-        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "ag@x.pl"));
-        appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "mm@x.pl"));
-        appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "rs@x.pl"));
-        appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "aw@x.pl"));
-        appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "bm@x.pl"));
-        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "jl@x.pl"));
-        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "ck@x.pl"));
-        appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "jl@x.pl"));
-        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "dj@x.pl"));
-        appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "bl@x.pl"));
-        appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "mt@x.pl"));
-        appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "sk@x.pl"));
+        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "1@x.pl"));
+        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "2@x.pl"));
+        appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "3@x.pl"));
+        appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "4@x.pl"));
+        appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "5@x.pl"));
+        appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "6@x.pl"));
+        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "7@x.pl"));
+        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "8@x.pl"));
+        appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "9@x.pl"));
+        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "10@x.pl"));
+        appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "11@x.pl"));
+        appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@x.pl"));
+        appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@x.pl"));
 
         appUsers.stream().forEach(appUser -> appUserRepository.save(appUser));
     }
@@ -124,14 +124,14 @@ class RunAtStart {
         Laboratory laboratory = laboratoryRepository.findOne(1);
 
         List<Report> reports = new ArrayList<>();
-        reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", "4.5", true, laboratory));
-        reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", "5.0", true, laboratory));
-        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", "2.0", true, laboratory));
+        reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", null, null, laboratory));
+        reports.add(new Report("Opis2", "files/", "sprawozdanie2", ".pdf", null, null, laboratory));
+        reports.add(new Report("Opis3", "files/", "sprawozdanie3", ".pdf", null, null, laboratory));
         reports.add(new Report("Opis4", "files/", "sprawozdanie4", ".pdf", "4.0", true, laboratory));
         reports.add(new Report("Opis5", "files/", "sprawozdanie5", ".pdf", "2.5", true, laboratory));
         reports.add(new Report("Opis6", "files/", "sprawozdanie6", ".pdf", "5.0", true, laboratory));
         reports.add(new Report("Opis7", "files/", "sprawozdanie7", ".pdf", "3.0", true, laboratory));
-        reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "3.0", true, laboratory));
+        reports.add(new Report("Opis8", "files/", "sprawozdanie8", ".pdf", "2.0", true, laboratory));
         reports.add(new Report("Opis9", "files/", "sprawozdanie9", ".pdf", "3.0", true, laboratory));
         reports.add(new Report("Opis10", "files/", "sprawozdanie10", ".pdf", "3.5", true, laboratory));
         reports.add(new Report("Opis11", "files/", "sprawozdanie11", ".pdf", "3.5", true, laboratory));
