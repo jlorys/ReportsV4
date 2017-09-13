@@ -1,6 +1,7 @@
 <p-growl [value]="msgs"></p-growl>
 <md-card *ngIf="report && report.id">
   <md-card-content>
+    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawoznania</md-card-subtitle>
     <p *ngIf="report.grade">Ocena: {{report.grade}}</p>
     <p *ngIf="!report.grade">Ocena: {{'brak'}}</p>
     Zmiana oceny
@@ -41,6 +42,20 @@
         </div>
       </div>
       <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Data stworzenia</label></div>
+        <div class="ui-grid-col-8">
+          {{report.createdDate | date:'dd.MM.yyyy HH:mm'}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
+      </div>
+      <div class="ui-grid-row">
+        <div class="ui-grid-col-2"><label>Data modyfikacji</label></div>
+        <div class="ui-grid-col-8">
+          {{report.lastModifiedDate | date:'dd.MM.yyyy HH:mm'}}
+        </div>
+        <div class="ui-grid-col-4">
+        </div>
       </div>
     </div>
   </md-card-content>
@@ -73,9 +88,10 @@
 
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <p *ngIf="report.laboratory">Laboratorium: {{report.laboratory.name}} / {{report.laboratory.description}}
-      / {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} / {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
-      / {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
+    <md-card-subtitle>Nazwa | Opis | Data laboratoriów | Pierwszy termin zwrotu sprawozdania | Drugi termin zwrotu sprawozdania</md-card-subtitle>
+    <p *ngIf="report.laboratory">{{report.laboratory.name}} | {{report.laboratory.description}}
+      | {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} | {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
+      | {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
     <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
     <md-card-subtitle>Zmiana laboratorium</md-card-subtitle>
     <p-dropdown [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>

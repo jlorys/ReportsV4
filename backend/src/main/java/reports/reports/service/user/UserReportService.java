@@ -16,6 +16,7 @@ import reports.reports.repository.ReportRepository;
 import reports.reports.service.admin.ReportService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -35,7 +36,7 @@ public class UserReportService {
     @Transactional(readOnly = true)
     public ReportDTO findOne(Integer id) {
         Report report = reportRepository.findOne(id);
-        if(report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))){
+        if (report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))) {
             return null;
         }
         return reportService.toDTO(report);
@@ -53,13 +54,11 @@ public class UserReportService {
 
     public void delete(Integer id) {
         Report report = reportRepository.findOne(id);
-        if(report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))){
+        if (report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))) {
             log.error("Cannot delete, this is not your report");
-        }
-        else if(!report.getGrade().isEmpty()){
+        } else if (!report.getGrade().isEmpty()) {
             log.error("Cannot delete report with grade");
-        }
-        else {
+        } else {
             reportRepository.delete(id);
         }
     }
@@ -69,14 +68,25 @@ public class UserReportService {
      */
     @Transactional
     public ReportDTO save(ReportDTO dto) {
+
+        if (!Optional.ofNullable(dto.id).isPresent()) {
+            if (Optional.ofNullable(dto.grade).isPresent()) {
+                log.error("User cannot set grade");
+                return null;
+            }
+            return reportService.save(dto);
+        }
+
         Report report = reportRepository.findOne(dto.id);
-        if(!report.getGrade().isEmpty()){
+
+        if (Optional.ofNullable(report.getGrade()).isPresent()) {
             log.error("Cannot update report with grade");
             return null;
-        }else if(!dto.grade.isEmpty()){
+        } else if (Optional.ofNullable(dto.grade).isPresent()) {
             log.error("User cannot set grade");
             return null;
         }
+
         return reportService.save(dto);
     }
 }
