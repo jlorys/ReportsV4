@@ -52,10 +52,6 @@ export class UserReportsAddComponent implements OnDestroy {
         this.laboratory = null;
         this.grade = null;
 
-        appUserDataService.findAllAppUsersWhichDoNotHaveReportWithThisId(0).//0 means find all
-        subscribe(users => this.sourceUsers = users,
-          error => this.msgs.push({severity: 'error', summary: 'Constructor user reports error', detail: error}))
-
       } else {
         this.userReportDataService.getReport(id)
           .subscribe(report => {
@@ -102,6 +98,10 @@ export class UserReportsAddComponent implements OnDestroy {
     this.userReportDataService.update(this.report).subscribe(
       report => {
         this.report = report;
+
+        this.appUserDataService.findAllAppUsersWhichDoNotHaveReportWithThisId(this.report.id).//0 means find all
+        subscribe(users => this.sourceUsers = users,
+          error => this.msgs.push({severity: 'error', summary: 'Constructor user reports error', detail: error}))
 
         let xhr = new XMLHttpRequest(), formData = new FormData();
         formData.append("file", event.files[0], this.report.id + "_r_" + fullFileName);

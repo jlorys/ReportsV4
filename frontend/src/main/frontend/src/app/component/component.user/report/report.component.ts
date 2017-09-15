@@ -48,13 +48,17 @@ export class UserReportComponent {
     let id = reportToDelete.id;
 
     this.msgs = []; //this line fix disappearing of messages
-    this.userReportDataService.delete(id).subscribe(
-      response => {
-        this.currentPage.remove(reportToDelete);
-        this.updateVisibility();
-      },
-      error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
-    );
+    if(reportToDelete.grade){
+      this.msgs.push({severity:'error', summary:'Błąd', detail: 'Nie można usunąć sprawozdania z oceną!'})
+    } else {
+      this.userReportDataService.delete(id).subscribe(
+        response => {
+          this.currentPage.remove(reportToDelete);
+          this.updateVisibility();
+        },
+        error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
+      );
+    }
   }
 
   /**

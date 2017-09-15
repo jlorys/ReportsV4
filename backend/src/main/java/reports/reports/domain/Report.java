@@ -7,9 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -105,7 +103,7 @@ public class Report {
 
 	public List<AppUser> getUsers() {
 		if(Optional.ofNullable(users).isPresent()) return users;
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>(Collections.EMPTY_LIST);
 	}
 
 	public void setUsers(List<AppUser> users) {
@@ -156,7 +154,9 @@ public class Report {
 	 * Helper method to add the passed {@link AppUser} to the {@link #users} list.
 	 */
 	public boolean addUser(AppUser appUser) {
-		return getUsers().add(appUser);
+		this.users = getUsers();
+		this.users.add(appUser);
+		return true;
 	}
 
 	public Laboratory getLaboratory() {return laboratory;}

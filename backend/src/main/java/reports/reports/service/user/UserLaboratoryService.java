@@ -16,6 +16,7 @@ import reports.reports.service.admin.ReportService;
 import reports.reports.service.admin.SubjectService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -72,7 +73,12 @@ public class UserLaboratoryService {
         dto.finalReturnReportDate = laboratory.getFinalReturnReportDate();
         dto.reports = appUserRepository.findOne(UserContext.getId()).getReports().stream()
                 .map(report -> reportService.toDTO(report))
-                .filter(reportDTO -> reportDTO.laboratory.id.equals(dto.id))
+                .filter(reportDTO -> {
+                            if(Optional.ofNullable(reportDTO.laboratory).isPresent()){
+                                return reportDTO.laboratory.id.equals(dto.id);
+                            } else{ return true; }
+                        }
+                        )
                 .collect(Collectors.toList());
         dto.subject = subjectService.toDTO(laboratory.getSubject(), 1);
 

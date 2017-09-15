@@ -200,7 +200,6 @@ public class AppUserService {
         dto.id = user.getId();
         dto.userName = user.getUserName();
         dto.password = user.getPassword();
-        dto.userName = user.getUserName();
         dto.firstName = user.getFirstName();
         dto.lastName = user.getLastName();
         dto.email = user.getEmail();
@@ -225,6 +224,21 @@ public class AppUserService {
         List<AppUser> results = appUserRepository.findAll();
         List<AppUser> filteredResults = results.stream().filter(appUser -> appUser.getReports().stream().noneMatch(report -> report.getId().equals(reportId)))
                 .collect(Collectors.toList());
-        return filteredResults.stream().map(this::toDTO).collect(Collectors.toList());
+        return filteredResults.stream().map(this::toDTOWithoutPersonalData).collect(Collectors.toList());
+    }
+
+    public AppUserDTO toDTOWithoutPersonalData(AppUser user) {
+        if (user == null) {
+            return null;
+        }
+
+        AppUserDTO dto = new AppUserDTO();
+
+        dto.id = user.getId();
+        dto.userName = user.getUserName();
+        dto.firstName = user.getFirstName();
+        dto.lastName = user.getLastName();
+
+        return dto;
     }
 }
