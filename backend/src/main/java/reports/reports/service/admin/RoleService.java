@@ -86,6 +86,7 @@ public class RoleService {
 
         dto.id = role.getId();
         dto.roleName = role.getRoleName();
+        dto.description = role.getDescription();
         if (depth-- > 0) {
         }
 
@@ -113,6 +114,7 @@ public class RoleService {
 
         role.setId(dto.id);
         role.setRoleName(dto.roleName);
+        role.setDescription(dto.description);
         if (depth-- > 0) {
         }
 

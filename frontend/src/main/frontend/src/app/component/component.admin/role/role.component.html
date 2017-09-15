@@ -12,8 +12,9 @@
                  [rowsPerPageOptions]="[5,10,20,50,100]"
                  [responsive]="true">
       <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
-      <p-column field="id" header="Id" sortable="true"></p-column>
-      <p-column field="roleName" header="RoleName" sortable="true"></p-column>
+      <p-column [style]="{'width':'50px'}" field="id" header="Id" sortable="true"></p-column>
+      <p-column [style]="{'width':'90px'}" field="roleName" header="Nazwa Roli" sortable="true"></p-column>
+      <p-column field="description" header="Opis" sortable="true"></p-column>
       </p-dataTable>
   </md-card-content>
 </md-card>

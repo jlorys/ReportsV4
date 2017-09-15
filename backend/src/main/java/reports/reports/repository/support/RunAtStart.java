@@ -74,9 +74,10 @@ class RunAtStart {
 
     private void generateRoles() {
         List<Role> roles = new ArrayList<>();
-        roles.add(new Role("USER"));
-        roles.add(new Role("REVIEWER"));
-        roles.add(new Role("ADMIN"));
+        roles.add(new Role("USER", "Użytkownik może dodawać sprawozdania i przeglądać kierunki studiów, przedmioty, laboratoria i swoje sprawozdania. " +
+                "Może usuwać i modyfikować swoje sprawozdania pod warunkiem że nie mają one oceny"));
+        roles.add(new Role("REVIEWER", "Recenzent może oceniać sprawozdania i tworzyć kierunki studiów, przedmioty, laboratoria"));
+        roles.add(new Role("ADMIN", "Admin zarządza użytkownikami, nie może dodawać sprawozdania lecz może modyfikować wszystkie sprawozdania"));
 
         roles.stream().forEach(role -> roleRepository.save(role));
     }
