@@ -119,7 +119,7 @@ export class AppComponent implements OnInit {
           console.log('You are NOT authenticated...', '');
         }
       },
-      error => this.msgs.push({severity:'error', summary:'isAuthenticated Error', detail: error})
+      error => this.msgs.push({severity: 'error', summary: 'isAuthenticated Error', detail: error})
     );
   }
 
@@ -133,7 +133,7 @@ export class AppComponent implements OnInit {
           this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
-          this.msgs.push({severity:'info', summary:'Jesteś teraz zalogowany', detail: ""});
+          this.msgs.push({severity: 'info', summary: 'Jesteś teraz zalogowany', detail: ""});
         } else {
           this.loginFailed = true;
           this.displayLoginDialog = true;
@@ -142,7 +142,7 @@ export class AppComponent implements OnInit {
       },
       error => {
         this.msgs = []; //this line fix disappearing of messages
-        this.msgs.push({severity:'error', summary:'Login error', detail: error});
+        this.msgs.push({severity: 'error', summary: 'Login error', detail: error});
         this.loginFailed = true;
         this.displayLoginDialog = true;
         this.authenticated = false;
@@ -155,24 +155,34 @@ export class AppComponent implements OnInit {
       pageResponse => {
         this.loggedUser = pageResponse;
         this.msgs = []; //this line fix disappearing of messages
-        this.msgs.push({severity:'info', summary:'Zalogowany użytkownik: ', detail: 'username: ' + this.loggedUser.userName
-        + ' imię: ' + this.loggedUser.firstName + ' nazwisko: ' + this.loggedUser.lastName});
+        this.msgs.push({
+          severity: 'info', summary: 'Zalogowany użytkownik: ', detail: 'username: ' + this.loggedUser.userName
+          + ' imię: ' + this.loggedUser.firstName + ' nazwisko: ' + this.loggedUser.lastName
+        });
       },
-      error => this.msgs.push({severity:'error', summary:'Nie dało się otrzymać wyników', detail: error})
+      error => this.msgs.push({severity: 'error', summary: 'Nie dało się otrzymać wyników', detail: error})
     )
   }
 
-  addProperRoleItems(){
+  addProperRoleItems() {
     this.authService.isLoggedUserHasRoleUser().subscribe(
-      response =>{
-        if(response){this.pushUserItem()}
+      response => {
+        if (response) {
+          this.pushUserItem()
+        }
 
         this.authService.isLoggedUserHasRoleReviewer().subscribe(
-          response =>{
-            if(response){this.pushReviewerItem()}
+          response => {
+            if (response) {
+              this.pushReviewerItem()
+            }
 
             this.authService.isLoggedUserHasRoleAdmin().subscribe(
-              response =>{ if(response){this.pushAdminItem()}}
+              response => {
+                if (response) {
+                  this.pushAdminItem()
+                }
+              }
             );
           }
         );
@@ -180,7 +190,7 @@ export class AppComponent implements OnInit {
     );
   }
 
-  pushAdminItem(){
+  pushAdminItem() {
     this.items.push(
       {
         label: 'Admin',
@@ -204,11 +214,7 @@ export class AppComponent implements OnInit {
           },
 
           {
-            label: 'Role',
-            icon: 'fa-universal-access',
-            items: [
-              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
-            ]
+            label: 'Role', icon: 'fa-universal-access', routerLink: ['/roles'],
           },
 
           {
@@ -242,34 +248,22 @@ export class AppComponent implements OnInit {
     );
   }
 
-  pushReviewerItem(){
+  pushReviewerItem() {
     this.items.push(
       {
         label: 'Recenzent',
         icon: 'fa-balance-scale',
         items: [
           {
-            label: 'Sprawozdania',
-            icon: 'fa-file-text-o',
-            items: [
-              {label: 'Wyszukiwanie Sprawozdania', icon: 'fa-search', routerLink: ['/reviewerReports']},
-            ]
+            label: 'Oceń Sprawozdania', icon: 'fa-file-text-o', routerLink: ['/reviewerReports'],
           },
 
           {
-            label: 'Użytkownicy',
-            icon: 'fa-user-circle',
-            items: [
-              {label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount']},
-            ]
+            label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount'],
           },
 
           {
-            label: 'Role',
-            icon: 'fa-universal-access',
-            items: [
-              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
-            ]
+            label: 'Role', icon: 'fa-universal-access', routerLink: ['/roles'],
           },
 
           {
@@ -303,59 +297,38 @@ export class AppComponent implements OnInit {
     );
   }
 
-  pushUserItem(){
+  pushUserItem() {
     this.items.push(
       {
         label: 'Użytkownik',
         icon: 'fa-eercast',
         items: [
           {
-            label: 'Sprawozdania',
-            icon: 'fa-file-text-o',
-            items: [
-              {label: 'Moje Sprawozdania', icon: 'fa-search', routerLink: ['/userReports']},
-              {label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/userReports/add']},
-            ]
+            label: 'Moje Sprawozdania', icon: 'fa-file-text-o', routerLink: ['/userReports'],
           },
 
           {
-            label: 'Użytkownicy',
-            icon: 'fa-user-circle',
-            items: [
-              {label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount']},
-            ]
+            label: 'Tworzenie Sprawozdania', icon: 'fa-gavel', routerLink: ['/userReports/add'],
           },
 
           {
-            label: 'Role',
-            icon: 'fa-universal-access',
-            items: [
-              {label: 'Wyszukiwanie Ról', icon: 'fa-search', routerLink: ['/roles']},
-            ]
+            label: 'Moje konto', icon: 'fa-search', routerLink: ['/userAccount'],
           },
 
           {
-            label: 'Laboratoria',
-            icon: 'fa-columns',
-            items: [
-              {label: 'Wyszukiwanie Laboratoriów', icon: 'fa-search', routerLink: ['/userLaboratories']},
-            ]
+            label: 'Role', icon: 'fa-universal-access', routerLink: ['/roles'],
           },
 
           {
-            label: 'Przemioty',
-            icon: 'fa-square',
-            items: [
-              {label: 'Wyszukiwanie Przemiotów', icon: 'fa-search', routerLink: ['/userSubjects']},
-            ]
+            label: 'Laboratoria', icon: 'fa-columns', routerLink: ['/userLaboratories'],
           },
 
           {
-            label: 'Kierunki studiów',
-            icon: 'fa-arrows',
-            items: [
-              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/userFieldsOfStudies']},
-            ]
+            label: 'Przemioty', icon: 'fa-square', routerLink: ['/userSubjects'],
+          },
+
+          {
+            label: 'Kierunki studiów', icon: 'fa-arrows', routerLink: ['/userFieldsOfStudies'],
           },
         ]
       }
