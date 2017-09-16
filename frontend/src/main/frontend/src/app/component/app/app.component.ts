@@ -86,8 +86,8 @@ export class AppComponent implements OnInit {
         label: 'Wykresy',
         icon: 'fa-bar-chart',
         items: [
-          {label: 'Wykres kołowy', routerLink: ['/doughnut']},
-          {label: 'Diagram czasu', routerLink: ['/schedule']},
+          {label: 'Wykres kołowy', icon: 'fa-pie-chart', routerLink: ['/doughnut']},
+          {label: 'Diagram czasu', icon: 'fa-calendar-check-o', routerLink: ['/schedule']},
         ]
       },
 
@@ -95,13 +95,13 @@ export class AppComponent implements OnInit {
         label: 'Dokumentacja',
         icon: 'fa-book',
         items: [
-          {label: "Angular Cli", icon: 'fa-external-link', url: "https://cli.angular.io/"},
-          {label: "Angular 4", icon: 'fa-external-link', url: "https://angular.io/"},
-          {label: "Material 2", icon: 'fa-external-link', url: "https://material.angular.io/"},
-          {label: "PrimeNG Showcase", icon: 'fa-external-link', url: "http://www.primefaces.org/primeng"},
-          {label: "TypeScript", icon: 'fa-external-link', url: "https://www.typescriptlang.org/"},
-          {label: "Spring Boot", icon: 'fa-external-link', url: "http://projects.spring.io/spring-boot/"},
-          {label: "Spring Data JPA", icon: 'fa-external-link', url: "http://projects.spring.io/spring-data-jpa/"}
+          {label: "Angular Cli", icon: 'fa-location-arrow', url: "https://cli.angular.io/"},
+          {label: "Angular 4", icon: 'fa-location-arrow', url: "https://angular.io/"},
+          {label: "Material 2", icon: 'fa-location-arrow', url: "https://material.angular.io/"},
+          {label: "PrimeNG Showcase", icon: 'fa-location-arrow', url: "http://www.primefaces.org/primeng"},
+          {label: "TypeScript", icon: 'fa-location-arrow', url: "https://www.typescriptlang.org/"},
+          {label: "Spring Boot", icon: 'fa-location-arrow', url: "http://projects.spring.io/spring-boot/"},
+          {label: "Spring Data JPA", icon: 'fa-location-arrow', url: "http://projects.spring.io/spring-data-jpa/"}
         ]
       }
     ];
@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
         this.msgs = []; //this line fix disappearing of messages
         if (this.authenticated) {
           this.addProperRoleItems();
-          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
+          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-long-arrow-left'});
           console.log('You are authenticated...', '');
         } else {
           console.log('You are NOT authenticated...', '');
@@ -130,7 +130,7 @@ export class AppComponent implements OnInit {
           this.displayLoginDialog = false;
           this.authenticated = true;
           this.addProperRoleItems();
-          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-sign-out'});
+          this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-long-arrow-left'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
           this.msgs.push({severity: 'info', summary: 'Jesteś teraz zalogowany', detail: ""});
