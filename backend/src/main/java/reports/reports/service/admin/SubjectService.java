@@ -20,17 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class SubjectService {
 
-    @Autowired
     SubjectRepository subjectRepository;
-
-    @Autowired
-    LaboratoryService laboratoryService;
-
-    @Autowired
     LaboratoryRepository laboratoryRepository;
 
     @Autowired
-    FieldOfStudyService fieldOfStudyService;
+    public SubjectService(SubjectRepository subjectRepository, LaboratoryRepository laboratoryRepository, FieldOfStudyService fieldOfStudyService) {
+        this.subjectRepository = subjectRepository;
+        this.laboratoryRepository = laboratoryRepository;
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<SubjectDTO> findAll(PageRequestByExample<SubjectDTO> req) {
@@ -56,7 +53,7 @@ public class SubjectService {
             page = subjectRepository.findAll(req.toPageable());
         }
 
-        List<SubjectDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<SubjectDTO> content = page.getContent().stream().map(subject1 -> toDTO(subject1)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -105,7 +102,7 @@ public class SubjectService {
         if (dto.laboratories != null) {
             dto.laboratories.stream().forEach(laboratory -> subject.addLaboratory(laboratoryRepository.findOne(laboratory.id)));
         }
-        subject.setFieldOfStudy(fieldOfStudyService.toEntity(dto.fieldOfStudy));
+        subject.setFieldOfStudy(FieldOfStudyService.toEntity(dto.fieldOfStudy));
 
         return toDTO(subjectRepository.save(subject));
     }
@@ -114,7 +111,7 @@ public class SubjectService {
      * Converts the passed dto to a Subject.
      * Convenient for query by example.
      */
-    public Subject toEntity(SubjectDTO dto) {
+    public static Subject toEntity(SubjectDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -132,7 +129,7 @@ public class SubjectService {
         return subject;
     }
 
-    public SubjectDTO toDTO(Subject subject) {
+    public static SubjectDTO toDTO(Subject subject) {
         return toDTO(subject, 0);
     }
 
@@ -142,7 +139,7 @@ public class SubjectService {
      *
      * @param subject
      */
-    public SubjectDTO toDTO(Subject subject, int depth) {
+    public static SubjectDTO toDTO(Subject subject, int depth) {
         if (subject == null) {
             return null;
         }
@@ -157,9 +154,9 @@ public class SubjectService {
         dto.createdBy = subject.getCreatedBy();
         dto.lastModifiedBy = subject.getLastModifiedBy();
         if(depth<1){
-            dto.laboratories = subject.getLaboratories().stream().map(laboratory -> laboratoryService.toDTO(laboratory, 1)).collect(Collectors.toList());
+            dto.laboratories = subject.getLaboratories().stream().map(laboratory -> LaboratoryService.toDTO(laboratory, 1)).collect(Collectors.toList());
         }
-        dto.fieldOfStudy = fieldOfStudyService.toDTO(subject.getFieldOfStudy(), 1);
+        dto.fieldOfStudy = FieldOfStudyService.toDTO(subject.getFieldOfStudy(), 1);
 
         return dto;
     }
@@ -167,7 +164,7 @@ public class SubjectService {
     @Transactional(readOnly = true)
     public List<SubjectDTO> findAll() {
         List<Subject> results = subjectRepository.findAll();
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
+        return results.stream().map(subject -> toDTO(subject)).collect(Collectors.toList());
     }
 
 }

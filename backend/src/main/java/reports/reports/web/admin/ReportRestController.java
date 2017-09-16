@@ -28,8 +28,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ReportRestController {
 
     private final Logger log = LoggerFactory.getLogger(ReportRestController.class);
-    @Autowired
+
     private ReportService reportService;
+
+    @Autowired
+    public ReportRestController(ReportService reportService) {
+        this.reportService = reportService;
+    }
 
     /**
      * Find a Page of Reports using query by example.

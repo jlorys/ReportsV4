@@ -33,17 +33,18 @@ public class UserReportService {
 
     private final Logger log = LoggerFactory.getLogger(UserReportService.class);
 
-    @Autowired
     private ReportRepository reportRepository;
-
-    @Autowired
     private ReportService reportService;
-
-    @Autowired
     private AppUserRepository appUserRepository;
+    private  AppUserService appUserService;
 
     @Autowired
-    private  AppUserService appUserService;
+    public UserReportService(ReportRepository reportRepository, ReportService reportService, AppUserRepository appUserRepository, AppUserService appUserService) {
+        this.reportRepository = reportRepository;
+        this.reportService = reportService;
+        this.appUserRepository = appUserRepository;
+        this.appUserService = appUserService;
+    }
 
     @Transactional(readOnly = true)
     public ReportDTO findOne(Integer id) {

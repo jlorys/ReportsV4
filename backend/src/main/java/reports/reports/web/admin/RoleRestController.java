@@ -24,8 +24,12 @@ public class RoleRestController {
 
     private final Logger log = LoggerFactory.getLogger(RoleRestController.class);
 
-    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    public RoleRestController(RoleService roleService) {
+        this.roleService = roleService;
+    }
 
     /**
     * Find by id Role.

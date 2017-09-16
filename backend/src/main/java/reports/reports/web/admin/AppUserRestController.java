@@ -27,11 +27,14 @@ public class AppUserRestController {
 
     private final Logger log = LoggerFactory.getLogger(AppUserRestController.class);
 
-    @Autowired
     private AppUserService appUserService;
+    private UserRoleService userRoleService;
 
     @Autowired
-    private UserRoleService userRoleService;
+    public AppUserRestController(AppUserService appUserService, UserRoleService userRoleService) {
+        this.appUserService = appUserService;
+        this.userRoleService = userRoleService;
+    }
 
     /**
      * Find a Page of User using query by example.

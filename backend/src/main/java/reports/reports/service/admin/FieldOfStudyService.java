@@ -20,14 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class FieldOfStudyService {
 
-    @Autowired
     FieldOfStudyRepository fieldOfStudyRepository;
-
-    @Autowired
-    SubjectService subjectService;
-
-    @Autowired
     SubjectRepository subjectRepository;
+
+    @Autowired
+    public FieldOfStudyService(FieldOfStudyRepository fieldOfStudyRepository, SubjectRepository subjectRepository) {
+        this.fieldOfStudyRepository = fieldOfStudyRepository;
+        this.subjectRepository = subjectRepository;
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<FieldOfStudyDTO> findAll(PageRequestByExample<FieldOfStudyDTO> req) {
@@ -53,7 +53,7 @@ public class FieldOfStudyService {
             page = fieldOfStudyRepository.findAll(req.toPageable());
         }
 
-        List<FieldOfStudyDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<FieldOfStudyDTO> content = page.getContent().stream().map(fieldOfStudy1 -> toDTO(fieldOfStudy1)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -109,7 +109,7 @@ public class FieldOfStudyService {
      * Converts the passed dto to a FieldOfStudy.
      * Convenient for query by example.
      */
-    public FieldOfStudy toEntity(FieldOfStudyDTO dto) {
+    public static FieldOfStudy toEntity(FieldOfStudyDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -127,7 +127,7 @@ public class FieldOfStudyService {
         return fieldOfStudy;
     }
 
-    public FieldOfStudyDTO toDTO(FieldOfStudy fieldOfStudy) {
+    public static FieldOfStudyDTO toDTO(FieldOfStudy fieldOfStudy) {
         return toDTO(fieldOfStudy, 0);
     }
 
@@ -137,7 +137,7 @@ public class FieldOfStudyService {
      *
      * @param fieldOfStudy
      */
-    public FieldOfStudyDTO toDTO(FieldOfStudy fieldOfStudy, int depth) {
+    public static FieldOfStudyDTO toDTO(FieldOfStudy fieldOfStudy, int depth) {
         if (fieldOfStudy == null) {
             return null;
         }
@@ -152,7 +152,7 @@ public class FieldOfStudyService {
         dto.createdBy = fieldOfStudy.getCreatedBy();
         dto.lastModifiedBy = fieldOfStudy.getLastModifiedBy();
         if(depth<1){
-            dto.subjects = fieldOfStudy.getSubjects().stream().map(subject -> subjectService.toDTO(subject, 1)).collect(Collectors.toList());
+            dto.subjects = fieldOfStudy.getSubjects().stream().map(subject -> SubjectService.toDTO(subject, 1)).collect(Collectors.toList());
         }
 
         return dto;
@@ -161,6 +161,6 @@ public class FieldOfStudyService {
     @Transactional(readOnly = true)
     public List<FieldOfStudyDTO> findAll() {
         List<FieldOfStudy> results = fieldOfStudyRepository.findAll();
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
+        return results.stream().map(fieldOfStudy -> toDTO(fieldOfStudy)).collect(Collectors.toList());
     }
 }

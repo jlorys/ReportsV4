@@ -26,8 +26,12 @@ public class UserLaboratoryRestController {
 
     private final Logger log = LoggerFactory.getLogger(UserLaboratoryRestController.class);
 
-    @Autowired
     private UserLaboratoryService laboratoryService;
+
+    @Autowired
+    public UserLaboratoryRestController(UserLaboratoryService laboratoryService) {
+        this.laboratoryService = laboratoryService;
+    }
 
     /**
      * Find a Page of Laboratory using query by example.

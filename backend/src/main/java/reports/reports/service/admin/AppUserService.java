@@ -22,23 +22,18 @@ import java.util.stream.Collectors;
 @Service
 public class AppUserService {
 
-    @Autowired
     private AppUserRepository appUserRepository;
-
-    @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
     private ReportRepository reportRepository;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private ReportService reportService;
-
-    @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public AppUserService(AppUserRepository appUserRepository, RoleRepository roleRepository, ReportRepository reportRepository, PasswordEncoder passwordEncoder) {
+        this.appUserRepository = appUserRepository;
+        this.roleRepository = roleRepository;
+        this.reportRepository = reportRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<AppUserDTO> findAll(PageRequestByExample<AppUserDTO> req) {
@@ -67,7 +62,7 @@ public class AppUserService {
             page = appUserRepository.findAll(req.toPageable());
         }
 
-        List<AppUserDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<AppUserDTO> content = page.getContent().stream().map(appUser -> AppUserService.toDTO(appUser)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -159,7 +154,7 @@ public class AppUserService {
      * Converts the passed dto to a User.
      * Convenient for query by example.
      */
-    public AppUser toEntity(AppUserDTO dto) {
+    public static AppUser toEntity(AppUserDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -180,7 +175,7 @@ public class AppUserService {
         return user;
     }
 
-    public AppUserDTO toDTO(AppUser report) {
+    public static AppUserDTO toDTO(AppUser report) {
         return toDTO(report, 0);
     }
 
@@ -190,7 +185,7 @@ public class AppUserService {
      *
      * @param user
      */
-    public AppUserDTO toDTO(AppUser user, int depth) {
+    public static AppUserDTO toDTO(AppUser user, int depth) {
         if (user == null) {
             return null;
         }
@@ -208,8 +203,8 @@ public class AppUserService {
         dto.createdBy = user.getCreatedBy();
         dto.lastModifiedBy = user.getLastModifiedBy();
         if(depth<1){
-            dto.roles = user.getRoles().stream().map(role -> roleService.toDTO(role)).collect(Collectors.toList());
-            dto.reports = user.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
+            dto.roles = user.getRoles().stream().map(role -> RoleService.toDTO(role)).collect(Collectors.toList());
+            dto.reports = user.getReports().stream().map(report -> ReportService.toDTO(report, 1)).collect(Collectors.toList());
         }
 
         return dto;
@@ -224,10 +219,10 @@ public class AppUserService {
         List<AppUser> results = appUserRepository.findAll();
         List<AppUser> filteredResults = results.stream().filter(appUser -> appUser.getReports().stream().noneMatch(report -> report.getId().equals(reportId)))
                 .collect(Collectors.toList());
-        return filteredResults.stream().map(this::toDTOWithoutPersonalData).collect(Collectors.toList());
+        return filteredResults.stream().map(appUser -> toDTOWithoutPersonalData(appUser)).collect(Collectors.toList());
     }
 
-    public AppUserDTO toDTOWithoutPersonalData(AppUser user) {
+    public static AppUserDTO toDTOWithoutPersonalData(AppUser user) {
         if (user == null) {
             return null;
         }

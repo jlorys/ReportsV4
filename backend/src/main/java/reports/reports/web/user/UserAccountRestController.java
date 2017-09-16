@@ -16,8 +16,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/api/userAccount")
 public class UserAccountRestController {
 
-    @Autowired
     private UserAccountService userAccountService;
+
+    @Autowired
+    public UserAccountRestController(UserAccountService userAccountService) {
+        this.userAccountService = userAccountService;
+    }
 
     /**
      * Update User password.

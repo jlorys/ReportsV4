@@ -22,20 +22,18 @@ import java.util.stream.Collectors;
 @Service
 public class UserLaboratoryService {
 
-    @Autowired
     LaboratoryRepository laboratoryRepository;
-
-    @Autowired
-    SubjectService subjectService;
-
-    @Autowired
     LaboratoryService laboratoryService;
-
-    @Autowired
     AppUserRepository appUserRepository;
+    ReportService reportService;
 
     @Autowired
-    ReportService reportService;
+    public UserLaboratoryService(LaboratoryRepository laboratoryRepository, LaboratoryService laboratoryService, AppUserRepository appUserRepository, ReportService reportService) {
+        this.laboratoryRepository = laboratoryRepository;
+        this.laboratoryService = laboratoryService;
+        this.appUserRepository = appUserRepository;
+        this.reportService = reportService;
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<LaboratoryDTO> findAll(PageRequestByExample<LaboratoryDTO> req) {
@@ -45,6 +43,20 @@ public class UserLaboratoryService {
     @Transactional(readOnly = true)
     public LaboratoryDTO findOne(Integer id) {
         Laboratory laboratory = laboratoryRepository.findOne(id);
+
+        if(!Optional.ofNullable(laboratory).isPresent()) {
+            return null;
+        }
+
+        laboratory.setReports(appUserRepository.findOne(UserContext.getId()).getReports().stream()
+                .filter(report -> {
+                            if(Optional.ofNullable(report.getLaboratory().getId()).isPresent()){
+                                return report.getLaboratory().getId().equals(laboratory.getId());
+                            } else{ return true; }
+                        }
+                )
+                .collect(Collectors.toList()));
+
         return toDTO(laboratory);
     }
 
@@ -54,7 +66,7 @@ public class UserLaboratoryService {
      *
      * @param laboratory
      */
-    public LaboratoryDTO toDTO(Laboratory laboratory) {
+    public static LaboratoryDTO toDTO(Laboratory laboratory) {
         if (laboratory == null) {
             return null;
         }
@@ -71,16 +83,8 @@ public class UserLaboratoryService {
         dto.labDate = laboratory.getLabDate();
         dto.returnReportDate = laboratory.getReturnReportDate();
         dto.finalReturnReportDate = laboratory.getFinalReturnReportDate();
-        dto.reports = appUserRepository.findOne(UserContext.getId()).getReports().stream()
-                .map(report -> reportService.toDTO(report))
-                .filter(reportDTO -> {
-                            if(Optional.ofNullable(reportDTO.laboratory).isPresent()){
-                                return reportDTO.laboratory.id.equals(dto.id);
-                            } else{ return true; }
-                        }
-                        )
-                .collect(Collectors.toList());
-        dto.subject = subjectService.toDTO(laboratory.getSubject(), 1);
+        dto.reports = laboratory.getReports().stream().map(report -> ReportService.toDTO(report, 1)).collect(Collectors.toList());
+        dto.subject = SubjectService.toDTO(laboratory.getSubject(), 1);
 
         return dto;
     }
@@ -88,6 +92,6 @@ public class UserLaboratoryService {
     @Transactional(readOnly = true)
     public List<LaboratoryDTO> findAll() {
         List<Laboratory> results = laboratoryRepository.findAll();
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
+        return results.stream().map(laboratory -> toDTO(laboratory)).collect(Collectors.toList());
     }
 }

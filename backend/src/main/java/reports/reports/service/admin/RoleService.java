@@ -22,8 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class RoleService {
 
-    @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @Transactional(readOnly = true)
     public RoleDTO findOne(Integer id) {
@@ -35,7 +39,7 @@ public class RoleService {
         List<Role> results = roleRepository.findAll();
         List<Role> filteredResults = results.stream().filter(role -> role.getUsers().stream().noneMatch(user -> user.getId().equals(userId)))
                 .collect(Collectors.toList());
-        return filteredResults.stream().map(this::toDTO).collect(Collectors.toList());
+        return filteredResults.stream().map(role -> toDTO(role)).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -57,14 +61,14 @@ public class RoleService {
             page = roleRepository.findAll(req.toPageable());
         }
 
-        List<RoleDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<RoleDTO> content = page.getContent().stream().map(role1 -> toDTO(role1)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
     /**
      * Converts the passed role to a DTO.
      */
-    public RoleDTO toDTO(Role role) {
+    public static RoleDTO toDTO(Role role) {
         return toDTO(role, 1);
     }
 
@@ -77,7 +81,7 @@ public class RoleService {
      *              A depth equals to 1 means that xToOne associations will be serialized. 2 means, xToOne associations of
      *              xToOne associations will be serialized, etc.
      */
-    public RoleDTO toDTO(Role role, int depth) {
+    public static RoleDTO toDTO(Role role, int depth) {
         if (role == null) {
             return null;
         }
@@ -97,7 +101,7 @@ public class RoleService {
      * Converts the passed dto to a Role.
      * Convenient for query by example.
      */
-    public Role toEntity(RoleDTO dto) {
+    public static Role toEntity(RoleDTO dto) {
         return toEntity(dto, 1);
     }
 
@@ -105,7 +109,7 @@ public class RoleService {
      * Converts the passed dto to a Role.
      * Convenient for query by example.
      */
-    public Role toEntity(RoleDTO dto, int depth) {
+    public static Role toEntity(RoleDTO dto, int depth) {
         if (dto == null) {
             return null;
         }

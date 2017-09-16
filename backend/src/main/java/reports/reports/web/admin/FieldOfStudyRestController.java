@@ -26,8 +26,12 @@ public class FieldOfStudyRestController {
 
     private final Logger log = LoggerFactory.getLogger(FieldOfStudyRestController.class);
 
-    @Autowired
     private FieldOfStudyService fieldOfStudyService;
+
+    @Autowired
+    public FieldOfStudyRestController(FieldOfStudyService fieldOfStudyService) {
+        this.fieldOfStudyService = fieldOfStudyService;
+    }
 
     /**
      * Find a Page of FieldOfStudy using query by example.

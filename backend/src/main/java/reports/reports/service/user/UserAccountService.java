@@ -13,14 +13,16 @@ import reports.reports.service.admin.AppUserService;
 @Service
 public class UserAccountService {
 
-    @Autowired
-    AppUserService appUserService;
-
-    @Autowired
-    AppUserRepository appUserRepository;
-
-    @Autowired
+    private AppUserService appUserService;
+    private AppUserRepository appUserRepository;
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserAccountService(AppUserService appUserService, AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
+        this.appUserService = appUserService;
+        this.appUserRepository = appUserRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional(readOnly = true)
     public AppUserDTO findLoggedUser() {

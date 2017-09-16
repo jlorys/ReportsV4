@@ -26,8 +26,12 @@ public class SubjectRestController {
 
     private final Logger log = LoggerFactory.getLogger(SubjectRestController.class);
 
-    @Autowired
     private SubjectService subjectService;
+
+    @Autowired
+    public SubjectRestController(SubjectService subjectService) {
+        this.subjectService = subjectService;
+    }
 
     /**
      * Find a Page of Subject using query by example.

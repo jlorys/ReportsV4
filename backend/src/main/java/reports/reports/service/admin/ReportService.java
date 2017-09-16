@@ -38,17 +38,14 @@ public class ReportService {
 
     private final Logger log = LoggerFactory.getLogger(ReportService.class);
 
-    @Autowired
     private ReportRepository reportRepository;
-
-    @Autowired
     private AppUserRepository appUserRepository;
 
     @Autowired
-    private AppUserService appUserService;
-
-    @Autowired
-    private LaboratoryService laboratoryService;
+    public ReportService(ReportRepository reportRepository, AppUserRepository appUserRepository) {
+        this.reportRepository = reportRepository;
+        this.appUserRepository = appUserRepository;
+    }
 
     @Transactional(readOnly = true)
     public ReportDTO findOne(Integer id) {
@@ -105,7 +102,7 @@ public class ReportService {
         }
 
 
-        List<ReportDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<ReportDTO> content = page.getContent().stream().map(report1 -> toDTO(report1)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -151,7 +148,7 @@ public class ReportService {
         if (dto.users != null) {
             dto.users.stream().forEach(user -> report.addUser(appUserRepository.findOne(user.id)));
         }
-        report.setLaboratory(laboratoryService.toEntity(dto.laboratory));
+        report.setLaboratory(LaboratoryService.toEntity(dto.laboratory));
 
         return toDTO(reportRepository.save(report));
     }
@@ -160,7 +157,7 @@ public class ReportService {
      * Converts the passed dto to a Report.
      * Convenient for query by example.
      */
-    public Report toEntity(ReportDTO dto) {
+    public static Report toEntity(ReportDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -181,7 +178,7 @@ public class ReportService {
         return report;
     }
 
-    public ReportDTO toDTO(Report report) {
+    public static ReportDTO toDTO(Report report) {
         return toDTO(report, 0);
     }
 
@@ -191,7 +188,7 @@ public class ReportService {
      *
      * @param report
      */
-    public ReportDTO toDTO(Report report, int depth) {
+    public static ReportDTO toDTO(Report report, int depth) {
         if (report == null) {
             return null;
         }
@@ -210,9 +207,9 @@ public class ReportService {
         dto.lastModifiedBy = report.getLastModifiedBy();
         dto.isSendInTime = report.isSendInTime();
         if (depth < 1) {
-            dto.users = report.getUsers().stream().map(user -> appUserService.toDTO(user, 1)).collect(Collectors.toList());
+            dto.users = report.getUsers().stream().map(user -> AppUserService.toDTO(user, 1)).collect(Collectors.toList());
         }
-        dto.laboratory = laboratoryService.toDTO(report.getLaboratory(), 1);
+        dto.laboratory = LaboratoryService.toDTO(report.getLaboratory(), 1);
 
         return dto;
     }

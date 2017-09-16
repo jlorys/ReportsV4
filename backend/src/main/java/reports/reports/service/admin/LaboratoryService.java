@@ -20,17 +20,14 @@ import java.util.stream.Collectors;
 @Service
 public class LaboratoryService {
 
-    @Autowired
     LaboratoryRepository laboratoryRepository;
-
-    @Autowired
-    ReportService reportService;
-
-    @Autowired
     ReportRepository reportRepository;
 
     @Autowired
-    SubjectService subjectService;
+    public LaboratoryService(LaboratoryRepository laboratoryRepository, ReportRepository reportRepository) {
+        this.laboratoryRepository = laboratoryRepository;
+        this.reportRepository = reportRepository;
+    }
 
     @Transactional(readOnly = true)
     public PageResponse<LaboratoryDTO> findAll(PageRequestByExample<LaboratoryDTO> req) {
@@ -59,7 +56,7 @@ public class LaboratoryService {
             page = laboratoryRepository.findAll(req.toPageable());
         }
 
-        List<LaboratoryDTO> content = page.getContent().stream().map(this::toDTO).collect(Collectors.toList());
+        List<LaboratoryDTO> content = page.getContent().stream().map(laboratory1 -> toDTO(laboratory1)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -110,7 +107,7 @@ public class LaboratoryService {
         if (dto.reports != null) {
             dto.reports.stream().forEach(report -> laboratory.addReport(reportRepository.findOne(report.id)));
         }
-        laboratory.setSubject(subjectService.toEntity(dto.subject));
+        laboratory.setSubject(SubjectService.toEntity(dto.subject));
 
         return toDTO(laboratoryRepository.save(laboratory));
     }
@@ -119,7 +116,7 @@ public class LaboratoryService {
      * Converts the passed dto to a Laboratory.
      * Convenient for query by example.
      */
-    public Laboratory toEntity(LaboratoryDTO dto) {
+    public static Laboratory toEntity(LaboratoryDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -140,7 +137,7 @@ public class LaboratoryService {
         return laboratory;
     }
 
-    public LaboratoryDTO toDTO(Laboratory laboratory) {
+    public static LaboratoryDTO toDTO(Laboratory laboratory) {
         return toDTO(laboratory, 0);
     }
 
@@ -150,7 +147,7 @@ public class LaboratoryService {
      *
      * @param laboratory
      */
-    public LaboratoryDTO toDTO(Laboratory laboratory, int depth) {
+    public static LaboratoryDTO toDTO(Laboratory laboratory, int depth) {
         if (laboratory == null) {
             return null;
         }
@@ -168,9 +165,9 @@ public class LaboratoryService {
         dto.returnReportDate = laboratory.getReturnReportDate();
         dto.finalReturnReportDate = laboratory.getFinalReturnReportDate();
         if(depth<1){
-            dto.reports = laboratory.getReports().stream().map(report -> reportService.toDTO(report, 1)).collect(Collectors.toList());
+            dto.reports = laboratory.getReports().stream().map(report -> ReportService.toDTO(report, 1)).collect(Collectors.toList());
         }
-        dto.subject = subjectService.toDTO(laboratory.getSubject(), 1);
+        dto.subject = SubjectService.toDTO(laboratory.getSubject(), 1);
 
         return dto;
     }
@@ -178,6 +175,6 @@ public class LaboratoryService {
     @Transactional(readOnly = true)
     public List<LaboratoryDTO> findAll() {
         List<Laboratory> results = laboratoryRepository.findAll();
-        return results.stream().map(this::toDTO).collect(Collectors.toList());
+        return results.stream().map(laboratory -> toDTO(laboratory)).collect(Collectors.toList());
     }
 }

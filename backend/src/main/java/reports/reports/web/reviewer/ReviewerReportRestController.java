@@ -23,8 +23,13 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class ReviewerReportRestController {
 
     private final Logger log = LoggerFactory.getLogger(ReviewerReportRestController.class);
-    @Autowired
+
     private ReviewerReportService reviewerReportService;
+
+    @Autowired
+    public ReviewerReportRestController(ReviewerReportService reviewerReportService) {
+        this.reviewerReportService = reviewerReportService;
+    }
 
     /**
      * Update Report.

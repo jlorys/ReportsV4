@@ -20,11 +20,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping("/api")
 public class SecurityRestController {
 
-    @Autowired
     private AppUserService appUserService;
+    private UserRoleService userRoleService;
 
     @Autowired
-    private UserRoleService userRoleService;
+    public SecurityRestController(AppUserService appUserService, UserRoleService userRoleService) {
+        this.appUserService = appUserService;
+        this.userRoleService = userRoleService;
+    }
 
     @GetMapping(value = "/authenticated", produces = APPLICATION_JSON_VALUE)
     public boolean isAuthenticated() {
