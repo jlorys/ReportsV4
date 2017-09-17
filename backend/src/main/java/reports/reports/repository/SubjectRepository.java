@@ -5,4 +5,6 @@ import reports.reports.domain.Subject;
 
 public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
+    Subject getByName(String name);
+
 }

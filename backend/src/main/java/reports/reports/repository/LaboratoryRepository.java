@@ -5,4 +5,6 @@ import reports.reports.domain.Laboratory;
 
 public interface LaboratoryRepository extends JpaRepository<Laboratory, Integer> {
 
+    Laboratory getByName(String name);
+
 }

@@ -5,4 +5,6 @@ import reports.reports.domain.FieldOfStudy;
 
 public interface FieldOfStudyRepository  extends JpaRepository<FieldOfStudy, Integer> {
 
+    FieldOfStudy getByName(String name);
+
 }

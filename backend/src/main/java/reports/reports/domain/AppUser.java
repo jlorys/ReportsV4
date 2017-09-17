@@ -143,7 +143,7 @@ public class AppUser {
 
 	public List<Report> getReports() {
 		if(Optional.ofNullable(reports).isPresent()) return reports;
-		return Collections.EMPTY_LIST;
+		return new ArrayList<>(Collections.EMPTY_LIST);
 	}
 
 	public void setReports(List<Report> reports) {
@@ -176,7 +176,9 @@ public class AppUser {
 	 * Helper method to add the passed {@link Role} to the {@link #roles} list.
 	 */
 	public boolean addRole(Role role) {
-		return getRoles().add(role);
+		this.roles = getRoles();
+		this.roles.add(role);
+		return true;
 	}
 
 	/**
