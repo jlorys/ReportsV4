@@ -57,7 +57,7 @@ export class UserAccountComponent {
         this.msgs = []; //this line fix disappearing of messages
         this.msgs.push({severity: 'info', summary: 'Zmieniono hasło', detail: 'OK!'})
       },
-      error => this.msgs.push({severity: 'error', summary: 'Nie można zmienić hasła', detail: 'OK!'})
+      error => this.msgs.push({severity: 'error', summary: 'Dane niepoprawne!', detail: ''})
     );
   }
 }

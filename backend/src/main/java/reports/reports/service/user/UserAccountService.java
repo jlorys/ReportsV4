@@ -13,20 +13,18 @@ import reports.reports.service.admin.AppUserService;
 @Service
 public class UserAccountService {
 
-    private AppUserService appUserService;
     private AppUserRepository appUserRepository;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserAccountService(AppUserService appUserService, AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
-        this.appUserService = appUserService;
+    public UserAccountService(AppUserRepository appUserRepository, PasswordEncoder passwordEncoder) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
     public AppUserDTO findLoggedUser() {
-        return appUserService.toDTO(appUserRepository.findOne(UserContext.getId()));
+        return AppUserService.toDTO(appUserRepository.findOne(UserContext.getId()));
     }
 
     @Transactional
@@ -41,7 +39,7 @@ public class UserAccountService {
             if(passwordEncoder.matches(oldPassword, appUser.getPassword())){
 
                 appUser.setPassword(passwordEncoder.encode(newPassword));
-                return appUserService.toDTO(appUserRepository.save(appUser));
+                return AppUserService.toDTO(appUserRepository.save(appUser));
             }
         }
 

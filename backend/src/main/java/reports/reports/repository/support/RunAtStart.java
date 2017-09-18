@@ -170,9 +170,10 @@ class RunAtStart {
 
     private void addRolesToUsers() {
 
-        AppUser appUser = appUserRepository.findOne(1);
+        AppUser appUser = appUserRepository.getByUserName("admin");
 
         List<Role> roles = roleRepository.findAll();
+
         appUser.setRoles(roles);
         appUserRepository.save(appUser);
 
@@ -180,9 +181,10 @@ class RunAtStart {
 
     private void addReportsToUsers() {
 
-        AppUser appUser = appUserRepository.findOne(1);
+        AppUser appUser = appUserRepository.getByUserName("admin");
 
         List<Report> reports = reportRepository.findAll();
+
         appUser.setReports(reports);
         appUserRepository.save(appUser);
 

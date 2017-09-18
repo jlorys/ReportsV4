@@ -60,7 +60,7 @@ public class UserReportService {
 
         Page<Report> page;
         page = reportRepository.findByUsers(appUserRepository.findOne(UserContext.getId()), req.toPageable());
-        List<ReportDTO> content = page.getContent().stream().map(report1 -> reportService.toDTO(report1)).collect(Collectors.toList());
+        List<ReportDTO> content = page.getContent().stream().map(report1 -> ReportService.toDTO(report1)).collect(Collectors.toList());
 
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }

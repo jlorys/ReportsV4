@@ -55,7 +55,7 @@ public class ReviewerReportService {
             } else {
                 report.setSendInTime(true);
             }
-            ReportDTO reportDTO = reportService.save(reportService.toDTO(report));
+            ReportDTO reportDTO = reportService.save(ReportService.toDTO(report));
             /*
             try{
                 sendMailWithGradeToReportAuthors(report.getUsers(), reportDTO);
