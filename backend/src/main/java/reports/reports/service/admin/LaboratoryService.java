@@ -64,6 +64,10 @@ public class LaboratoryService {
         laboratoryRepository.delete(id);
     }
 
+    public void deleteAll() {
+        laboratoryRepository.deleteAll();
+    }
+
     @Transactional(readOnly = true)
     public LaboratoryDTO findOne(Integer id) {
         Laboratory laboratory = laboratoryRepository.findOne(id);

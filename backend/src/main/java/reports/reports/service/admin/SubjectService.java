@@ -62,6 +62,10 @@ public class SubjectService {
         subjectRepository.delete(id);
     }
 
+    public void deleteAll() {
+        subjectRepository.deleteAll();
+    }
+
     @Transactional(readOnly = true)
     public SubjectDTO findOne(Integer id) {
         Subject subject = subjectRepository.findOne(id);

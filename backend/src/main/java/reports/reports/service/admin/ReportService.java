@@ -110,6 +110,10 @@ public class ReportService {
         reportRepository.delete(id);
     }
 
+    public void deleteAll() {
+        reportRepository.deleteAll();
+    }
+
     /**
      * Save the passed dto as a new entity or update the corresponding entity if any.
      */

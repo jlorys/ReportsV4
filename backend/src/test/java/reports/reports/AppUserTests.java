@@ -42,6 +42,7 @@ public class AppUserTests {
      */
     @Before
     public void setUp() throws Exception {
+        reportService.deleteAll();
         appUserService.deleteAll();
 
         List<AppUser> appUsers = new ArrayList<>();
@@ -105,12 +106,18 @@ public class AppUserTests {
     public void findAllAppUsersWhichDoNotHaveReportWithThisId_ShouldReturnTwoUsers() {
         AppUserDTO appUserDTO = appUserService.findByUserName("admin");
 
-        PageRequestByExample<ReportDTO> appUserDTOPageRequestByExample = new PageRequestByExample<>();
-        appUserDTO.reports = reportService.findAll(appUserDTOPageRequestByExample).content;
+        PageRequestByExample<ReportDTO> reportDTOPageRequestByExample = new PageRequestByExample<>();
+
+        ReportDTO reportDTO = new ReportDTO();
+        reportDTO.description = "Opis sprawozdania";
+        reportService.save(reportDTO);
+
+        appUserDTO.reports = reportService.findAll(reportDTOPageRequestByExample).content;
+        Integer id = appUserDTO.reports.get(0).id;
 
         appUserService.save(appUserDTO);
 
-        assertEquals(appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(1).size(), 2);
+        assertEquals(appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(id).size(), 2);
     }
 
     @After

@@ -61,6 +61,10 @@ public class FieldOfStudyService {
         fieldOfStudyRepository.delete(id);
     }
 
+    public void deleteAll() {
+        fieldOfStudyRepository.deleteAll();
+    }
+
     @Transactional(readOnly = true)
     public FieldOfStudyDTO findOne(Integer id) {
         FieldOfStudy fieldOfStudy = fieldOfStudyRepository.findOne(id);
