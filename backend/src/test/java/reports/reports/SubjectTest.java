@@ -1,5 +1,6 @@
 package reports.reports;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -84,6 +85,11 @@ public class SubjectTest {
 
         assertEquals(subjectService.save(subjectDTO).name, "Materiałoznawstwo");
 
+    }
+
+    @After
+    public void after() throws Exception {
+        subjectService.deleteAll();
     }
 
 }

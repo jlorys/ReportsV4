@@ -1,5 +1,6 @@
 package reports.reports;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -95,5 +96,9 @@ public class FieldOfStudyTest {
 
     }
 
+    @After
+    public void after() throws Exception {
+        fieldOfStudyService.deleteAll();
+    }
 }
 

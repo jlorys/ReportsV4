@@ -1,5 +1,6 @@
 package reports.reports;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -85,6 +86,11 @@ public class ReportTest {
 
         assertEquals(reportService.save(reportDTO).description, "Opis13");
 
+    }
+
+    @After
+    public void after() throws Exception {
+        reportService.deleteAll();
     }
 
 }
