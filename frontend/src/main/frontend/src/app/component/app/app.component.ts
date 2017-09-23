@@ -64,7 +64,6 @@ import {Router} from "@angular/router";
 })
 export class AppComponent implements OnInit {
   private items: MenuItem[];
-  private itemAdmin: MenuItem[];
 
   msgs: Message[] = [];
 
@@ -95,13 +94,14 @@ export class AppComponent implements OnInit {
         label: 'Dokumentacja',
         icon: 'fa-book',
         items: [
-          {label: "Angular Cli", icon: 'fa-location-arrow', url: "https://cli.angular.io/"},
           {label: "Angular 4", icon: 'fa-location-arrow', url: "https://angular.io/"},
-          {label: "Material 2", icon: 'fa-location-arrow', url: "https://material.angular.io/"},
-          {label: "PrimeNG Showcase", icon: 'fa-location-arrow', url: "http://www.primefaces.org/primeng"},
           {label: "TypeScript", icon: 'fa-location-arrow', url: "https://www.typescriptlang.org/"},
-          {label: "Spring Boot", icon: 'fa-location-arrow', url: "http://projects.spring.io/spring-boot/"},
-          {label: "Spring Data JPA", icon: 'fa-location-arrow', url: "http://projects.spring.io/spring-data-jpa/"}
+          {label: "Spring Security", icon: 'fa-envira', url: "https://docs.spring.io/spring-security/"},
+          {label: "Spring Boot", icon: 'fa-envira', url: "http://projects.spring.io/spring-boot/"},
+          {label: "Spring Data JPA", icon: 'fa-envira', url: "http://projects.spring.io/spring-data-jpa/"},
+          {label: "Angular Cli", icon: 'fa-location-arrow', url: "https://cli.angular.io/"},
+          {label: "Material 2", icon: 'fa-location-arrow', url: "https://material.angular.io/"},
+          {label: "PrimeNG", icon: 'fa-location-arrow', url: "http://www.primefaces.org/primeng"}
         ]
       }
     ];
