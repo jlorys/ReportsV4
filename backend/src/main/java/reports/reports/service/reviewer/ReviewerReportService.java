@@ -50,7 +50,7 @@ public class ReviewerReportService {
                 report.setGrade(gradeReducedHalf.toString());
                 report.setSendInTime(false);
             } else if (report.getLastModifiedDate() > laboratory.getFinalReturnReportDate()) {
-                report.setGrade(String.valueOf("2"));
+                report.setGrade(String.valueOf("2.0"));
                 report.setSendInTime(false);
             } else {
                 report.setSendInTime(true);
