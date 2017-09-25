@@ -145,7 +145,7 @@ class RunAtStart {
     }
 
     private void generateReports() {
-        Laboratory laboratory = laboratoryRepository.findOne(1);
+        Laboratory laboratory = laboratoryRepository.getByName("Laboratorium1");
 
         List<Report> reports = new ArrayList<>();
         reports.add(new Report("Opis1", "files/", "sprawozdanie1", ".pdf", null, null, laboratory));

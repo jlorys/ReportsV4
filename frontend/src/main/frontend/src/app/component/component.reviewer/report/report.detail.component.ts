@@ -59,13 +59,18 @@ export class ReviewerReportsDetailComponent implements OnDestroy {
     this.report.laboratory = this.laboratory;
     this.report.grade = this.grade;
 
-    this.reviewerReportDataService.update(this.report).subscribe(
-      report => {
-        this.report = report;
-        this.msgs.push({severity: 'info', summary: 'Zapisano', detail: 'OK!'})
-      },
-      error => this.msgs.push({severity: 'error', summary: 'Nie można zapisać', detail: error})
-    );
+    if(this.laboratory){
+      this.reviewerReportDataService.update(this.report).subscribe(
+        report => {
+          this.report = report;
+          this.msgs.push({severity: 'info', summary: 'Zapisano', detail: 'OK!'})
+        },
+        error => this.msgs.push({severity: 'error', summary: 'Nie można zapisać', detail: error})
+      );
+    } else {
+      this.msgs.push({severity: 'error', summary: 'Nie można zapisać', detail: "Raport musi mieć określone laboratorium, by go ocenić!"})
+    }
+
   }
 
   onDownloadFile() {
