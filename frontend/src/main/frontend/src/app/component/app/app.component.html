@@ -1,0 +1,123 @@
+<p-growl [value]="msgs"></p-growl>
+<div class="ui-g layout">
+  <div class="ui-g-12 ui-md-1" style="background-color: #27384a">
+    <a *ngIf="authenticated" md-mini-fab (click)="showUserInfo()" color="primary"><md-icon>accessibility</md-icon></a>
+
+    <p-dataTable emptyMessage="Brak ról" [style]="{'font-size':'10px'}" [responsive]="true" [value]="loggedUserRoles">
+      <p-column field="roleName"></p-column>
+    </p-dataTable>
+
+  </div>
+  <div class="ui-g-12 ui-md-11 ui-g-nopad">
+    <div class="ui-g-12 ui-g-nopad">
+      <p-menubar [model]="items"></p-menubar>
+    </div>
+    <div class="ui-g-12" style="height: 1900px;">
+      <router-outlet></router-outlet>
+    </div>
+    <div class="ui-g-12" style="text-align: center;">
+      <i class="fa fa-github-alt"></i> <a href="https://github.com/lork93">https://github.com/lork93</a>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Proszę o zalogowanie" [visible]="displayLoginDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="false" *ngIf="!authenticated">
+  <p>Przy użyciu próbnej bazy ustawiamy admin/admin</p>
+  <div ngForm class="ui-g">
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="username">Username</label>
+      </div>
+      <div class="ui-g-8">
+        <input pInputText [(ngModel)]="username" name="username"/>
+      </div>
+    </div>
+    <div class="ui-g-12">
+      <div class="ui-g-4">
+        <label for="password">Hasło</label>
+      </div>
+      <div class="ui-g-8">
+        <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword
+               [(ngModel)]="password" name="password"/>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+      <button pButton (click)="login()" icon="fa-sign-in" label="Zaloguj się"></button>
+      <button pButton (click)="dialogRegister()" label="Rejestracja"></button>
+    </div>
+  </footer>
+</p-dialog>
+
+
+<p-dialog header="Proszę o zarejestrowanie" [visible]="displayRegistrationDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="false" *ngIf="!authenticated">
+  <md-card style="width: 700px" ngForm #userForm="ngForm">
+    <md-card-title></md-card-title>
+    <md-card-content>
+      <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="userName">Username </label></div>
+          <div class="ui-grid-col-6">
+            <input pInputText id="userName" [(ngModel)]="user.userName"  required placeholder="Wymagane" name="userName" #userName="ngModel"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!userName.valid && userName.dirty && userName.errors['required']">
+              <i class="fa fa-close"></i>
+              Username jest wymagany
+            </div>
+          </div>
+        </div>
+        <div *ngIf="user.id" class="ui-grid-row">
+          <div class="ui-grid-col-2"><label>Hasło</label></div>
+          <div class="ui-grid-col-6">
+            {{user.password}}
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <div *ngIf="!user.id" class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="password">Hasło </label></div>
+          <div class="ui-grid-col-6">
+            <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword
+                   id="password" [(ngModel)]="user.password" required placeholder="Wymagane" name="password" #password="ngModel"/>
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="firstName">Imię </label></div>
+          <div class="ui-grid-col-6">
+            <input pInputText id="firstName" [(ngModel)]="user.firstName" required placeholder="Wymagane" name="firstName" #firstName="ngModel"/>
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="lastName">Nazwisko </label></div>
+          <div class="ui-grid-col-6">
+            <input pInputText id="lastName" [(ngModel)]="user.lastName" required placeholder="Wymagane" name="lastName" #lastName="ngModel"/>
+          </div>
+          <div class="ui-grid-col-4">
+          </div>
+        </div>
+        <div class="ui-grid-row">
+          <div class="ui-grid-col-2"><label for="email">Email </label></div>
+          <div class="ui-grid-col-6">
+            <input pInputText id="email" [(ngModel)]="user.email" required placeholder="Wymagane" validateEmail name="email" #email="ngModel"/>
+          </div>
+          <div class="ui-grid-col-4">
+            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!email.valid && email.dirty && email.errors['validateEmail']">
+              <i class="fa fa-close"></i>
+              Email jest nieprawidłowy. Oczekiwany prawidłowy adres email.
+            </div>
+          </div>
+        </div>
+      </div>
+    </md-card-content>
+    <md-card-actions>
+      <button md-raised-button (click)="dialogLogin()">Logowanie</button>
+      <button md-raised-button (click)="register()" [disabled]="!userForm.form.valid"><md-icon>done</md-icon>Zarejestruj się</button>
+    </md-card-actions>
+  </md-card>
+</p-dialog>

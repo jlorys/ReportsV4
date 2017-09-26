@@ -10,7 +10,8 @@
                  [totalRecords]="currentPage.totalElements"
                  (onLazyLoad)="loadPage($event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
-                 [responsive]="true">
+                 [responsive]="true"
+                 emptyMessage="Brak rekordów">
       <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
       <p-column [style]="{'width':'50px'}" field="id" header="Id" sortable="true"></p-column>
       <p-column [style]="{'width':'90px'}" field="roleName" header="Nazwa Roli" sortable="true"></p-column>

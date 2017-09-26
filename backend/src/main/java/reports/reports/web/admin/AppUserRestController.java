@@ -112,9 +112,23 @@ public class AppUserRestController {
     }
 
     /**
+     * Register User.
+     */
+    @PutMapping(value = "/register", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppUserDTO> register(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
+
+        log.debug("Register UserDTO : {}", userDTO);
+
+        AppUserDTO result = appUserService.save(userDTO);
+
+        return ResponseEntity.ok().body(result);
+    }
+
+    /**
      * Update User password.
      */
     @PutMapping(value = "/changePassword/{userId}/{oldPassword}/{newPassword}/{newPasswordRepeat}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<?> updatePassword(@PathVariable Integer userId,
                                             @PathVariable String oldPassword,
                                             @PathVariable String newPassword,

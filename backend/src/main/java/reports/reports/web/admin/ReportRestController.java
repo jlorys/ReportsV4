@@ -63,6 +63,7 @@ public class ReportRestController {
      * Find all report grades.
      */
     @GetMapping(value = "/getAllGrades", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<List<Long>> getAllGrades() throws URISyntaxException {
 
         log.debug("Find all grades");

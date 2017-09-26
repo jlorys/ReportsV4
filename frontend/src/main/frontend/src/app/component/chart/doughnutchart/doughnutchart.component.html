@@ -1,6 +1,13 @@
 <div class="ui-grid-row">
-<div class="ui-grid-col-6">
-  Wykres kołowy przedstawia statystykę ocen ze wszystkich przedmiotów
-<p-chart type="doughnut" [data]="data"></p-chart>
+
+  <div class="ui-grid-col-6">
+    <p-chart type="doughnut" [data]="data"></p-chart>
+  </div>
+
+  <div class="ui-grid-col-6">
+    <p>Wykres kołowy przedstawia statystykę ocen ze wszystkich przedmiotów.</p>
+    <p>Aby wyświetlić wykres kołowy musisz posiadać rolę user lub reviewer lub admin.</p>
+  </div>
+
 </div>
-</div>
+

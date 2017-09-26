@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -35,6 +36,7 @@ public class RoleRestController {
     * Find by id Role.
     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<RoleDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id Role : {}", id);
@@ -47,12 +49,14 @@ public class RoleRestController {
      * Find a Page of Role using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<PageResponse<RoleDTO>> findAll(@RequestBody PageRequestByExample<RoleDTO> prbe) throws URISyntaxException {
         PageResponse<RoleDTO> pageResponse = roleService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/findAllRolesWhichDoNotHaveAppUserWithThisId/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<List<RoleDTO>> findAllRolesWhichDoNotHaveAppUserWithThisId(@PathVariable Integer id) throws URISyntaxException {
 
         List<RoleDTO> results = roleService.findAllRolesWhichDoNotHaveAppUserWithThisId(id);

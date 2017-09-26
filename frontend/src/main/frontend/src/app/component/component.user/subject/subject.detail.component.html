@@ -36,7 +36,8 @@
         <p-dataTable [value]="subjectLaboratories"
                      selectionMode="single"
                      (onRowSelect)="onRowSelect($event)"
-                     [responsive]="true">
+                     [responsive]="true"
+                     emptyMessage="Brak rekordów">
           <p-header>{{header}}</p-header>
           <p-column field="id" header="Id" sortable="true"></p-column>
           <p-column field="name" header="nazwa" sortable="true"></p-column>

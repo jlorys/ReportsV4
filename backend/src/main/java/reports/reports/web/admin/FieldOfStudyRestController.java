@@ -37,6 +37,7 @@ public class FieldOfStudyRestController {
      * Find a Page of FieldOfStudy using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<PageResponse<FieldOfStudyDTO>> findAll(@RequestBody PageRequestByExample<FieldOfStudyDTO> prbe) throws URISyntaxException {
         PageResponse<FieldOfStudyDTO> pageResponse = fieldOfStudyService.findAll(prbe);
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
@@ -63,6 +64,7 @@ public class FieldOfStudyRestController {
      * Find by id FieldOfStudy.
      */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<FieldOfStudyDTO> findById(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Find by id FieldOfStudy : {}", id);
@@ -108,6 +110,7 @@ public class FieldOfStudyRestController {
     }
 
     @GetMapping(value = "/findAll", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<List<FieldOfStudyDTO>> findAll() throws URISyntaxException {
 
         List<FieldOfStudyDTO> results = fieldOfStudyService.findAll();

@@ -66,7 +66,8 @@
           <p-dataTable [value]="userReports"
                        selectionMode="single"
                        (onRowSelect)="onRowSelect($event)"
-                       [responsive]="true">
+                       [responsive]="true"
+                       emptyMessage="Brak rekordów">
             <p-header>{{header}}</p-header>
             <p-column field="id" header="Id" sortable="true"></p-column>
             <p-column field="description" header="Opis" sortable="true"></p-column>
@@ -93,7 +94,8 @@
         <md-tab label="Role użytkownika">
           <p-dataTable [value]="user.roles"
                        selectionMode="single"
-                       [responsive]="true">
+                       [responsive]="true"
+                       emptyMessage="Brak ról">
             <p-column [style]="{'width':'50px'}" field="id" header="Id" sortable="true"></p-column>
             <p-column [style]="{'width':'90px'}" field="roleName" header="Nazwa" sortable="true"></p-column>
             <p-column field="description" header="Opis" sortable="true"></p-column>

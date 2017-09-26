@@ -42,7 +42,8 @@
                  selectionMode="single"
                  (onRowSelect)="onRowSelect($event)"
                  [rowsPerPageOptions]="[5,10,20,50,100]"
-                 [responsive]="true">
+                 [responsive]="true"
+                 emptyMessage="Brak rekordów">
       <p-header>{{header}} (ilość: {{currentPage.totalElements}})</p-header>
       <p-column field="id" header="Id" sortable="true"></p-column>
       <p-column field="name" header="Nazwa" sortable="true"></p-column>

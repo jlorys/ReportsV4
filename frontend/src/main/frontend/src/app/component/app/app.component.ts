@@ -6,55 +6,12 @@ import {Message} from 'primeng/primeng';
 import {AppUserDataService} from "../component.admin/users/user.data.service";
 import {AppUser} from "../component.admin/users/user";
 import {Router} from "@angular/router";
+import {forEach} from "@angular/router/src/utils/collection";
+import {Role} from "../component.admin/role/role";
 
 @Component({
   selector: 'app-main',
-  template: `
-  <p-growl [value]="msgs"></p-growl>
-        <div class="ui-g layout">
-            <div class="ui-g-12 ui-md-1" style="background-color: #27384a">
-             <a *ngIf="authenticated" md-mini-fab (click)="userInfo()" color="primary"><md-icon>accessibility</md-icon></a>
-            </div>
-            <div class="ui-g-12 ui-md-11 ui-g-nopad">
-                <div class="ui-g-12 ui-g-nopad">
-                    <p-menubar [model]="items"></p-menubar>
-                </div>
-                <div class="ui-g-12" style="height: 1900px;">
-                    <router-outlet></router-outlet>        
-                </div>
-                <div class="ui-g-12" style="text-align: center;">
-                    <i class="fa fa-github-alt"></i> <a href="https://github.com/lork93">https://github.com/lork93</a>
-                </div>
-            </div>
-        </div>
-        <p-dialog header="Proszę o zalogowanie" [visible]="displayLoginDialog" [responsive]="true" showEffect="fade" [modal]="true" [closable]="false" *ngIf="!authenticated">
-            <p>Przy użyciu próbnej bazy ustawiamy admin/admin</p>
-            <div ngForm class="ui-g">
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="username">Username</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input pInputText id="username" [(ngModel)]="username" name="username"/>
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="password">Hasło</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input type="password" promptLabel="Proszę podać hasło" weakLabel="Słabe" weakLabel="Przeciętne" strongLabel="Mocne" pPassword 
-                        id="password" [(ngModel)]="password" name="password"/>
-                    </div>
-                </div>
-            </div>
-            <footer>
-                <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-                    <button pButton (click)="login()" icon="fa-sign-in" label="Zaloguj się"></button>
-                </div>
-            </footer>
-        </p-dialog>
-   `,
+  templateUrl: './app.component.html',
   styles: [`
         .layout div {
             background-color: white;
@@ -68,13 +25,19 @@ export class AppComponent implements OnInit {
   msgs: Message[] = [];
 
   displayLoginDialog: boolean = false;
+  displayRegistrationDialog: boolean = false;
   loginFailed: boolean = false;
   authenticated: boolean = false;
+
   username: string = "admin";
   password: string = "admin";
-  loggedUser: AppUser = new AppUser;
 
-  constructor(private router: Router, private authService: AuthService, private appUserDataService: AppUserDataService) {
+  user : AppUser;
+  loggedUser: AppUser = new AppUser;
+  loggedUserRoles: Role[] = [];
+
+  constructor(private authService: AuthService, private appUserDataService: AppUserDataService) {
+    this.user = new AppUser();
   }
 
   ngOnInit() {
@@ -150,14 +113,58 @@ export class AppComponent implements OnInit {
     );
   }
 
-  userInfo() {
+  register() {
+    this.msgs = []; //this line fix disappearing of messages
+
+    if(!this.user.userName){
+      this.msgs.push({severity: 'error', summary: 'Register error', detail: "Nie ma username!"});
+    }
+    else if(!this.user.firstName){
+      this.msgs.push({severity: 'error', summary: 'Register error', detail: "Nie ma imienia!"});
+    }
+    else if(!this.user.lastName){
+      this.msgs.push({severity: 'error', summary: 'Register error', detail: "Nie ma nazwiska!"});
+    }
+    else if(!this.user.email){
+      this.msgs.push({severity: 'error', summary: 'Register error', detail: "Nie ma emaila!"});
+    }
+    else if(!this.user.password){
+      this.msgs.push({severity: 'error', summary: 'Register error', detail: "Nie ma hasła!"});
+    }
+    else{
+
+      this.appUserDataService.register(this.user).subscribe(
+        user => {
+          this.msgs.push({severity:'info', summary:'Zarejestrowano', detail: 'OK!'})
+        },
+        error => this.msgs.push({severity:'error', summary:'Nie można zarejestrować', detail: error})
+      );
+
+    }
+  }
+
+  dialogLogin() {
+    this.displayLoginDialog = true;
+    this.displayRegistrationDialog = false;
+  }
+
+  dialogRegister() {
+    this.displayLoginDialog = false;
+    this.displayRegistrationDialog = true;
+  }
+
+  showUserInfo() {
+    this.msgs = []; //this line fix disappearing of messages
     this.appUserDataService.getLoggedUser().subscribe(
       pageResponse => {
         this.loggedUser = pageResponse;
-        this.msgs = []; //this line fix disappearing of messages
+        this.loggedUserRoles = this.loggedUser.roles;
+
         this.msgs.push({
-          severity: 'info', summary: 'Zalogowany użytkownik: ', detail: 'username: ' + this.loggedUser.userName
-          + ' imię: ' + this.loggedUser.firstName + ' nazwisko: ' + this.loggedUser.lastName
+          severity: 'info', summary: 'Zalogowany użytkownik: ', detail:
+          '<p><b>username:</b> ' + this.loggedUser.userName +
+          '</p><p><b>imię:</b> ' + this.loggedUser.firstName +
+          '</p><p><b>nazwisko:</b> ' + this.loggedUser.lastName
         });
       },
       error => this.msgs.push({severity: 'error', summary: 'Nie dało się otrzymać wyników', detail: error})
@@ -181,6 +188,8 @@ export class AppComponent implements OnInit {
               response => {
                 if (response) {
                   this.pushAdminItem()
+
+                  this.showUserInfo();
                 }
               }
             );

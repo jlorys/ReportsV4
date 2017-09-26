@@ -75,6 +75,17 @@ export class AppUserDataService {
   }
 
   /**
+   * Register the passed user.
+   */
+  register(user: AppUser): Observable<AppUser> {
+    let body = JSON.stringify(user);
+
+    return this.http.put('/api/users/register/', body, this.options)
+      .map(response => new AppUser(response.json()))
+      .catch(this.handleError);
+  }
+
+  /**
    * Update the passed user password.
    */
   changePassword(userId: number, oldPassword: string, newPassword: string, newPasswordRepeat: string): Observable<AppUser> {

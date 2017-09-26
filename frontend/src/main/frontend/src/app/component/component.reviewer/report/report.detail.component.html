@@ -60,7 +60,8 @@
       <md-tab label="Autorzy">
         <p-dataTable [value]="report.users"
                      selectionMode="single"
-                     [responsive]="true">
+                     [responsive]="true"
+                     emptyMessage="Brak rekordów">
           <p-column field="id" header="Id" sortable="true"></p-column>
           <p-column field="userName" header="UserName" sortable="true"></p-column>
           <p-column field="password" header="Hasło" sortable="true"></p-column>

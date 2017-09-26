@@ -21,7 +21,7 @@ export class ScheduleChartComponent implements OnInit{
 
   ngOnInit() {
     this.events = [];
-    this.userLaboratoryDataService.getPage(this.example, {first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null})
+    this.userLaboratoryDataService.getPage(this.example, {first: 0, rows: 100, sortField: null, sortOrder: null, filters: null, multiSortMeta: null})
       .subscribe(pageResponse => {
           pageResponse.content.forEach((value, index, array) => {
             this.events.push({

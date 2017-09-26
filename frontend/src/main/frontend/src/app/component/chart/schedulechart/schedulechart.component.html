@@ -1,8 +1,14 @@
 <div class="ui-grid-col-6">
-<p-schedule locale="pl" [events]="events" (onViewRender)="loadEvents($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+  <p-schedule locale="pl" [events]="events" (onViewRender)="loadEvents($event)"
+              (onEventClick)="handleEventClick($event)"></p-schedule>
 </div>
 
-<p-dialog header="Szczegóły" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}"
+<div class="ui-grid-col-6">
+  <p>Aby wydarzenia były widoczne musisz posiadać rolę user.</p>
+</div>
+
+<p-dialog header="Szczegóły" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false"
+          [contentStyle]="{'overflow':'visible'}"
           [style]="{'overflow':'visible'}" [resizable]="false">
   <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="event">
     <div class="ui-grid-row">
@@ -19,3 +25,4 @@
     </div>
   </div>
 </p-dialog>
+

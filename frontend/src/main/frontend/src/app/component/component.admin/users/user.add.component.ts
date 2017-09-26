@@ -77,7 +77,7 @@ export class AppUsersAddComponent implements OnDestroy {
 
         }
       },
-      error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: 'OK!'})
+      error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: error})
     );
   }
 
@@ -109,7 +109,7 @@ export class AppUsersAddComponent implements OnDestroy {
 
         }
       },
-      error => this.msgs.push({severity:'error', summary:'Nie można zmienić hasła', detail: 'OK!'})
+      error => this.msgs.push({severity:'error', summary:'Nie można zmienić hasła', detail: error})
     );
   }
 }
