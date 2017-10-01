@@ -17,11 +17,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * An implementation of Spring Security's {@link UserDetailsService}.
- * 
- * @see http://static.springsource.org/spring-security/site/reference.html
- */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -58,7 +53,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Collection<GrantedAuthority> grantedAuthorities = toGrantedAuthorities(account.getRoleNames());
         String password = account.getPassword();
-        return new UserWithId(username, password, grantedAuthorities, account.getId());
+        return new UserWithId(username, password, grantedAuthorities, account.isEnabled(), account.getId());
     }
 
     private Collection<GrantedAuthority> toGrantedAuthorities(List<String> roles) {

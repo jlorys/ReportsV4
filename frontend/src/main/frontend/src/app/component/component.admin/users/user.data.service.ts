@@ -80,7 +80,7 @@ export class AppUserDataService {
   register(user: AppUser): Observable<AppUser> {
     let body = JSON.stringify(user);
 
-    return this.http.put('/api/users/register/', body, this.options)
+    return this.http.put('/api/userAccount/register/', body, this.options)
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }

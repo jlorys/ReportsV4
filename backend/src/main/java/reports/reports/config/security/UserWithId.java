@@ -12,8 +12,8 @@ public class UserWithId extends User {
     private static final long serialVersionUID = 1L;
     private Integer id;
 
-    public UserWithId(String username, String password, Collection<? extends GrantedAuthority> authorities, Integer id) {
-        super(username, password, authorities);
+    public UserWithId(String username, String password, Collection<? extends GrantedAuthority> authorities, boolean isEnabled, Integer id) {
+        super(username, password, isEnabled, true, true, true, authorities);
         this.id = id;
     }
 

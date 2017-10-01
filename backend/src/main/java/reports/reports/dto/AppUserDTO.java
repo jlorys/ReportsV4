@@ -19,6 +19,7 @@ public class AppUserDTO {
     public String lastModifiedBy;
     public List<RoleDTO> roles;
     public List<ReportDTO> reports;
+    public Boolean enabled;
 
     @JsonIgnore
     public boolean isIdSet() {

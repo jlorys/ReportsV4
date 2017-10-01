@@ -50,7 +50,8 @@ public class AppUserService {
                     .withMatcher(AppUser_.createdDate.getName(), match -> match.ignoreCase().startsWith())
                     .withMatcher(AppUser_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
                     .withMatcher(AppUser_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith());
+                    .withMatcher(AppUser_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith())
+                    .withMatcher(AppUser_.enabled.getName(), match -> match.ignoreCase().startsWith());
 
             example = Example.of(user, matcher);
         }
@@ -106,7 +107,7 @@ public class AppUserService {
 
         user.setUserName(dto.userName);
 
-        if (dto.isIdSet()) {user.setPassword(dto.password); }
+        if (dto.isIdSet()) { user.setPassword(dto.password); }
         else{ user.setPassword(passwordEncoder.encode(dto.password)); }
 
         user.setFirstName(dto.firstName);
@@ -126,6 +127,8 @@ public class AppUserService {
         if (dto.reports != null) {
             dto.reports.stream().forEach(report -> user.addReport(reportRepository.findOne(report.id)));
         }
+
+        user.setEnabled(true);
 
         return toDTO(appUserRepository.save(user));
     }
@@ -171,6 +174,7 @@ public class AppUserService {
         user.setLastModifiedDate(dto.lastModifiedDate);
         user.setCreatedBy(dto.createdBy);
         user.setLastModifiedBy(dto.lastModifiedBy);
+        user.setEnabled(dto.enabled);
 
         return user;
     }
@@ -206,6 +210,7 @@ public class AppUserService {
             dto.roles = user.getRoles().stream().map(role -> RoleService.toDTO(role)).collect(Collectors.toList());
             dto.reports = user.getReports().stream().map(report -> ReportService.toDTO(report, 1)).collect(Collectors.toList());
         }
+        dto.enabled = user.isEnabled();
 
         return dto;
     }

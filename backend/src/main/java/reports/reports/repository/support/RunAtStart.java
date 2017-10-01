@@ -57,20 +57,20 @@ class RunAtStart {
 
     private void generateManyUsers() {
         List<AppUser> appUsers = new ArrayList<>();
-        appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl"));
-        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "1@x.pl"));
-        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "2@x.pl"));
-        appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "3@x.pl"));
-        appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "4@x.pl"));
-        appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "5@x.pl"));
-        appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "6@x.pl"));
-        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "7@x.pl"));
-        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "8@x.pl"));
-        appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "9@x.pl"));
-        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "10@x.pl"));
-        appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "11@x.pl"));
-        appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@x.pl"));
-        appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@x.pl"));
+        appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl", true));
+        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "1@x.pl", true));
+        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "2@x.pl", true));
+        appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "3@x.pl", true));
+        appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "4@x.pl", true));
+        appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "5@x.pl", true));
+        appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "6@x.pl", true));
+        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "7@x.pl", true));
+        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "8@x.pl", true));
+        appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "9@x.pl", true));
+        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "10@x.pl", true));
+        appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "11@x.pl", true));
+        appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@x.pl", true));
+        appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@x.pl", true));
 
         appUsers.stream().forEach(appUser -> {
             if (!Optional.ofNullable(appUserRepository.getByUserName(appUser.getUserName())).isPresent()) {

@@ -17,6 +17,7 @@ public abstract class AppUser_ {
     public static volatile SingularAttribute<AppUser, Long> lastModifiedDate;
     public static volatile SingularAttribute<AppUser, String> createdBy;
     public static volatile SingularAttribute<AppUser, String> lastModifiedBy;
+    public static volatile SingularAttribute<AppUser, Boolean> enabled;
 
     public static volatile ListAttribute<AppUser, Role> roles;
 

@@ -46,9 +46,9 @@ public class AppUserTests {
         appUserService.deleteAll();
 
         List<AppUser> appUsers = new ArrayList<>();
-        appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl"));
-        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "ds@x.pl"));
-        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "ag@x.pl"));
+        appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl", true));
+        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "ds@x.pl", true));
+        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "ag@x.pl", true));
 
         appUsers.stream().forEach(appUser -> appUserService.save(AppUserService.toDTO(appUser)));
     }

@@ -47,14 +47,18 @@ public class AppUser {
 			inverseJoinColumns = @JoinColumn(name = "REPORT_ID") )
 	private List<Report> reports;
 
+	@Column(name = "enabled")
+	private Boolean enabled;
+
 	public AppUser() {}
 
-	public AppUser(String userName, String password, String firstName, String lastName, String email) {
+	public AppUser(String userName, String password, String firstName, String lastName, String email, boolean enabled) {
 		this.userName = userName;
 		this.password = password;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.enabled = enabled;
 	}
 
 	public Integer getId() {
@@ -186,5 +190,13 @@ public class AppUser {
 	 */
 	public boolean addReport(Report report) {
 		return getReports().add(report);
+	}
+
+	public Boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
 	}
 }

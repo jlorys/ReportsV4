@@ -96,7 +96,6 @@ export class AppComponent implements OnInit {
           this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-long-arrow-left'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
-          this.msgs.push({severity: 'info', summary: 'Jesteś teraz zalogowany', detail: ""});
         } else {
           this.loginFailed = true;
           this.displayLoginDialog = true;
