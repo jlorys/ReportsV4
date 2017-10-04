@@ -26,16 +26,19 @@ public class UserAccountService {
     private PasswordEncoder passwordEncoder;
     private ApplicationEventPublisher eventPublisher;
     private VerificationTokenRepository verificationTokenRepository;
+    private RoleRepository roleRepository;
 
     @Autowired
     public UserAccountService(AppUserRepository appUserRepository,
                               PasswordEncoder passwordEncoder,
                               ApplicationEventPublisher eventPublisher,
-                              VerificationTokenRepository verificationTokenRepository) {
+                              VerificationTokenRepository verificationTokenRepository,
+                              RoleRepository roleRepository) {
         this.appUserRepository = appUserRepository;
         this.passwordEncoder = passwordEncoder;
         this.eventPublisher = eventPublisher;
         this.verificationTokenRepository = verificationTokenRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Transactional(readOnly = true)
@@ -103,6 +106,8 @@ public class UserAccountService {
 
         VerificationToken verificationToken = verificationTokenRepository.getByToken(token);
         AppUser appUser = appUserRepository.findOne(verificationToken.getAppUser().getId());
+        verificationTokenRepository.delete(verificationToken);
+        appUser.addRole(roleRepository.getByRoleName("USER"));
         appUser.setEnabled(true);
 
         return AppUserService.toDTO(appUserRepository.save(appUser));

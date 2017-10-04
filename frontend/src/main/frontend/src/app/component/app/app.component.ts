@@ -93,6 +93,7 @@ export class AppComponent implements OnInit {
           this.displayLoginDialog = false;
           this.authenticated = true;
           this.addProperRoleItems();
+          this.showUserInfo();
           this.items.unshift({label: 'Wyloguj się', url: '/api/logout', icon: 'fa-long-arrow-left'});
           this.loginFailed = false;
           this.msgs = []; //this line fix disappearing of messages
