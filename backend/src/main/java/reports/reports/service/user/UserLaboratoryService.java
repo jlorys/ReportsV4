@@ -22,10 +22,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserLaboratoryService {
 
-    LaboratoryRepository laboratoryRepository;
-    LaboratoryService laboratoryService;
-    AppUserRepository appUserRepository;
-    ReportService reportService;
+    private LaboratoryRepository laboratoryRepository;
+    private LaboratoryService laboratoryService;
+    private AppUserRepository appUserRepository;
+    private ReportService reportService;
 
     @Autowired
     public UserLaboratoryService(LaboratoryRepository laboratoryRepository, LaboratoryService laboratoryService, AppUserRepository appUserRepository, ReportService reportService) {

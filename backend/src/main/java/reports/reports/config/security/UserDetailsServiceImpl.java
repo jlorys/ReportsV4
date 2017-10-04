@@ -57,7 +57,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private Collection<GrantedAuthority> toGrantedAuthorities(List<String> roles) {
-        List<GrantedAuthority> result = new ArrayList();
+        List<GrantedAuthority> result = new ArrayList<>();
         for (String role : roles) {
             result.add(new SimpleGrantedAuthority(role));
         }

@@ -12,11 +12,7 @@ public class OnRegistrationCompleteEvent extends ApplicationEvent {
         this.appUserDTO = appUserDTO;
     }
 
-    public AppUserDTO getAppUserDTO() {
+    AppUserDTO getAppUserDTO() {
         return appUserDTO;
-    }
-
-    public void setAppUserDTO(AppUserDTO appUserDTO) {
-        this.appUserDTO = appUserDTO;
     }
 }

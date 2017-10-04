@@ -11,8 +11,9 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.emptyList;
 
 //Get Spring Security context to get logged user data
-public final class UserContext {
-    public static final String ANONYMOUS_USER = "app";
+public class UserContext {
+
+    private static final String ANONYMOUS_USER = "app";
 
     private UserContext() {
     }
@@ -70,7 +71,7 @@ public final class UserContext {
     /**
      * Return the current roles bound to the current thread by Spring Security.
      */
-    public static List<String> getRoles() {
+    private static List<String> getRoles() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
@@ -85,7 +86,7 @@ public final class UserContext {
      *
      * @return true if the passed role is present, false otherwise.
      */
-    public static boolean hasRole(String roleName) {
+    static boolean hasRole(String roleName) {
         for (String role : getRoles()) {
             if (role.equalsIgnoreCase(roleName)) {
                 return true;
@@ -95,7 +96,7 @@ public final class UserContext {
         return false;
     }
 
-    public static List<String> toStringList(Iterable<? extends GrantedAuthority> grantedAuthorities) {
+    private static List<String> toStringList(Iterable<? extends GrantedAuthority> grantedAuthorities) {
         List<String> result = newArrayList();
 
         for (GrantedAuthority grantedAuthority : grantedAuthorities) {

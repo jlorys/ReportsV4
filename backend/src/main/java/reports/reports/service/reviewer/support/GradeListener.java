@@ -45,13 +45,13 @@ public class GradeListener implements
         }
     }
 
-    public void sendMailWithGradeToReportAuthors(List<AppUserDTO> authors, ReportDTO reportDTO) throws MailException {
+    private void sendMailWithGradeToReportAuthors(List<AppUserDTO> authors, ReportDTO reportDTO) throws MailException {
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
         Report report = reportRepository.getOne(reportDTO.id);
 
-        authors.stream().forEach(appUser -> {
+        authors.forEach(appUser -> {
                     mailMessage.setTo(appUser.email);
                     mailMessage.setFrom("reportswebapplication@gmail.com");
                     mailMessage.setSubject("Ocena ze sprawozdania " + report.getFileName() + report.getFileExtension());

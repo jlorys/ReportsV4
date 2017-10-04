@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class FieldOfStudyService {
 
-    FieldOfStudyRepository fieldOfStudyRepository;
-    SubjectRepository subjectRepository;
+    private FieldOfStudyRepository fieldOfStudyRepository;
+    private SubjectRepository subjectRepository;
 
     @Autowired
     public FieldOfStudyService(FieldOfStudyRepository fieldOfStudyRepository, SubjectRepository subjectRepository) {
@@ -103,7 +103,7 @@ public class FieldOfStudyService {
 
         fieldOfStudy.getSubjects().clear();
         if (dto.subjects != null) {
-            dto.subjects.stream().forEach(subject -> fieldOfStudy.addSubject(subjectRepository.findOne(subject.id)));
+            dto.subjects.forEach(subject -> fieldOfStudy.addSubject(subjectRepository.findOne(subject.id)));
         }
 
         return toDTO(fieldOfStudyRepository.save(fieldOfStudy));
@@ -113,7 +113,7 @@ public class FieldOfStudyService {
      * Converts the passed dto to a FieldOfStudy.
      * Convenient for query by example.
      */
-    public static FieldOfStudy toEntity(FieldOfStudyDTO dto) {
+    static FieldOfStudy toEntity(FieldOfStudyDTO dto) {
         if (dto == null) {
             return null;
         }

@@ -40,7 +40,7 @@ public class RegistrationListener implements
         this.sendMailWithToken(event.getAppUserDTO());
     }
 
-    public void sendMailWithToken(AppUserDTO dto) {
+    private void sendMailWithToken(AppUserDTO dto) {
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
 
@@ -57,7 +57,7 @@ public class RegistrationListener implements
 
     }
 
-    public String createAppUserToken(AppUserDTO dto) {
+    private String createAppUserToken(AppUserDTO dto) {
 
         AppUser appUser = appUserRepository.getByUserName(dto.userName);
         String token = UUID.randomUUID().toString();

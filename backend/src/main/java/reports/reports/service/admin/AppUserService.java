@@ -63,7 +63,7 @@ public class AppUserService {
             page = appUserRepository.findAll(req.toPageable());
         }
 
-        List<AppUserDTO> content = page.getContent().stream().map(appUser -> AppUserService.toDTO(appUser)).collect(Collectors.toList());
+        List<AppUserDTO> content = page.getContent().stream().map(appUser -> toDTO(appUser)).collect(Collectors.toList());
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
@@ -120,12 +120,12 @@ public class AppUserService {
 
         user.getRoles().clear();
         if (dto.roles != null) {
-            dto.roles.stream().forEach(role -> user.addRole(roleRepository.findOne(role.id)));
+            dto.roles.forEach(role -> user.addRole(roleRepository.findOne(role.id)));
         }
 
         user.getReports().clear();
         if (dto.reports != null) {
-            dto.reports.stream().forEach(report -> user.addReport(reportRepository.findOne(report.id)));
+            dto.reports.forEach(report -> user.addReport(reportRepository.findOne(report.id)));
         }
 
         user.setEnabled(true);
@@ -157,7 +157,7 @@ public class AppUserService {
      * Converts the passed dto to a User.
      * Convenient for query by example.
      */
-    public static AppUser toEntity(AppUserDTO dto) {
+    private static AppUser toEntity(AppUserDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -227,7 +227,7 @@ public class AppUserService {
         return filteredResults.stream().map(appUser -> toDTOWithoutPersonalData(appUser)).collect(Collectors.toList());
     }
 
-    public static AppUserDTO toDTOWithoutPersonalData(AppUser user) {
+    private static AppUserDTO toDTOWithoutPersonalData(AppUser user) {
         if (user == null) {
             return null;
         }

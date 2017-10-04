@@ -7,18 +7,14 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.config.security.UserContext;
-import reports.reports.domain.AppUser;
 import reports.reports.domain.Report;
-import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
 import reports.reports.repository.AppUserRepository;
 import reports.reports.repository.ReportRepository;
 import reports.reports.service.admin.AppUserService;
-import reports.reports.service.admin.LaboratoryService;
 import reports.reports.service.admin.ReportService;
-import reports.reports.web.SecurityRestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -52,7 +48,7 @@ public class UserReportService {
         if (report.getUsers().stream().noneMatch(appUser -> appUser.getId().equals(UserContext.getId()))) {
             return null;
         }
-        return reportService.toDTO(report);
+        return ReportService.toDTO(report);
     }
 
     @Transactional(readOnly = true)

@@ -1,15 +1,9 @@
 package reports.reports.service.reviewer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import reports.reports.domain.AppUser;
 import reports.reports.domain.Laboratory;
 import reports.reports.domain.Report;
 import reports.reports.dto.ReportDTO;
@@ -18,7 +12,6 @@ import reports.reports.repository.ReportRepository;
 import reports.reports.service.admin.ReportService;
 import reports.reports.service.reviewer.support.OnGradeEvent;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

@@ -20,8 +20,8 @@ import java.util.stream.Collectors;
 @Service
 public class LaboratoryService {
 
-    LaboratoryRepository laboratoryRepository;
-    ReportRepository reportRepository;
+    private LaboratoryRepository laboratoryRepository;
+    private ReportRepository reportRepository;
 
     @Autowired
     public LaboratoryService(LaboratoryRepository laboratoryRepository, ReportRepository reportRepository) {
@@ -109,7 +109,7 @@ public class LaboratoryService {
 
         laboratory.getReports().clear();
         if (dto.reports != null) {
-            dto.reports.stream().forEach(report -> laboratory.addReport(reportRepository.findOne(report.id)));
+            dto.reports.forEach(report -> laboratory.addReport(reportRepository.findOne(report.id)));
         }
         laboratory.setSubject(SubjectService.toEntity(dto.subject));
 
@@ -120,7 +120,7 @@ public class LaboratoryService {
      * Converts the passed dto to a Laboratory.
      * Convenient for query by example.
      */
-    public static Laboratory toEntity(LaboratoryDTO dto) {
+    static Laboratory toEntity(LaboratoryDTO dto) {
         if (dto == null) {
             return null;
         }

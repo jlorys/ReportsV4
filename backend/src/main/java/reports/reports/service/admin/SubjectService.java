@@ -20,11 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class SubjectService {
 
-    SubjectRepository subjectRepository;
-    LaboratoryRepository laboratoryRepository;
+    private SubjectRepository subjectRepository;
+    private LaboratoryRepository laboratoryRepository;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository, LaboratoryRepository laboratoryRepository, FieldOfStudyService fieldOfStudyService) {
+    public SubjectService(SubjectRepository subjectRepository, LaboratoryRepository laboratoryRepository) {
         this.subjectRepository = subjectRepository;
         this.laboratoryRepository = laboratoryRepository;
     }
@@ -104,7 +104,7 @@ public class SubjectService {
 
         subject.getLaboratories().clear();
         if (dto.laboratories != null) {
-            dto.laboratories.stream().forEach(laboratory -> subject.addLaboratory(laboratoryRepository.findOne(laboratory.id)));
+            dto.laboratories.forEach(laboratory -> subject.addLaboratory(laboratoryRepository.findOne(laboratory.id)));
         }
         subject.setFieldOfStudy(FieldOfStudyService.toEntity(dto.fieldOfStudy));
 
@@ -115,7 +115,7 @@ public class SubjectService {
      * Converts the passed dto to a Subject.
      * Convenient for query by example.
      */
-    public static Subject toEntity(SubjectDTO dto) {
+    static Subject toEntity(SubjectDTO dto) {
         if (dto == null) {
             return null;
         }

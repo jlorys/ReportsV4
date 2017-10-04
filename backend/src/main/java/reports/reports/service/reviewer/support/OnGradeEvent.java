@@ -12,11 +12,7 @@ public class OnGradeEvent extends ApplicationEvent {
         this.reportDTO = reportDTO;
     }
 
-    public ReportDTO getReportDTO() {
+    ReportDTO getReportDTO() {
         return reportDTO;
-    }
-
-    public void setAppUserDTO(ReportDTO reportDTO) {
-        this.reportDTO = reportDTO;
     }
 }

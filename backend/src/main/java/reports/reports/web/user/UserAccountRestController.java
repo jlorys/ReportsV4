@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reports.reports.dto.AppUserDTO;
 import reports.reports.service.user.UserAccountService;
-import reports.reports.web.admin.AppUserRestController;
 
 import java.net.URISyntaxException;
 import java.util.Optional;

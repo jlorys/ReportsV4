@@ -91,8 +91,6 @@ public class RoleService {
         dto.id = role.getId();
         dto.roleName = role.getRoleName();
         dto.description = role.getDescription();
-        if (depth-- > 0) {
-        }
 
         return dto;
     }
@@ -101,15 +99,7 @@ public class RoleService {
      * Converts the passed dto to a Role.
      * Convenient for query by example.
      */
-    public static Role toEntity(RoleDTO dto) {
-        return toEntity(dto, 1);
-    }
-
-    /**
-     * Converts the passed dto to a Role.
-     * Convenient for query by example.
-     */
-    public static Role toEntity(RoleDTO dto, int depth) {
+    private static Role toEntity(RoleDTO dto) {
         if (dto == null) {
             return null;
         }
@@ -119,8 +109,6 @@ public class RoleService {
         role.setId(dto.id);
         role.setRoleName(dto.roleName);
         role.setDescription(dto.description);
-        if (depth-- > 0) {
-        }
 
         return role;
     }

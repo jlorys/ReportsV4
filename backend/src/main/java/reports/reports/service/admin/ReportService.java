@@ -57,7 +57,7 @@ public class ReportService {
     public List<Long> findAllGrades() {
         List<Report> reports = reportRepository.findAll();
         List<String> grades = new ArrayList<>();
-        reports.stream().forEach(report -> grades.add(report.getGrade()));
+        reports.forEach(report -> grades.add(report.getGrade()));
         List<String> gradesFilteredNull = grades.stream().filter(s -> Optional.ofNullable(s).isPresent()).collect(Collectors.toList());
 
         List<Long> gradesAmount = new ArrayList<>();
@@ -150,7 +150,7 @@ public class ReportService {
 
         report.getUsers().clear();
         if (dto.users != null) {
-            dto.users.stream().forEach(user -> report.addUser(appUserRepository.findOne(user.id)));
+            dto.users.forEach(user -> report.addUser(appUserRepository.findOne(user.id)));
         }
         report.setLaboratory(LaboratoryService.toEntity(dto.laboratory));
 
@@ -161,7 +161,7 @@ public class ReportService {
      * Converts the passed dto to a Report.
      * Convenient for query by example.
      */
-    public static Report toEntity(ReportDTO dto) {
+    private static Report toEntity(ReportDTO dto) {
         if (dto == null) {
             return null;
         }
