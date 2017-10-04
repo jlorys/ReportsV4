@@ -32,13 +32,7 @@ public class RegistrationListener implements
 
     @Override
     public void onApplicationEvent(OnRegistrationCompleteEvent event) {
-        this.confirmRegistration(event);
-    }
-
-    private void confirmRegistration(OnRegistrationCompleteEvent event) {
-        AppUserDTO appUserDTO = event.getAppUserDTO();
-        sendMailWithToken(appUserDTO);
-
+        this.sendMailWithToken(event.getAppUserDTO());
     }
 
     public void sendMailWithToken(AppUserDTO dto) {
