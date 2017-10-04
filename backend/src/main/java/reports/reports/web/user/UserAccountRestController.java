@@ -58,4 +58,15 @@ public class UserAccountRestController {
 
         return ResponseEntity.ok().body(result);
     }
+
+    /**
+     * Enable User.
+     */
+    @GetMapping(value = "/enable/{token}", produces = APPLICATION_JSON_VALUE)
+    public ResponseEntity<AppUserDTO> enable(@PathVariable String token) throws URISyntaxException {
+
+        AppUserDTO result = userAccountService.enableAccount(token);
+
+        return ResponseEntity.ok().body(result);
+    }
 }
