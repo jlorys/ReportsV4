@@ -74,9 +74,6 @@ public class LaboratoryService {
         return toDTO(laboratory);
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public LaboratoryDTO save(LaboratoryDTO dto) {
         if (dto == null) {
@@ -116,10 +113,6 @@ public class LaboratoryService {
         return toDTO(laboratoryRepository.save(laboratory));
     }
 
-    /**
-     * Converts the passed dto to a Laboratory.
-     * Convenient for query by example.
-     */
     static Laboratory toEntity(LaboratoryDTO dto) {
         if (dto == null) {
             return null;
@@ -145,12 +138,6 @@ public class LaboratoryService {
         return toDTO(laboratory, 0);
     }
 
-    /**
-     * Converts the passed laboratory to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param laboratory
-     */
     public static LaboratoryDTO toDTO(Laboratory laboratory, int depth) {
         if (laboratory == null) {
             return null;
@@ -181,4 +168,5 @@ public class LaboratoryService {
         List<Laboratory> results = laboratoryRepository.findAll();
         return results.stream().map(laboratory -> toDTO(laboratory)).collect(Collectors.toList());
     }
+
 }

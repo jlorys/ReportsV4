@@ -74,9 +74,6 @@ public class UserReportService {
         }
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public ReportDTO save(ReportDTO dto) {
 

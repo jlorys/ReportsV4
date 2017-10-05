@@ -37,7 +37,7 @@ public class AppUserRestController {
     }
 
     /**
-     * Find a Page of User using query by example.
+     * Find a Page of users using query by example.
      */
     @PostMapping(value = "/page", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -46,9 +46,6 @@ public class AppUserRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Delete by id User.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -76,9 +73,6 @@ public class AppUserRestController {
             }
     }
 
-    /**
-     * Find by id User.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -89,9 +83,6 @@ public class AppUserRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Find by userName.
-     */
     @GetMapping(value = "/name/{userName}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> findByUserName(@PathVariable String userName) throws URISyntaxException {
@@ -102,9 +93,6 @@ public class AppUserRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Update User.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> update(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
@@ -120,9 +108,6 @@ public class AppUserRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Update User password.
-     */
     @PutMapping(value = "/changePassword/{userId}/{oldPassword}/{newPassword}/{newPasswordRepeat}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<?> updatePassword(@PathVariable Integer userId,
@@ -140,9 +125,6 @@ public class AppUserRestController {
         return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Create a new User.
-     */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<AppUserDTO> create(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
@@ -166,4 +148,5 @@ public class AppUserRestController {
 
         return new ResponseEntity<>(results, new HttpHeaders(), HttpStatus.OK);
     }
+
 }

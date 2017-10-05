@@ -168,9 +168,6 @@ public class Laboratory {
         this.reports = reports;
     }
 
-    /**
-     * Helper method to add the passed {@link Report} to the {@link #reports} list.
-     */
     public boolean addReport(Report report) {
         return getReports().add(report);
     }

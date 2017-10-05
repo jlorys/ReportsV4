@@ -71,9 +71,6 @@ public class FieldOfStudyService {
         return toDTO(fieldOfStudy);
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public FieldOfStudyDTO save(FieldOfStudyDTO dto) {
         if (dto == null) {
@@ -109,10 +106,6 @@ public class FieldOfStudyService {
         return toDTO(fieldOfStudyRepository.save(fieldOfStudy));
     }
 
-    /**
-     * Converts the passed dto to a FieldOfStudy.
-     * Convenient for query by example.
-     */
     static FieldOfStudy toEntity(FieldOfStudyDTO dto) {
         if (dto == null) {
             return null;
@@ -135,12 +128,6 @@ public class FieldOfStudyService {
         return toDTO(fieldOfStudy, 0);
     }
 
-    /**
-     * Converts the passed fieldOfStudy to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param fieldOfStudy
-     */
     public static FieldOfStudyDTO toDTO(FieldOfStudy fieldOfStudy, int depth) {
         if (fieldOfStudy == null) {
             return null;

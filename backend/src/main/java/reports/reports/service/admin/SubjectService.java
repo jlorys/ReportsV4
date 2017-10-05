@@ -72,9 +72,6 @@ public class SubjectService {
         return toDTO(subject);
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public SubjectDTO save(SubjectDTO dto) {
         if (dto == null) {
@@ -111,10 +108,6 @@ public class SubjectService {
         return toDTO(subjectRepository.save(subject));
     }
 
-    /**
-     * Converts the passed dto to a Subject.
-     * Convenient for query by example.
-     */
     static Subject toEntity(SubjectDTO dto) {
         if (dto == null) {
             return null;
@@ -137,12 +130,6 @@ public class SubjectService {
         return toDTO(subject, 0);
     }
 
-    /**
-     * Converts the passed subject to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param subject
-     */
     public static SubjectDTO toDTO(Subject subject, int depth) {
         if (subject == null) {
             return null;

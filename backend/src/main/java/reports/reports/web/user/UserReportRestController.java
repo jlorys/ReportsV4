@@ -44,9 +44,6 @@ public class UserReportRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Find by id Report.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -57,9 +54,6 @@ public class UserReportRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.FORBIDDEN));
     }
 
-    /**
-     * Delete by id Report.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -74,9 +68,6 @@ public class UserReportRestController {
         }
     }
 
-    /**
-     * Update Report.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {
@@ -92,9 +83,6 @@ public class UserReportRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Create a new Report.
-     */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<ReportDTO> create(@RequestBody ReportDTO reportDTO) throws URISyntaxException {

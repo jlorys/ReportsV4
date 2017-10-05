@@ -16,9 +16,6 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * A simple DTO Facility for Role.
- */
 @Service
 public class RoleService {
 
@@ -65,22 +62,11 @@ public class RoleService {
         return new PageResponse<>(page.getTotalPages(), page.getTotalElements(), content);
     }
 
-    /**
-     * Converts the passed role to a DTO.
-     */
     public static RoleDTO toDTO(Role role) {
         return toDTO(role, 1);
     }
 
-    /**
-     * Converts the passed role to a DTO. The depth is used to control the
-     * amount of association you want. It also prevents potential infinite serialization cycles.
-     *
-     * @param role
-     * @param depth the depth of the serialization. A depth equals to 0, means no x-to-one association will be serialized.
-     *              A depth equals to 1 means that xToOne associations will be serialized. 2 means, xToOne associations of
-     *              xToOne associations will be serialized, etc.
-     */
+
     public static RoleDTO toDTO(Role role, int depth) {
         if (role == null) {
             return null;
@@ -95,10 +81,6 @@ public class RoleService {
         return dto;
     }
 
-    /**
-     * Converts the passed dto to a Role.
-     * Convenient for query by example.
-     */
     private static Role toEntity(RoleDTO dto) {
         if (dto == null) {
             return null;

@@ -5,9 +5,6 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-/**
- * Simple User that also keep track of the primary key.
- */
 public class UserWithId extends User {
     private static final long serialVersionUID = 1L;
     private Integer id;

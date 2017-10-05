@@ -109,9 +109,6 @@ public class Subject {
         this.laboratories = laboratories;
     }
 
-    /**
-     * Helper method to add the passed {@link Laboratory} to the {@link #laboratories} list.
-     */
     public boolean addLaboratory(Laboratory laboratory) {
         return getLaboratories().add(laboratory);
     }

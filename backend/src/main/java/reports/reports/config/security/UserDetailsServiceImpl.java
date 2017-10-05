@@ -29,13 +29,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    /**
-     * Retrieve an account depending on its login this method is not case sensitive.
-     *
-     * @param username the user's username
-     * @return a Spring Security userdetails object that matches the username
-     * @throws UsernameNotFoundException when the user could not be found
-     */
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) {

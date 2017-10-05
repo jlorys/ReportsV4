@@ -5,9 +5,6 @@ import reports.reports.domain.Laboratory;
 
 import java.util.List;
 
-/**
- * Simple DTO for Report.
- */
 public class ReportDTO {
     public Integer id;
     public String description;

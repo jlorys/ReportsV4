@@ -27,9 +27,6 @@ public class UserAccountRestController {
         this.userAccountService = userAccountService;
     }
 
-    /**
-     * Update User password.
-     */
     @PutMapping(value = "/changePassword/{oldPassword}/{newPassword}/{newPasswordRepeat}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updatePassword(@PathVariable String oldPassword,
                                             @PathVariable String newPassword,
@@ -45,9 +42,6 @@ public class UserAccountRestController {
         return new ResponseEntity<>("Not Found", HttpStatus.NOT_FOUND);
     }
 
-    /**
-     * Register User.
-     */
     @PutMapping(value = "/register", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserDTO> register(@RequestBody AppUserDTO userDTO) throws URISyntaxException {
 
@@ -58,9 +52,6 @@ public class UserAccountRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Enable User.
-     */
     @GetMapping(value = "/enable/{token}", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserDTO> enable(@PathVariable String token) throws URISyntaxException {
 

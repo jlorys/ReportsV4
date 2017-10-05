@@ -49,9 +49,6 @@ public class SecurityRestController {
         return userRoleService.isLoggedUserHasRoleUser();
     }
 
-    /**
-     * Find logged User.
-     */
     @GetMapping(value = "/loggedUser", produces = APPLICATION_JSON_VALUE)
     public ResponseEntity<AppUserDTO> findLoggedUser() throws URISyntaxException {
 

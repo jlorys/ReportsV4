@@ -43,9 +43,6 @@ public class SubjectRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Delete by id Subject.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -60,9 +57,6 @@ public class SubjectRestController {
         }
     }
 
-    /**
-     * Find by id Subject.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<SubjectDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -73,9 +67,6 @@ public class SubjectRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Update Subject.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<SubjectDTO> update(@RequestBody SubjectDTO subjectDTO) throws URISyntaxException {
@@ -91,9 +82,6 @@ public class SubjectRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Create a new Subject.
-     */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<SubjectDTO> create(@RequestBody SubjectDTO subjectDTO) throws URISyntaxException {

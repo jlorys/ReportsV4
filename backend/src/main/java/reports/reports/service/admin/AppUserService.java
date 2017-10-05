@@ -46,10 +46,6 @@ public class AppUserService {
         this.verificationTokenRepository = verificationTokenRepository;
     }
 
-    /**
-     * Converts the passed dto to a User.
-     * Convenient for query by example.
-     */
     private static AppUser toEntity(AppUserDTO dto) {
         if (dto == null) {
             return null;
@@ -76,12 +72,6 @@ public class AppUserService {
         return toDTO(report, 0);
     }
 
-    /**
-     * Converts the passed user to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param user
-     */
     public static AppUserDTO toDTO(AppUser user, int depth) {
         if (user == null) {
             return null;
@@ -185,9 +175,6 @@ public class AppUserService {
         return toDTO(appUserRepository.getByUserName(username));
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public AppUserDTO save(AppUserDTO dto) {
         if (dto == null) {

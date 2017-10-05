@@ -102,8 +102,10 @@ public class Report {
 	}
 
 	public List<AppUser> getUsers() {
+
 		if(Optional.ofNullable(users).isPresent()) return users;
 		return new ArrayList<>(Collections.EMPTY_LIST);
+
 	}
 
 	public void setUsers(List<AppUser> users) {
@@ -150,16 +152,16 @@ public class Report {
 		isSendInTime = sendInTime;
 	}
 
-	/**
-	 * Helper method to add the passed {@link AppUser} to the {@link #users} list.
-	 */
 	public boolean addUser(AppUser appUser) {
+
 		this.users = getUsers();
 		this.users.add(appUser);
 		return true;
+
 	}
 
 	public Laboratory getLaboratory() {return laboratory;}
 
 	public void setLaboratory(Laboratory laboratory) {this.laboratory = laboratory;}
+
 }

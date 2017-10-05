@@ -4,9 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
-/**
- * Simple DTO for FieldOfStudy.
- */
 public class FieldOfStudyDTO {
     public Integer id;
     public String name;

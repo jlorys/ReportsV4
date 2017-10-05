@@ -10,7 +10,6 @@ import java.util.List;
 import static com.google.common.collect.Lists.newArrayList;
 import static java.util.Collections.emptyList;
 
-//Get Spring Security context to get logged user data
 public class UserContext {
 
     private static final String ANONYMOUS_USER = "app";
@@ -18,13 +17,6 @@ public class UserContext {
     private UserContext() {
     }
 
-    /**
-     * Get the current username. Note that it may not correspond to a username that
-     * currently exists in your account repository; it could be a spring security
-     * 'anonymous user'.
-     *
-     * @return the current user's username, or 'app'.
-     */
     public static String getUsername() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -55,9 +47,6 @@ public class UserContext {
         return null;
     }
 
-    /**
-     * Retrieve the current UserDetails bound to the current thread by Spring Security, if any.
-     */
     public static UserDetails getUserDetails() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -68,9 +57,6 @@ public class UserContext {
         return null;
     }
 
-    /**
-     * Return the current roles bound to the current thread by Spring Security.
-     */
     private static List<String> getRoles() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -81,11 +67,6 @@ public class UserContext {
         return emptyList();
     }
 
-    /**
-     * Tell whether the passed role is set?
-     *
-     * @return true if the passed role is present, false otherwise.
-     */
     static boolean hasRole(String roleName) {
         for (String role : getRoles()) {
             if (role.equalsIgnoreCase(roleName)) {

@@ -60,12 +60,6 @@ public class UserLaboratoryService {
         return toDTO(laboratory);
     }
 
-    /**
-     * Converts the passed laboratory to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param laboratory
-     */
     public static LaboratoryDTO toDTO(Laboratory laboratory) {
         if (laboratory == null) {
             return null;

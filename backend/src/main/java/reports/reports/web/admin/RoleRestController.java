@@ -32,9 +32,6 @@ public class RoleRestController {
         this.roleService = roleService;
     }
 
-    /**
-    * Find by id Role.
-    */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<RoleDTO> findById(@PathVariable Integer id) throws URISyntaxException {

@@ -43,9 +43,6 @@ public class LaboratoryRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Delete by id Laboratory.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -60,9 +57,6 @@ public class LaboratoryRestController {
         }
     }
 
-    /**
-     * Find by id Laboratory.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -73,9 +67,6 @@ public class LaboratoryRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Update Laboratory.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> update(@RequestBody LaboratoryDTO laboratoryDTO) throws URISyntaxException {
@@ -91,9 +82,6 @@ public class LaboratoryRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Create a new Laboratory.
-     */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<LaboratoryDTO> create(@RequestBody LaboratoryDTO laboratoryDTO) throws URISyntaxException {

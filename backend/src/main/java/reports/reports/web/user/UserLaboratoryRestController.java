@@ -43,9 +43,6 @@ public class UserLaboratoryRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Find by id Laboratory.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<LaboratoryDTO> findById(@PathVariable Integer id) throws URISyntaxException {

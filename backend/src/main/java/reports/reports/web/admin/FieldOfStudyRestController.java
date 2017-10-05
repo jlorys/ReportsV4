@@ -43,9 +43,6 @@ public class FieldOfStudyRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Delete by id FieldOfStudy.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -60,9 +57,6 @@ public class FieldOfStudyRestController {
         }
     }
 
-    /**
-     * Find by id FieldOfStudy.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<FieldOfStudyDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -73,9 +67,6 @@ public class FieldOfStudyRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Update FieldOfStudy.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<FieldOfStudyDTO> update(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {
@@ -91,9 +82,6 @@ public class FieldOfStudyRestController {
         return ResponseEntity.ok().body(result);
     }
 
-    /**
-     * Create a new FieldOfStudy.
-     */
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<FieldOfStudyDTO> create(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {

@@ -3,9 +3,6 @@ package reports.reports.dto;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 
-/**
- * Simple DTO for AppUser.
- */
 public class AppUserDTO {
     public Integer id;
     public String userName;

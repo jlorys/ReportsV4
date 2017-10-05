@@ -96,18 +96,18 @@ public class FieldOfStudy {
     }
 
     public List<Subject> getSubjects() {
+
         if(Optional.ofNullable(subjects).isPresent()) return subjects;
         return Collections.EMPTY_LIST;
+
     }
 
     public void setSubjects(List<Subject> subjects) {
         this.subjects = subjects;
     }
 
-    /**
-     * Helper method to add the passed {@link Subject} to the {@link #subjects} list.
-     */
     public boolean addSubject(Subject subject) {
         return getSubjects().add(subject);
     }
+
 }

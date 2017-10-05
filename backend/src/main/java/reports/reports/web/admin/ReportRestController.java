@@ -45,9 +45,6 @@ public class ReportRestController {
         return new ResponseEntity<>(pageResponse, new HttpHeaders(), HttpStatus.OK);
     }
 
-    /**
-     * Find by id Report.
-     */
     @GetMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
     public ResponseEntity<ReportDTO> findById(@PathVariable Integer id) throws URISyntaxException {
@@ -58,9 +55,6 @@ public class ReportRestController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    /**
-     * Find all report grades.
-     */
     @GetMapping(value = "/getAllGrades", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER') or hasAuthority('USER')")
     public ResponseEntity<List<Long>> getAllGrades() throws URISyntaxException {
@@ -70,9 +64,6 @@ public class ReportRestController {
         return new ResponseEntity<>(reportService.findAllGrades(), HttpStatus.OK);
     }
 
-    /**
-     * Delete by id Report.
-     */
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
@@ -87,9 +78,6 @@ public class ReportRestController {
         }
     }
 
-    /**
-     * Update Report.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {

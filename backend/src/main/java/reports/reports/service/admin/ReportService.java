@@ -114,9 +114,6 @@ public class ReportService {
         reportRepository.deleteAll();
     }
 
-    /**
-     * Save the passed dto as a new entity or update the corresponding entity if any.
-     */
     @Transactional
     public ReportDTO save(ReportDTO dto) {
         if (dto == null) {
@@ -157,10 +154,6 @@ public class ReportService {
         return toDTO(reportRepository.save(report));
     }
 
-    /**
-     * Converts the passed dto to a Report.
-     * Convenient for query by example.
-     */
     private static Report toEntity(ReportDTO dto) {
         if (dto == null) {
             return null;
@@ -186,12 +179,6 @@ public class ReportService {
         return toDTO(report, 0);
     }
 
-    /**
-     * Converts the passed report to a DTO. The depth is used to control the
-     * amount of association you want.
-     *
-     * @param report
-     */
     public static ReportDTO toDTO(Report report, int depth) {
         if (report == null) {
             return null;

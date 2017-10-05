@@ -26,9 +26,6 @@ public class ReviewerReportRestController {
         this.reviewerReportService = reviewerReportService;
     }
 
-    /**
-     * Update Report.
-     */
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('REVIEWER')")
     public ResponseEntity<ReportDTO> update(@RequestBody ReportDTO reportDTO) throws URISyntaxException {

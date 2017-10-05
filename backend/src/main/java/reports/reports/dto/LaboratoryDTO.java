@@ -5,9 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Simple DTO for Laboratory.
- */
 public class LaboratoryDTO {
     public Integer id;
     public String name;
