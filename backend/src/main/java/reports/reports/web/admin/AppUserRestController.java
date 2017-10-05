@@ -52,7 +52,6 @@ public class AppUserRestController {
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
-        if (userRoleService.isLoggedUserHasRoleAdmin()) {
 
             log.debug("Delete by id User : {}", id);
 
@@ -62,9 +61,19 @@ public class AppUserRestController {
             } catch (Exception x) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).build();
             }
-        } else {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
+
+    }
+
+    @DeleteMapping(value = "/deleteOneDayUnconfirmedUsers", produces = APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Void> deleteOneDayUnconfirmedUsers() throws URISyntaxException {
+
+            try {
+                appUserService.deleteOneDayUnconfirmedUsers();
+                return ResponseEntity.ok().build();
+            } catch (Exception x) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            }
     }
 
     /**

@@ -83,6 +83,15 @@ export class AppUsersComponent {
     }
   }
 
+  deleteOneDayUnconfirmedUsers() {
+    this.appUserDataService.deleteOneDayUnconfirmedUsers().subscribe(
+      response => {
+        this.updateVisibility();
+      },
+      error => this.msgs.push({severity:'error', summary:'Nie można usunąć!', detail: error})
+    );
+  }
+
   onRowSelect(event : any) {
     let id =  event.data.id;
     this.router.navigate(['/users', id]);

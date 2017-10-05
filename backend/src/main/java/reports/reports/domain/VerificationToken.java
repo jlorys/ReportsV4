@@ -52,4 +52,12 @@ public class VerificationToken {
     public void setAppUser(AppUser appUser) {
         this.appUser = appUser;
     }
+
+    public Long getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Long createdDate) {
+        this.createdDate = createdDate;
+    }
 }

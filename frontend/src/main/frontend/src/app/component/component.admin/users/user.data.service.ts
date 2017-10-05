@@ -20,6 +20,10 @@ export class AppUserDataService {
     return this.http.delete('/api/users/' + id).catch(this.handleError);
   }
 
+  deleteOneDayUnconfirmedUsers() {
+    return this.http.delete('/api/users/deleteOneDayUnconfirmedUsers').catch(this.handleError);
+  }
+
   /**
    * Load a page (for paginated datatable) of AppUser using the passed
    * user as an example for the search by example facility.
