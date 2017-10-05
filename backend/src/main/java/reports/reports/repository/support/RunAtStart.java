@@ -1,10 +1,8 @@
 package reports.reports.repository.support;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.*;
 import reports.reports.repository.*;
 
@@ -72,7 +70,7 @@ class RunAtStart {
         appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@yrt", true));
         appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@yrt", true));
 
-        appUsers.stream().forEach(appUser -> {
+        appUsers.forEach(appUser -> {
             if (!Optional.ofNullable(appUserRepository.getByUserName(appUser.getUserName())).isPresent()) {
                 appUserRepository.save(appUser);
             }
@@ -86,7 +84,7 @@ class RunAtStart {
         roles.add(new Role("REVIEWER", "Recenzent może oceniać sprawozdania i tworzyć kierunki studiów, przedmioty, laboratoria"));
         roles.add(new Role("ADMIN", "Admin zarządza użytkownikami, nie może dodawać sprawozdania lecz może modyfikować wszystkie sprawozdania"));
 
-        roles.stream().forEach(role -> {
+        roles.forEach(role -> {
             if (!Optional.ofNullable(roleRepository.getByRoleName(role.getRoleName())).isPresent()) {
                 roleRepository.save(role);
             }
@@ -101,7 +99,7 @@ class RunAtStart {
         fieldsOfStudies.add(new FieldOfStudy("Biologia", "studia biologiczne"));
         fieldsOfStudies.add(new FieldOfStudy("Matematyka", "studia matematyczne"));
 
-        fieldsOfStudies.stream().forEach(fieldOfStudy -> {
+        fieldsOfStudies.forEach(fieldOfStudy -> {
             if (!Optional.ofNullable(fieldOfStudyRepository.getByName(fieldOfStudy.getName())).isPresent()) {
                 fieldOfStudyRepository.save(fieldOfStudy);
             }
@@ -114,7 +112,7 @@ class RunAtStart {
         List<Subject> subjects = new ArrayList<>();
         subjects.add(new Subject("Pomiary", "przedmiot który uczy mierzenia wartości elektrycznych", fieldOfStudy));
 
-        subjects.stream().forEach(subject -> {
+        subjects.forEach(subject -> {
             if (!Optional.ofNullable(subjectRepository.getByName(subject.getName())).isPresent()) {
                 subjectRepository.save(subject);
             }
@@ -137,7 +135,7 @@ class RunAtStart {
                 LocalDateTime.of(2017, Month.of(9), 17, 12, 15),
                 subject));
 
-        laboratories.stream().forEach(lab -> {
+        laboratories.forEach(lab -> {
             if (!Optional.ofNullable(laboratoryRepository.getByName(lab.getName())).isPresent()) {
                 laboratoryRepository.save(lab);
             }
@@ -161,7 +159,7 @@ class RunAtStart {
         reports.add(new Report("Opis11", "files/", "sprawozdanie11", ".pdf", "3.5", true, laboratory));
         reports.add(new Report("Opis12", "files/", "sprawozdanie12", ".pdf", "3.5", true, laboratory));
 
-        reports.stream().forEach(report -> {
+        reports.forEach(report -> {
             if (!Optional.ofNullable(reportRepository.getByDescription(report.getDescription())).isPresent()) {
                 reportRepository.save(report);
             }
