@@ -13,18 +13,12 @@ export class RoleDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Get a Role by id.
-   */
   getRole(id : any) : Observable<Role> {
     return this.http.get('/api/roles/' + id)
       .map(response => new Role(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed role.
-   */
   update(role : Role) : Observable<Role> {
     let body = JSON.stringify(role);
 
@@ -49,18 +43,12 @@ export class RoleDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Find all roles which do not have user with this id.
-   */
   findAllRolesWhichDoNotHaveAppUserWithThisId(id : any) : Observable<Role[]> {
     return this.http.get('/api/roles/findAllRolesWhichDoNotHaveAppUserWithThisId/' + id)
       .map(response => Role.toArray(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Delete an Role by id.
-   */
   delete(id : any) {
     return this.http.delete('/api/roles/' + id).catch(this.handleError);
   }

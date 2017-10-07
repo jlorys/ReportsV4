@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, Input, OnDestroy} from "@angular/core";
 import {Message} from "primeng/primeng";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AppUser} from "./user";
@@ -21,15 +21,9 @@ export class AppUsersAddComponent implements OnDestroy {
 
   sourceRoles : Role[] = [];
 
-  @Input() sub : boolean = false;
-  @Output() onSaveClicked = new EventEmitter<AppUser>();
-
   msgs: Message[] = [];
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: AppUserDataService, private roleService : RoleDataService) {
-    if (this.sub) {
-      return;
-    }
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
@@ -59,9 +53,7 @@ export class AppUsersAddComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.sub) {
       this.params_subscription.unsubscribe();
-    }
   }
 
   onSave() {
@@ -70,12 +62,7 @@ export class AppUsersAddComponent implements OnDestroy {
       user => {
         this.user = user;
         this.msgs = []; //this line fix disappearing of messages
-        if (this.sub) {
-          this.onSaveClicked.emit(this.user);
-        } else {
-          this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
-
-        }
+        this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
       },
       error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: error})
     );
@@ -87,6 +74,7 @@ export class AppUsersAddComponent implements OnDestroy {
   }
 
   changePassword: boolean = false;
+
   wantChangePassword(){
     this.changePassword = true;
   }
@@ -94,6 +82,7 @@ export class AppUsersAddComponent implements OnDestroy {
   oldPassword: string;
   newPassword: string;
   newPasswordRepeat: string;
+
   onChangePassword(){
     this.msgs = []; //this line fix disappearing of messages
 
@@ -102,12 +91,7 @@ export class AppUsersAddComponent implements OnDestroy {
       user => {
         this.user = user;
         this.msgs = []; //this line fix disappearing of messages
-        if (this.sub) {
-          this.onSaveClicked.emit(this.user);
-        } else {
-          this.msgs.push({severity:'info', summary:'Zmieniono hasło', detail: 'OK!'})
-
-        }
+        this.msgs.push({severity:'info', summary:'Zmieniono hasło', detail: 'OK!'})
       },
       error => this.msgs.push({severity:'error', summary:'Nie można zmienić hasła', detail: error})
     );

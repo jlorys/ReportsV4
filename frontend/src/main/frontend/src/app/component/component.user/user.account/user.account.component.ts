@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from "@angular/core";
+import {Component, Input} from "@angular/core";
 import {Message} from "primeng/primeng";
 import {Router} from "@angular/router";
 import {AppUser} from "../../component.admin/users/user";
@@ -14,8 +14,6 @@ export class UserAccountComponent {
   @Input() header = "Sprawozdania użytkownika...";
   user: AppUser;
   userReports: Report[] = [];
-
-  @Output() onSaveClicked = new EventEmitter<AppUser>();
 
   msgs: Message[] = [];
 

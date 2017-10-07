@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from "@angular/core";
+import {Component, Input, OnDestroy, OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message, SelectItem} from "primeng/primeng";
 import {Laboratory} from "./laboratory";
@@ -19,9 +19,6 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
 
   private params_subscription: any;
 
-  @Input() sub : boolean = false;
-  @Output() onSaveClicked = new EventEmitter<Laboratory>();
-
   msgs: Message[] = [];
 
   subject: Subject;
@@ -34,10 +31,6 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute, protected router: Router, private laboratoryDataService: LaboratoryDataService, private subjectDataService: SubjectDataService) {
     this.sourceSubjectsSelectItems = [];
     this.sourceSubjectsSelectItems.push({label: '--------------------------', value: null});
-
-    if (this.sub) {
-      return;
-    }
 
     subjectDataService.findAll().subscribe(subject => subject.forEach((value, index, array) => this.sourceSubjectsSelectItems.push({
         label: value.name,
@@ -86,9 +79,7 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.sub) {
-      this.params_subscription.unsubscribe();
-    }
+    this.params_subscription.unsubscribe();
   }
 
   onSave() {
@@ -110,11 +101,7 @@ export class LaboratoryAddComponent implements OnInit, OnDestroy {
     subscribe(
       laboratory => {
         this.laboratory = laboratory;
-        if (this.sub) {
-          this.onSaveClicked.emit(this.laboratory);
-        } else {
-          this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
-        }
+        this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
       },
       error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: 'OK!'})
     );

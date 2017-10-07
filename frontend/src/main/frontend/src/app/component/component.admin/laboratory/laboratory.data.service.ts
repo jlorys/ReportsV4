@@ -13,9 +13,6 @@ export class LaboratoryDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Delete an Laboratory by id.
-   */
   delete(id: any) {
     return this.http.delete('/api/laboratory/' + id).catch(this.handleError);
   }
@@ -36,18 +33,12 @@ export class LaboratoryDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Get a Laboratory by id.
-   */
   getLaboratory(id: any): Observable<Laboratory> {
     return this.http.get('/api/laboratory/' + id)
       .map(response => new Laboratory(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed Laboratory.
-   */
   update(laboratory: Laboratory): Observable<Laboratory> {
     let body = JSON.stringify(laboratory);
 
@@ -56,9 +47,6 @@ export class LaboratoryDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Find all Laboratories.
-   */
   findAll() : Observable<Laboratory[]> {
     return this.http.get('/api/laboratory/findAll/')
       .map(response => Laboratory.toArray(response.json()))

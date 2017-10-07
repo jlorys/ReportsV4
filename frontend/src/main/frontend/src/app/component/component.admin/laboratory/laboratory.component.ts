@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
+import {Component, Input, SimpleChanges} from "@angular/core";
 import {PageResponse} from "../../../support/paging";
 import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Router} from "@angular/router";
@@ -16,15 +16,8 @@ export class LaboratoryComponent {
   @Input() header = "Laboratoria...";
   // list is paginated
   currentPage: PageResponse<Laboratory> = new PageResponse<Laboratory>(0, 0, []);
-  // basic search criterias (visible if not in 'sub' mode)
+  // basic search criterias
   example: Laboratory = new Laboratory();
-  /** When 'sub' is true, it means this list is used as a one-to-many list.
-   * It belongs to a parent entity, as a result the addNew operation
-   * must prefill the parent entity. The prefill is not done here, instead we
-   * emit an event. When 'sub' is false, we display basic search criterias
-   */
-  @Input() sub: boolean;
-  @Output() onAddNewClicked = new EventEmitter();
 
   msgs: Message[] = [];
 
@@ -77,11 +70,7 @@ export class LaboratoryComponent {
   }
 
   addNew() {
-    if (this.sub) {
-      this.onAddNewClicked.emit("addNew");
-    } else {
       this.router.navigate(['/laboratories/add']);
-    }
   }
 
   onRowSelect(event : any) {

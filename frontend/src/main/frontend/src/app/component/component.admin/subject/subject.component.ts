@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
+import {Component, Input, SimpleChanges} from "@angular/core";
 import {PageResponse} from "../../../support/paging";
 import {Subject} from "./subject";
 import {LazyLoadEvent, Message} from "primeng/primeng";
@@ -16,15 +16,8 @@ export class SubjectComponent {
   @Input() header = "Przedmioty...";
   // list is paginated
   currentPage: PageResponse<Subject> = new PageResponse<Subject>(0, 0, []);
-  // basic search criterias (visible if not in 'sub' mode)
+  // basic search criterias
   example: Subject = new Subject();
-  /** When 'sub' is true, it means this list is used as a one-to-many list.
-   * It belongs to a parent entity, as a result the addNew operation
-   * must prefill the parent entity. The prefill is not done here, instead we
-   * emit an event. When 'sub' is false, we display basic search criterias
-   */
-  @Input() sub: boolean;
-  @Output() onAddNewClicked = new EventEmitter();
 
   msgs: Message[] = [];
 
@@ -57,10 +50,6 @@ export class SubjectComponent {
     );
   }
 
-  /**
-   * When used as a 'sub' component (to display one-to-many list), refreshes the table
-   * content when the input changes.
-   */
   ngOnChanges(changes: SimpleChanges) {
     this.loadPage({first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null});
   }
@@ -77,11 +66,7 @@ export class SubjectComponent {
   }
 
   addNew() {
-    if (this.sub) {
-      this.onAddNewClicked.emit("addNew");
-    } else {
       this.router.navigate(['/subjects/add']);
-    }
   }
 
   onRowSelect(event : any) {

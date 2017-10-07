@@ -19,10 +19,6 @@ export class ReviewerReportComponent {
 
   constructor(private router: Router, private reviewerReportDataService: ReviewerReportDataService) {}
 
-  /**
-   * When used as a 'sub' component (to display one-to-many list), refreshes the table
-   * content when the input changes.
-   */
   ngOnChanges(changes: SimpleChanges) {
     this.loadPage({first: 0, rows: 10, sortField: null, sortOrder: null, filters: null, multiSortMeta: null});
   }

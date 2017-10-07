@@ -13,9 +13,6 @@ export class FieldOfStudyDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Delete an FieldOfStudy by id.
-   */
   delete(id: any) {
     return this.http.delete('/api/fieldOfStudy/' + id).catch(this.handleError);
   }
@@ -36,18 +33,12 @@ export class FieldOfStudyDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Get a FieldOfStudy by id.
-   */
   getFieldOfStudy(id: any): Observable<FieldOfStudy> {
     return this.http.get('/api/fieldOfStudy/' + id)
       .map(response => new FieldOfStudy(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed fieldOfStudy.
-   */
   update(fieldOfStudy: FieldOfStudy): Observable<FieldOfStudy> {
     let body = JSON.stringify(fieldOfStudy);
 
@@ -56,9 +47,6 @@ export class FieldOfStudyDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Find all FieldsOfStudies.
-   */
   findAll() : Observable<FieldOfStudy[]> {
     return this.http.get('/api/fieldOfStudy/findAll/')
       .map(response => FieldOfStudy.toArray(response.json()))

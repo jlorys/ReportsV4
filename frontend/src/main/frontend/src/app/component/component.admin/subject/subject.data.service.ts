@@ -13,9 +13,6 @@ export class SubjectDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Delete an Subject by id.
-   */
   delete(id: any) {
     return this.http.delete('/api/subject/' + id).catch(this.handleError);
   }
@@ -36,18 +33,12 @@ export class SubjectDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Get a Subject by id.
-   */
   getSubject(id: any): Observable<Subject> {
     return this.http.get('/api/subject/' + id)
       .map(response => new Subject(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed Subject.
-   */
   update(subject: Subject): Observable<Subject> {
     let body = JSON.stringify(subject);
 
@@ -56,9 +47,6 @@ export class SubjectDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Find all Subjects.
-   */
   findAll() : Observable<Subject[]> {
     return this.http.get('/api/subject/findAll/')
       .map(response => Subject.toArray(response.json()))

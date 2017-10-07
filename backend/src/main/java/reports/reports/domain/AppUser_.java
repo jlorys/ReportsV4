@@ -21,5 +21,5 @@ public abstract class AppUser_ {
 
     public static volatile ListAttribute<AppUser, Role> roles;
 
-    public static volatile ListAttribute<AppUser, Report> report;
+    public static volatile ListAttribute<AppUser, Report> reports;
 }

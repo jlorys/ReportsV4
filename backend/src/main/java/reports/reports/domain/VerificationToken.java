@@ -10,7 +10,8 @@ import javax.persistence.*;
 public class VerificationToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "VerificationTokenSequence", strategy=GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "VerificationTokenSequence", allocationSize = 10)
     private Long id;
 
     private String token;

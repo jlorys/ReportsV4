@@ -20,4 +20,6 @@ public abstract class Report_ {
     public static volatile SingularAttribute<Report, Boolean> isSendInTime;
 
     public static volatile ListAttribute<Report, AppUser> users;
+
+    public static volatile SingularAttribute<Report, Laboratory> laboratory;
 }

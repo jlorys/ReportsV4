@@ -13,18 +13,12 @@ export class ReviewerReportDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Get a Report by id.
-   */
   getReport(id : any) : Observable<Report> {
     return this.http.get('/api/reports/' + id)
       .map(response => new Report(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed report.
-   */
   update(report : Report) : Observable<Report> {
     let body = JSON.stringify(report);
 

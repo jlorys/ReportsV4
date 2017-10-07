@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from "@angular/core";
+import {Component, Input, SimpleChanges} from "@angular/core";
 import {PageResponse} from "../../../support/paging";
 import {LazyLoadEvent, Message} from "primeng/primeng";
 import {Router} from "@angular/router";

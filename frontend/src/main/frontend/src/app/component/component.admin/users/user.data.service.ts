@@ -13,9 +13,6 @@ export class AppUserDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Delete an AppUser by id.
-   */
   delete(id: any) {
     return this.http.delete('/api/users/' + id).catch(this.handleError);
   }
@@ -40,36 +37,24 @@ export class AppUserDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Get a User by id.
-   */
   getUser(id: any): Observable<AppUser> {
     return this.http.get('/api/users/' + id)
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Get a User by id.
-   */
   getUserByUserName(userName: string): Observable<AppUser> {
     return this.http.get('/api/users/name/' + userName)
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Get logged User.
-   */
   getLoggedUser(): Observable<AppUser> {
     return this.http.get('/api/loggedUser/')
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed user.
-   */
   update(user: AppUser): Observable<AppUser> {
     let body = JSON.stringify(user);
 
@@ -78,9 +63,6 @@ export class AppUserDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Register the passed user.
-   */
   register(user: AppUser): Observable<AppUser> {
     let body = JSON.stringify(user);
 
@@ -89,18 +71,12 @@ export class AppUserDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed user password.
-   */
   changePassword(userId: number, oldPassword: string, newPassword: string, newPasswordRepeat: string): Observable<AppUser> {
     return this.http.put('/api/users/changePassword/'+userId+'/'+oldPassword+'/'+newPassword+'/'+newPasswordRepeat+'', this.options)
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Find all appUsers which do not have report with this id.
-   */
   findAllAppUsersWhichDoNotHaveReportWithThisId(id : any) : Observable<AppUser[]> {
     return this.http.get('/api/users/findAllAppUsersWhichDoNotHaveReportWithThisId/' + id)
       .map(response => AppUser.toArray(response.json()))

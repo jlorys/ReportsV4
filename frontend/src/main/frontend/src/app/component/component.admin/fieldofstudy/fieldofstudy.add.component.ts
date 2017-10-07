@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
+import {Component, Input, OnDestroy} from "@angular/core";
 import {FieldOfStudy} from "./fieldofstudy";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "primeng/primeng";
@@ -17,15 +17,9 @@ export class FieldOfStudyAddComponent implements OnDestroy {
 
   private params_subscription: any;
 
-  @Input() sub : boolean = false;
-  @Output() onSaveClicked = new EventEmitter<FieldOfStudy>();
-
   msgs: Message[] = [];
 
   constructor(private route: ActivatedRoute, protected router: Router, private fieldOfStudyService: FieldOfStudyDataService) {
-    if (this.sub) {
-      return;
-    }
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];
@@ -46,9 +40,7 @@ export class FieldOfStudyAddComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.sub) {
       this.params_subscription.unsubscribe();
-    }
   }
 
   onSave() {
@@ -57,12 +49,7 @@ export class FieldOfStudyAddComponent implements OnDestroy {
       fieldOfStudy => {
         this.fieldOfStudy = fieldOfStudy;
         this.msgs = []; //this line fix disappearing of messages
-        if (this.sub) {
-          this.onSaveClicked.emit(this.fieldOfStudy);
-        } else {
-          this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
-
-        }
+        this.msgs.push({severity:'info', summary:'Zapisano', detail: 'OK!'})
       },
       error => this.msgs.push({severity:'error', summary:'Nie można zapisać', detail: 'OK!'})
     );

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from "@angular/core";
+import {Component, Input, OnDestroy} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message, SelectItem} from "primeng/primeng";
 import {Subject} from "./subject";
@@ -19,9 +19,6 @@ export class SubjectAddComponent implements OnDestroy {
 
   private params_subscription: any;
 
-  @Input() sub: boolean = false;
-  @Output() onSaveClicked = new EventEmitter<Subject>();
-
   msgs: Message[] = [];
 
   fieldOfStudy: FieldOfStudy;
@@ -30,10 +27,6 @@ export class SubjectAddComponent implements OnDestroy {
   constructor(private route: ActivatedRoute, protected router: Router, private subjectDataService: SubjectDataService, private fieldOfStudyDataService: FieldOfStudyDataService) {
     this.sourceFieldsOfStudiesSelectItems = [];
     this.sourceFieldsOfStudiesSelectItems.push({label: '--------------------------', value: null});
-
-    if (this.sub) {
-      return;
-    }
 
     fieldOfStudyDataService.findAll().subscribe(fieldOfStudy => fieldOfStudy.forEach((value, index, array) => this.sourceFieldsOfStudiesSelectItems.push({
         label: value.name,
@@ -65,9 +58,7 @@ export class SubjectAddComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    if (!this.sub) {
       this.params_subscription.unsubscribe();
-    }
   }
 
   onSave() {
@@ -78,12 +69,8 @@ export class SubjectAddComponent implements OnDestroy {
     this.subjectDataService.update(this.subject).subscribe(
       subject => {
         this.subject = subject;
+        this.msgs.push({severity: 'info', summary: 'Zapisano', detail: 'OK!'})
 
-        if (this.sub) {
-          this.onSaveClicked.emit(this.subject);
-        } else {
-          this.msgs.push({severity: 'info', summary: 'Zapisano', detail: 'OK!'})
-        }
       },
       error => this.msgs.push({severity: 'error', summary: 'Nie można zapisać', detail: 'OK!'})
     );

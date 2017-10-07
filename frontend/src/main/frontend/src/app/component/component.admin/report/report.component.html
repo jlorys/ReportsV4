@@ -1,5 +1,5 @@
 <p-growl [value]="msgs"></p-growl>
-<md-card *ngIf="!sub">
+<md-card>
   <md-card-title>Wyszukuj sprawozdania</md-card-title>
   <md-card-content>
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad" ngForm #reportForm="ngForm">
@@ -89,7 +89,4 @@
     </p-dataTable>
 
   </md-card-content>
-  <md-card-actions>
-    <button md-raised-button (click)="addNew()"><md-icon>add</md-icon>Dodaj</button>
-  </md-card-actions>
 </md-card>

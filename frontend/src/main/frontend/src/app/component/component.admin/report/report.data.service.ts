@@ -13,9 +13,6 @@ export class ReportDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Get a Report by id.
-   */
   getReport(id : any) : Observable<Report> {
     return this.http.get('/api/reports/' + id)
       .map(response => new Report(response.json()))
@@ -31,9 +28,6 @@ export class ReportDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed report.
-   */
   update(report : Report) : Observable<Report> {
     let body = JSON.stringify(report);
 
@@ -65,9 +59,6 @@ export class ReportDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Delete an Report by id.
-   */
   delete(id : any) {
     return this.http.delete('/api/reports/' + id).catch(this.handleError);
   }

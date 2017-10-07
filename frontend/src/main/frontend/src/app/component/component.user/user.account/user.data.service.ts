@@ -11,18 +11,12 @@ export class UserAccountDataService {
 
   constructor(private http: Http) {}
 
-  /**
-   * Get logged User.
-   */
   getLoggedUser(): Observable<AppUser> {
     return this.http.get('/api/loggedUser/')
       .map(response => new AppUser(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Update the passed user password.
-   */
   changePassword(oldPassword: string, newPassword: string, newPasswordRepeat: string): Observable<AppUser> {
     return this.http.put('/api/userAccount/changePassword/'+oldPassword+'/'+newPassword+'/'+newPasswordRepeat+'', this.options)
       .map(response => new AppUser(response.json()))

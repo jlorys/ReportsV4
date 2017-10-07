@@ -29,18 +29,12 @@ export class UserLaboratoryDataService {
       .catch(this.handleError);
   }
 
-  /**
-   * Get a Laboratory by id.
-   */
   getLaboratory(id: any): Observable<Laboratory> {
     return this.http.get('/api/userLaboratory/' + id)
       .map(response => new Laboratory(response.json()))
       .catch(this.handleError);
   }
 
-  /**
-   * Find all Laboratories.
-   */
   findAll() : Observable<Laboratory[]> {
     return this.http.get('/api/userLaboratory/findAll/')
       .map(response => Laboratory.toArray(response.json()))

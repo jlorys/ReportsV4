@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
+import {Component, Input, SimpleChanges} from '@angular/core';
 import {AppUser} from './user';
 import {AppUserDataService} from './user.data.service';
 import {PageResponse} from "../../../support/paging";
@@ -16,15 +16,8 @@ export class AppUsersComponent {
   @Input() header = "Użytkownicy...";
   // list is paginated
   currentPage: PageResponse<AppUser> = new PageResponse<AppUser>(0, 0, []);
-  // basic search criterias (visible if not in 'sub' mode)
+  // basic search criterias
   example: AppUser = new AppUser();
-  /** When 'sub' is true, it means this list is used as a one-to-many list.
-   * It belongs to a parent entity, as a result the addNew operation
-   * must prefill the parent entity. The prefill is not done here, instead we
-   * emit an event. When 'sub' is false, we display basic search criterias
-   */
-  @Input() sub: boolean;
-  @Output() onAddNewClicked = new EventEmitter();
 
   msgs: Message[] = [];
 
@@ -76,11 +69,7 @@ export class AppUsersComponent {
   }
 
   addNew() {
-    if (this.sub) {
-      this.onAddNewClicked.emit("addNew");
-    } else {
       this.router.navigate(['/users/add']);
-    }
   }
 
   deleteOneDayUnconfirmedUsers() {
