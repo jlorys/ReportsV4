@@ -18,7 +18,9 @@ public class FieldOfStudy {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false, unique = true)
     private String name;
+    @Column(nullable = false)
     private String description;
     @CreatedDate
     private Long createdDate;

@@ -21,7 +21,9 @@ public class Laboratory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String description;
     private LocalDateTime labDate;
     private LocalDateTime returnReportDate;

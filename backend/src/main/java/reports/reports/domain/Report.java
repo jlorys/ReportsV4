@@ -16,9 +16,13 @@ public class Report {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	@Column(nullable = false)
 	private String description;
+	@Column(nullable = false)
 	private String filePath;
+	@Column(nullable = false)
 	private String fileName;
+	@Column(nullable = false)
 	private String fileExtension;
 	private String grade;
 	@CreatedDate
