@@ -96,6 +96,7 @@ public class AppUserTests {
         appUserDTO.firstName = "Jacek";
         appUserDTO.lastName = "Balcerzak";
         appUserDTO.email = "jb@x.pl";
+        appUserDTO.userName = "jbalcerzak";
         appUserDTO.password = passwordEncoder.encode("Jacek");
 
         assertEquals(appUserService.save(appUserDTO).firstName, "Jacek");
@@ -110,6 +111,9 @@ public class AppUserTests {
 
         ReportDTO reportDTO = new ReportDTO();
         reportDTO.description = "Opis sprawozdania";
+        reportDTO.fileName = "plik";
+        reportDTO.fileExtension = ".zip";
+        reportDTO.filePath = "patch/";
         reportService.save(reportDTO);
 
         appUserDTO.reports = reportService.findAll(reportDTOPageRequestByExample).content;

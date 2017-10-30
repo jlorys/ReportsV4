@@ -82,6 +82,7 @@ public class SubjectTest {
         SubjectDTO subjectDTO = new SubjectDTO();
         subjectDTO.id = 1;
         subjectDTO.name = "Materiałoznawstwo";
+        subjectDTO.description = "przedmiot o materiałoznawstwie";
 
         assertEquals(subjectService.save(subjectDTO).name, "Materiałoznawstwo");
 

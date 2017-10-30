@@ -82,9 +82,12 @@ public class ReportTest {
 
         ReportDTO reportDTO = new ReportDTO();
         reportDTO.id = 1;
-        reportDTO.description = "Opis13";
+        reportDTO.description = "Opis sprawozdania";
+        reportDTO.fileName = "plik";
+        reportDTO.fileExtension = ".zip";
+        reportDTO.filePath = "patch/";
 
-        assertEquals(reportService.save(reportDTO).description, "Opis13");
+        assertEquals(reportService.save(reportDTO).description, "Opis sprawozdania");
 
     }
 

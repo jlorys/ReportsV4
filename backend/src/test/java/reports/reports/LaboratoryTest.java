@@ -89,6 +89,7 @@ public class LaboratoryTest {
         LaboratoryDTO laboratoryDTO = new LaboratoryDTO();
         laboratoryDTO.id = 1;
         laboratoryDTO.name = "Laboratorium3";
+        laboratoryDTO.description = "Laboratorium3 polegające na pomiarach mocy";
 
         assertEquals(laboratoryService.save(laboratoryDTO).name, "Laboratorium3");
 

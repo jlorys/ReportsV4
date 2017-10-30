@@ -91,6 +91,7 @@ public class FieldOfStudyTest {
         FieldOfStudyDTO fieldOfStudyDTO = new FieldOfStudyDTO();
         fieldOfStudyDTO.id = 1;
         fieldOfStudyDTO.name = "Historia";
+        fieldOfStudyDTO.description = "przedmiot o historii";
 
         assertEquals(fieldOfStudyService.save(fieldOfStudyDTO).name, "Historia");
 
