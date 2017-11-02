@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.Laboratory;
-import reports.reports.domain.Laboratory_;
 import reports.reports.dto.LaboratoryDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -36,15 +35,15 @@ public class LaboratoryService {
 
         if (laboratory != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(Laboratory_.name.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.description.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.labDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.returnReportDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.finalReturnReportDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.createdDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Laboratory_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith());
+                    .withMatcher("name", match -> match.ignoreCase().startsWith())
+                    .withMatcher("description", match -> match.ignoreCase().startsWith())
+                    .withMatcher("labDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("returnReportDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("finalReturnReportDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith());
 
             example = Example.of(laboratory, matcher);
         }

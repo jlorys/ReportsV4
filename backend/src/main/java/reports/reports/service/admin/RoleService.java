@@ -6,7 +6,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.Role;
-import reports.reports.domain.Role_;
 import reports.reports.dto.RoleDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -46,7 +45,7 @@ public class RoleService {
 
         if (role != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(Role_.roleName.getName(), match -> match.ignoreCase().startsWith());
+                    .withMatcher("roleName", match -> match.ignoreCase().startsWith());
 
             example = Example.of(role, matcher);
         }

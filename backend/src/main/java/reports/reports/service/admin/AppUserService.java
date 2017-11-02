@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.AppUser;
-import reports.reports.domain.AppUser_;
 import reports.reports.domain.VerificationToken;
 import reports.reports.dto.AppUserDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -20,7 +19,6 @@ import reports.reports.repository.VerificationTokenRepository;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -119,17 +117,17 @@ public class AppUserService {
         AppUser user = toEntity(req.example);
 
         if (user != null) {
-            ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(AppUser_.userName.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.password.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.firstName.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.lastName.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.email.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.createdDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(AppUser_.enabled.getName(), match -> match.ignoreCase().startsWith());
+            ExampleMatcher matcher = ExampleMatcher.matching()
+                    .withMatcher("userName", match -> match.ignoreCase().startsWith())
+                    .withMatcher("password", match -> match.ignoreCase().startsWith())
+                    .withMatcher("firstName", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastName", match -> match.ignoreCase().startsWith())
+                    .withMatcher("email", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("enabled", match -> match.ignoreCase().startsWith());
 
             example = Example.of(user, matcher);
         }

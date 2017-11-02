@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import reports.reports.domain.Report_;
 import reports.reports.domain.Report;
 import reports.reports.dto.ReportDTO;
 import reports.reports.dto.support.PageRequestByExample;
@@ -80,16 +79,16 @@ public class ReportService {
 
         if (report != null) {
             ExampleMatcher matcher = ExampleMatcher.matching()
-                    .withMatcher(Report_.description.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.filePath.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.fileName.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.fileExtension.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.grade.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.createdDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Report_.isSendInTime.getName(), match -> match.ignoreCase().startsWith());
+                    .withMatcher("description", match -> match.ignoreCase().startsWith())
+                    .withMatcher("filePath", match -> match.ignoreCase().startsWith())
+                    .withMatcher("fileName", match -> match.ignoreCase().startsWith())
+                    .withMatcher("fileExtension", match -> match.ignoreCase().startsWith())
+                    .withMatcher("grade", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("isSendInTime", match -> match.ignoreCase().startsWith());
 
             example = Example.of(report, matcher);
         }

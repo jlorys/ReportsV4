@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.FieldOfStudy;
-import reports.reports.domain.FieldOfStudy_;
 import reports.reports.dto.FieldOfStudyDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -35,13 +34,13 @@ public class FieldOfStudyService {
         FieldOfStudy fieldOfStudy = toEntity(req.example);
 
         if (fieldOfStudy != null) {
-            ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(FieldOfStudy_.name.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(FieldOfStudy_.description.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(FieldOfStudy_.createdDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(FieldOfStudy_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(FieldOfStudy_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(FieldOfStudy_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith());
+            ExampleMatcher matcher = ExampleMatcher.matching()
+                    .withMatcher("name", match -> match.ignoreCase().startsWith())
+                    .withMatcher("description", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith());
 
             example = Example.of(fieldOfStudy, matcher);
         }

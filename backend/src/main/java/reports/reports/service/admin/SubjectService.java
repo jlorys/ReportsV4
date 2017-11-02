@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import reports.reports.domain.Subject;
-import reports.reports.domain.Subject_;
 import reports.reports.dto.SubjectDTO;
 import reports.reports.dto.support.PageRequestByExample;
 import reports.reports.dto.support.PageResponse;
@@ -36,12 +35,12 @@ public class SubjectService {
 
         if (subject != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher(Subject_.name.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Subject_.description.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Subject_.createdDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Subject_.lastModifiedDate.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Subject_.createdBy.getName(), match -> match.ignoreCase().startsWith())
-                    .withMatcher(Subject_.lastModifiedBy.getName(), match -> match.ignoreCase().startsWith());
+                    .withMatcher("name", match -> match.ignoreCase().startsWith())
+                    .withMatcher("description", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
+                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith());
 
             example = Example.of(subject, matcher);
         }
