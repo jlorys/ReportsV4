@@ -56,8 +56,8 @@ class RunAtStart {
     private void generateManyUsers() {
         List<AppUser> appUsers = new ArrayList<>();
         appUsers.add(new AppUser("admin", passwordEncoder.encode("admin"), "Jakub", "Loryś", "kuba35@vp.pl", true));
-        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Dylon", "Sanawabicz", "1@yrt", true));
-        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Arkadiusz", "Głowa", "2@yrt", true));
+        appUsers.add(new AppUser("user1", passwordEncoder.encode("user1"), "Hubert", "Cytrus", "1@yrt", true));
+        appUsers.add(new AppUser("user2", passwordEncoder.encode("user2"), "Diego", "Gonzales", "2@yrt", true));
         appUsers.add(new AppUser("user3", passwordEncoder.encode("user3"), "Mateusz", "Morfeusz", "3@yrt", true));
         appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "4@yrt", true));
         appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "5@yrt", true));
@@ -69,6 +69,8 @@ class RunAtStart {
         appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "11@yrt", true));
         appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@yrt", true));
         appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@yrt", true));
+        appUsers.add(new AppUser("user14", passwordEncoder.encode("user14"), "Dylon", "Sanawabicz", "14@yrt", true));
+        appUsers.add(new AppUser("user15", passwordEncoder.encode("user15"), "Arkadiusz", "Głowa", "15@yrt", true));
 
         appUsers.forEach(appUser -> {
             if (!Optional.ofNullable(appUserRepository.getByUserName(appUser.getUserName())).isPresent()) {
