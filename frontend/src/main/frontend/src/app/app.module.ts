@@ -61,7 +61,7 @@ import {ReviewerLaboratoryAddComponent} from "./component/component.reviewer/lab
 import {ReviewerSubjectComponent} from "./component/component.reviewer/subject/subject.component";
 import {ReviewerSubjectAddComponent} from "./component/component.reviewer/subject/subject.add.component";
 import {ReviewerFieldOfStudyComponent} from "./component/component.reviewer/fieldofstudy/fieldofstudy.component";
-import {ReviewerFieldOfStudyAddComponent} from "./component/component.reviewer/fieldofstudy/fieldofstudy.add.component";
+import {ReviewerFieldOfStudyDetailComponent} from "./component/component.reviewer/fieldofstudy/fieldofstudy.detail.component";
 
 @NgModule({
   declarations: [
@@ -100,7 +100,7 @@ import {ReviewerFieldOfStudyAddComponent} from "./component/component.reviewer/f
     ReviewerSubjectComponent,
     ReviewerSubjectAddComponent,
     ReviewerFieldOfStudyComponent,
-    ReviewerFieldOfStudyAddComponent,
+    ReviewerFieldOfStudyDetailComponent,
 
     PageNotFoundComponent,
     ConfirmDeleteDialogComponent,

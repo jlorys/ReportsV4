@@ -1,11 +1,11 @@
 import {Component} from "@angular/core";
-import {FieldOfStudyComponent} from "../../component.admin/fieldofstudy/fieldofstudy.component";
+import {UserFieldOfStudyComponent} from "../../component.user/fieldofstudy/fieldofstudy.component";
 
 @Component({
   selector: 'reviewerFieldsOfStudies',
-  templateUrl: '../../component.admin/fieldofstudy/fieldofstudy.component.html'
+  templateUrl: '../../component.user/fieldofstudy/fieldofstudy.component.html'
 })
-export class ReviewerFieldOfStudyComponent extends FieldOfStudyComponent {
+export class ReviewerFieldOfStudyComponent extends UserFieldOfStudyComponent {
 
   onRowSelect(event : any) {
     let id =  event.data.id;

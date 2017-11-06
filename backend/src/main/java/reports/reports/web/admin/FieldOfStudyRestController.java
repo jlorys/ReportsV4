@@ -44,7 +44,7 @@ public class FieldOfStudyRestController {
     }
 
     @DeleteMapping(value = "/{id}", produces = APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> delete(@PathVariable Integer id) throws URISyntaxException {
 
         log.debug("Delete by id FieldOfStudy : {}", id);
@@ -68,7 +68,7 @@ public class FieldOfStudyRestController {
     }
 
     @PutMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<FieldOfStudyDTO> update(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {
 
         log.debug("Update FieldOfStudyDTO : {}", fieldOfStudyDTO);
@@ -83,7 +83,7 @@ public class FieldOfStudyRestController {
     }
 
     @PostMapping(value = "/", produces = APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('REVIEWER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<FieldOfStudyDTO> create(@RequestBody FieldOfStudyDTO fieldOfStudyDTO) throws URISyntaxException {
 
         log.debug("Create FieldOfStudyDTO : {}", fieldOfStudyDTO);

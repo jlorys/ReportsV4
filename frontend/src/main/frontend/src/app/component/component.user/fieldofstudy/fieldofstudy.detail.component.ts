@@ -18,7 +18,7 @@ export class UserFieldOfStudyDetailComponent implements OnDestroy {
   private params_subscription: any;
   msgs: Message[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private fieldOfStudyService: FieldOfStudyDataService) {
+  constructor(private route: ActivatedRoute, protected router: Router, private fieldOfStudyService: FieldOfStudyDataService) {
 
     this.params_subscription = this.route.params.subscribe(params => {
       let id = params['id'];

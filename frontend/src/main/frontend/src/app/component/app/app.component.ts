@@ -290,15 +290,9 @@ export class AppComponent implements OnInit {
               {label: 'Tworzenie Przedmiotów', icon: 'fa-gavel', routerLink: ['/reviewerSubjects/add']},
             ]
           },
-
           {
-            label: 'Kierunki studiów',
-            icon: 'fa-arrows',
-            items: [
-              {label: 'Wyszukiwanie kierunków', icon: 'fa-search', routerLink: ['/reviewerFieldsOfStudies']},
-              {label: 'Tworzenie kierunków', icon: 'fa-gavel', routerLink: ['/reviewerFieldsOfStudies/add']},
-            ]
-          },
+            label: 'Kierunki studiów', icon: 'fa-arrows', routerLink: ['/reviewerFieldsOfStudies']
+          }
         ]
       }
     );

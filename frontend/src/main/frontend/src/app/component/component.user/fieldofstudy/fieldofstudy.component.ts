@@ -17,7 +17,7 @@ export class UserFieldOfStudyComponent {
   example: FieldOfStudy = new FieldOfStudy();
   msgs: Message[] = [];
 
-  constructor(private router: Router,
+  constructor(protected router: Router,
               private fieldOfStudyDataService: FieldOfStudyDataService) {
   }
 
