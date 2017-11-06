@@ -83,7 +83,7 @@ class RunAtStart {
         List<Role> roles = new ArrayList<>();
         roles.add(new Role("USER", "Użytkownik może dodawać sprawozdania i przeglądać kierunki studiów, przedmioty, laboratoria i swoje sprawozdania. " +
                 "Może usuwać i modyfikować swoje sprawozdania pod warunkiem że nie mają one oceny"));
-        roles.add(new Role("REVIEWER", "Recenzent może oceniać sprawozdania i tworzyć kierunki studiów, przedmioty, laboratoria"));
+        roles.add(new Role("REVIEWER", "Recenzent może oceniać sprawozdania i tworzyć przedmioty, laboratoria ale nie kierunków studiów"));
         roles.add(new Role("ADMIN", "Admin zarządza użytkownikami, nie może dodawać sprawozdania lecz może modyfikować wszystkie sprawozdania"));
 
         roles.forEach(role -> {
