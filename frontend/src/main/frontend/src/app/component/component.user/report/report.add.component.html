@@ -35,7 +35,7 @@
       <div class="ui-grid-row">
         <div class="ui-grid-col-2"><label>Plik *</label></div>
         <div class="ui-grid-col-8">
-          <p-fileUpload *ngIf="report.description && !report.id" customUpload="true"
+          <p-fileUpload chooseLabel="." uploadLabel="." cancelLabel="." *ngIf="report.description && !report.id" customUpload="true"
                         (uploadHandler)="myUploader($event)" maxFileSize="52428800"></p-fileUpload>
           <label *ngIf="report.id">
             {{report.fileName}}{{report.fileExtension}}
