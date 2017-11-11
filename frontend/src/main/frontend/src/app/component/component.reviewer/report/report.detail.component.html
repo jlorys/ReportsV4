@@ -1,7 +1,7 @@
 <p-growl [value]="msgs"></p-growl>
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawoznania</md-card-subtitle>
+    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawozdania</md-card-subtitle>
     <p *ngIf="report.grade">Ocena: {{report.grade}}</p>
     <p *ngIf="!report.grade">Ocena: {{'brak'}}</p>
     Zmiana oceny
