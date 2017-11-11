@@ -45,7 +45,7 @@ public class RoleService {
 
         if (role != null) {
             ExampleMatcher matcher = ExampleMatcher.matching() //
-                    .withMatcher("roleName", match -> match.ignoreCase().startsWith());
+                    .withMatcher("roleName", match -> match.ignoreCase().contains());
 
             example = Example.of(role, matcher);
         }

@@ -79,16 +79,16 @@ public class ReportService {
 
         if (report != null) {
             ExampleMatcher matcher = ExampleMatcher.matching()
-                    .withMatcher("description", match -> match.ignoreCase().startsWith())
-                    .withMatcher("filePath", match -> match.ignoreCase().startsWith())
-                    .withMatcher("fileName", match -> match.ignoreCase().startsWith())
-                    .withMatcher("fileExtension", match -> match.ignoreCase().startsWith())
-                    .withMatcher("grade", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith())
-                    .withMatcher("isSendInTime", match -> match.ignoreCase().startsWith());
+                    .withMatcher("description", match -> match.ignoreCase().contains())
+                    .withMatcher("filePath", match -> match.ignoreCase().contains())
+                    .withMatcher("fileName", match -> match.ignoreCase().contains())
+                    .withMatcher("fileExtension", match -> match.ignoreCase().contains())
+                    .withMatcher("grade", match -> match.ignoreCase().contains())
+                    .withMatcher("createdDate", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().contains())
+                    .withMatcher("createdBy", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().contains())
+                    .withMatcher("isSendInTime", match -> match.ignoreCase().contains());
 
             example = Example.of(report, matcher);
         }

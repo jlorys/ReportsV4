@@ -35,12 +35,12 @@ public class FieldOfStudyService {
 
         if (fieldOfStudy != null) {
             ExampleMatcher matcher = ExampleMatcher.matching()
-                    .withMatcher("name", match -> match.ignoreCase().startsWith())
-                    .withMatcher("description", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith());
+                    .withMatcher("name", match -> match.ignoreCase().contains())
+                    .withMatcher("description", match -> match.ignoreCase().contains())
+                    .withMatcher("createdDate", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().contains())
+                    .withMatcher("createdBy", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().contains());
 
             example = Example.of(fieldOfStudy, matcher);
         }

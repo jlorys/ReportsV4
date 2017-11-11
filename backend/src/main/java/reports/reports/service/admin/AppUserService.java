@@ -118,16 +118,16 @@ public class AppUserService {
 
         if (user != null) {
             ExampleMatcher matcher = ExampleMatcher.matching()
-                    .withMatcher("userName", match -> match.ignoreCase().startsWith())
-                    .withMatcher("password", match -> match.ignoreCase().startsWith())
-                    .withMatcher("firstName", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastName", match -> match.ignoreCase().startsWith())
-                    .withMatcher("email", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().startsWith())
-                    .withMatcher("createdBy", match -> match.ignoreCase().startsWith())
-                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().startsWith())
-                    .withMatcher("enabled", match -> match.ignoreCase().startsWith());
+                    .withMatcher("userName", match -> match.ignoreCase().contains())
+                    .withMatcher("password", match -> match.ignoreCase().contains())
+                    .withMatcher("firstName", match -> match.ignoreCase().contains())
+                    .withMatcher("lastName", match -> match.ignoreCase().contains())
+                    .withMatcher("email", match -> match.ignoreCase().contains())
+                    .withMatcher("createdDate", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedDate", match -> match.ignoreCase().contains())
+                    .withMatcher("createdBy", match -> match.ignoreCase().contains())
+                    .withMatcher("lastModifiedBy", match -> match.ignoreCase().contains())
+                    .withMatcher("enabled", match -> match.ignoreCase().contains());
 
             example = Example.of(user, matcher);
         }
