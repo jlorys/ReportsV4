@@ -3,10 +3,13 @@
 <md-card *ngIf="report && report.id">
   <md-card-title>Dane sprawozdania</md-card-title>
   <md-card-content>
-    <md-card-subtitle>Nazwa | Opis | Data laboratoriów | Pierwszy termin zwrotu sprawozdania | Drugi termin zwrotu sprawozdania</md-card-subtitle>
-    <p *ngIf="report.laboratory">{{report.laboratory.name}} | {{report.laboratory.description}}
-      | {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} | {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
-      | {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
+    <p *ngIf="report.laboratory">{{report.laboratory.name}},
+      {{report.laboratory.description}},
+      {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}},
+      <i style="color:orange">Pierwszy termin</i>
+      {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}},
+      <i style="color:red">Drugi termin</i>
+      {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
     <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
     <md-card-subtitle *ngIf="!report.grade">Zmiana laboratorium</md-card-subtitle>
     <p-dropdown *ngIf="!report.grade" [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>
@@ -15,7 +18,7 @@
 
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawozdania</md-card-subtitle>
+    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawoznania</md-card-subtitle>
     <p *ngIf="report.grade">Ocena: {{report.grade}}</p>
     <p *ngIf="!report.grade">Ocena: {{'brak'}}</p>
   </md-card-content>
