@@ -1,13 +1,26 @@
 <p-growl [value]="msgs"></p-growl>
+
+<md-card *ngIf="report && report.id">
+  <md-card-title>Dane sprawozdania</md-card-title>
+  <md-card-content>
+    <md-card-subtitle>Nazwa | Opis | Data laboratoriów | Pierwszy termin zwrotu sprawozdania | Drugi termin zwrotu sprawozdania</md-card-subtitle>
+    <p *ngIf="report.laboratory">{{report.laboratory.name}} | {{report.laboratory.description}}
+      | {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} | {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
+      | {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
+    <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
+    <md-card-subtitle *ngIf="!report.grade">Zmiana laboratorium</md-card-subtitle>
+    <p-dropdown *ngIf="!report.grade" [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>
+  </md-card-content>
+</md-card>
+
 <md-card *ngIf="report && report.id">
   <md-card-content>
-    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawoznania</md-card-subtitle>
+    <md-card-subtitle>Przesłanie w drugim terminie skutkuje obniżeniem oceny o 0.5. Przesłanie po drugim terminie oznacza ocenę 2. Liczy się data modyfikacji sprawozdania</md-card-subtitle>
     <p *ngIf="report.grade">Ocena: {{report.grade}}</p>
     <p *ngIf="!report.grade">Ocena: {{'brak'}}</p>
   </md-card-content>
 </md-card>
 <md-card *ngIf="report" ngForm #reportForm="ngForm">
-  <md-card-title>Dane sprawozdania</md-card-title>
   <md-card-content>
     <div class="ui-grid ui-grid-responsive ui-fluid ui-grid-pad">
       <div class="ui-grid-row" *ngIf="!report.grade">
@@ -67,7 +80,6 @@
   </md-card-content>
 
   <md-card *ngIf="report && report.id">
-    <md-card-subtitle>Relacje sprawozdania</md-card-subtitle>
   <md-card-content>
     <md-tab-group>
 
@@ -116,16 +128,4 @@
     </button>
   </md-card-actions>
 </md-card>
-</md-card>
-
-<md-card *ngIf="report && report.id">
-  <md-card-content>
-    <md-card-subtitle>Nazwa | Opis | Data laboratoriów | Pierwszy termin zwrotu sprawozdania | Drugi termin zwrotu sprawozdania</md-card-subtitle>
-    <p *ngIf="report.laboratory">{{report.laboratory.name}} | {{report.laboratory.description}}
-      | {{report.laboratory.labDate | date:'dd.MM.yyyy HH:mm'}} | {{report.laboratory.returnReportDate | date:'dd.MM.yyyy HH:mm'}}
-      | {{report.laboratory.finalReturnReportDate | date:'dd.MM.yyyy HH:mm'}}</p>
-    <p *ngIf="!report.laboratory">Laboratorium: {{'brak'}}</p>
-    <md-card-subtitle *ngIf="!report.grade">Zmiana laboratorium</md-card-subtitle>
-    <p-dropdown *ngIf="!report.grade" [options]="sourceLaboratoriesSelectItems" [(ngModel)]="laboratory" filter="filter"></p-dropdown>
-  </md-card-content>
 </md-card>
