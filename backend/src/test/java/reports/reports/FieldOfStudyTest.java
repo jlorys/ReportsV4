@@ -67,7 +67,7 @@ public class FieldOfStudyTest {
         fieldOfStudyDTOPageRequestByExample.example = fieldOfStudyDTO;
 
         PageResponse<FieldOfStudyDTO> fieldOfStudyDTOPageResponse = fieldOfStudyService.findAll(fieldOfStudyDTOPageRequestByExample);
-        assertEquals(fieldOfStudyDTOPageResponse.totalElements, 1);
+        assertEquals(3, fieldOfStudyDTOPageResponse.totalElements);
 
     }
 
@@ -81,7 +81,7 @@ public class FieldOfStudyTest {
 
         PageResponse<FieldOfStudyDTO> fieldOfStudyDTOPageResponse = fieldOfStudyService.findAll(fieldOfStudyDTOPageRequestByExample);
 
-        assertEquals(fieldOfStudyDTOPageResponse.totalPages, 3);
+        assertEquals(3, fieldOfStudyDTOPageResponse.totalPages);
 
     }
 
@@ -93,7 +93,7 @@ public class FieldOfStudyTest {
         fieldOfStudyDTO.name = "Historia";
         fieldOfStudyDTO.description = "przedmiot o historii";
 
-        assertEquals(fieldOfStudyService.save(fieldOfStudyDTO).name, "Historia");
+        assertEquals("Historia", fieldOfStudyService.save(fieldOfStudyDTO).name);
 
     }
 

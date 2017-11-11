@@ -57,7 +57,7 @@ public class AppUserTests {
     public void findByUserName_ShouldReturnOneEntry() {
 
         AppUserDTO appUserDTO = appUserService.findByUserName("admin");
-        assertEquals(appUserDTO.firstName, "Jakub");
+        assertEquals("Jakub", appUserDTO.firstName);
 
     }
 
@@ -70,7 +70,7 @@ public class AppUserTests {
         appUserDTOPageRequestByExample.example = appUserDTO;
 
         PageResponse<AppUserDTO> appUserDTOPageResponse = appUserService.findAll(appUserDTOPageRequestByExample);
-        assertEquals(appUserDTOPageResponse.totalElements, 1);
+        assertEquals(1, appUserDTOPageResponse.totalElements);
 
     }
 
@@ -84,7 +84,7 @@ public class AppUserTests {
 
         PageResponse<AppUserDTO> appUserDTOPageResponse = appUserService.findAll(appUserDTOPageRequestByExample);
 
-        assertEquals(appUserDTOPageResponse.totalPages, 2);
+        assertEquals(2, appUserDTOPageResponse.totalPages);
 
     }
 
@@ -99,7 +99,7 @@ public class AppUserTests {
         appUserDTO.userName = "jbalcerzak";
         appUserDTO.password = passwordEncoder.encode("Jacek");
 
-        assertEquals(appUserService.save(appUserDTO).firstName, "Jacek");
+        assertEquals("Jacek", appUserService.save(appUserDTO).firstName);
 
     }
 
@@ -121,7 +121,7 @@ public class AppUserTests {
 
         appUserService.save(appUserDTO);
 
-        assertEquals(appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(id).size(), 2);
+        assertEquals(2, appUserService.findAllAppUsersWhichDoNotHaveReportWithThisId(id).size());
     }
 
     @After

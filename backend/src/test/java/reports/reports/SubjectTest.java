@@ -58,7 +58,7 @@ public class SubjectTest {
         subjectDTOPageRequestByExample.example = subjectDTO;
 
         PageResponse<SubjectDTO> subjectDTOPageResponse = subjectService.findAll(subjectDTOPageRequestByExample);
-        assertEquals(subjectDTOPageResponse.totalElements, 1);
+        assertEquals(1, subjectDTOPageResponse.totalElements);
 
     }
 
@@ -72,7 +72,7 @@ public class SubjectTest {
 
         PageResponse<SubjectDTO> subjectDTOPageResponse = subjectService.findAll(subjectDTOPageRequestByExample);
 
-        assertEquals(subjectDTOPageResponse.totalPages, 1);
+        assertEquals(1, subjectDTOPageResponse.totalPages);
 
     }
 
@@ -84,7 +84,7 @@ public class SubjectTest {
         subjectDTO.name = "Materiałoznawstwo";
         subjectDTO.description = "przedmiot o materiałoznawstwie";
 
-        assertEquals(subjectService.save(subjectDTO).name, "Materiałoznawstwo");
+        assertEquals("Materiałoznawstwo", subjectService.save(subjectDTO).name);
 
     }
 

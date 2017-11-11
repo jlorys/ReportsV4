@@ -65,7 +65,7 @@ public class LaboratoryTest {
         laboratoryDTOPageRequestByExample.example = laboratoryDTO;
 
         PageResponse<LaboratoryDTO> laboratoryDTOPageResponse = laboratoryService.findAll(laboratoryDTOPageRequestByExample);
-        assertEquals(laboratoryDTOPageResponse.totalElements, 2);
+        assertEquals(2, laboratoryDTOPageResponse.totalElements);
 
     }
 
@@ -79,7 +79,7 @@ public class LaboratoryTest {
 
         PageResponse<LaboratoryDTO> laboratoryDTOPageResponse = laboratoryService.findAll(laboratoryDTOPageRequestByExample);
 
-        assertEquals(laboratoryDTOPageResponse.totalPages, 2);
+        assertEquals(2, laboratoryDTOPageResponse.totalPages);
 
     }
 
@@ -91,7 +91,7 @@ public class LaboratoryTest {
         laboratoryDTO.name = "Laboratorium3";
         laboratoryDTO.description = "Laboratorium3 polegające na pomiarach mocy";
 
-        assertEquals(laboratoryService.save(laboratoryDTO).name, "Laboratorium3");
+        assertEquals("Laboratorium3", laboratoryService.save(laboratoryDTO).name);
 
     }
 

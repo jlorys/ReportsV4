@@ -59,7 +59,7 @@ public class ReportTest {
         reportDTOPageRequestByExample.example = reportDTO;
 
         PageResponse<ReportDTO> reportDTOPageResponse = reportService.findAll(reportDTOPageRequestByExample);
-        assertEquals(reportDTOPageResponse.totalElements, 12);
+        assertEquals(12, reportDTOPageResponse.totalElements);
 
     }
 
@@ -73,7 +73,7 @@ public class ReportTest {
 
         PageResponse<ReportDTO> reportDTOPageResponse = reportService.findAll(reportDTOPageRequestByExample);
 
-        assertEquals(reportDTOPageResponse.totalPages, 4);
+        assertEquals(4, reportDTOPageResponse.totalPages);
 
     }
 
@@ -87,7 +87,7 @@ public class ReportTest {
         reportDTO.fileExtension = ".zip";
         reportDTO.filePath = "patch/";
 
-        assertEquals(reportService.save(reportDTO).description, "Opis sprawozdania");
+        assertEquals("Opis sprawozdania", reportService.save(reportDTO).description);
 
     }
 
