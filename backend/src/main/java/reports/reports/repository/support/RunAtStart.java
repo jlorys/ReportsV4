@@ -62,15 +62,15 @@ class RunAtStart {
         appUsers.add(new AppUser("user4", passwordEncoder.encode("user4"), "Rafał", "Śmigacz", "4@yrt", true));
         appUsers.add(new AppUser("user5", passwordEncoder.encode("user5"), "Alojzy", "Wichajster", "5@yrt", true));
         appUsers.add(new AppUser("user6", passwordEncoder.encode("user6"), "Bob", "Malajski", "6@yrt", true));
-        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "James", "Łatana", "7@yrt", true));
-        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Czesław", "Korcipa", "8@yrt", true));
+        appUsers.add(new AppUser("user7", passwordEncoder.encode("user7"), "Dominik", "Jahaś", "7@yrt", true));
+        appUsers.add(new AppUser("user8", passwordEncoder.encode("user8"), "Arkadiusz", "Głowa", "8@yrt", true));
         appUsers.add(new AppUser("user9", passwordEncoder.encode("user9"), "Jan", "Łasica", "9@yrt", true));
-        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "Dominik", "Jahaś", "10@yrt", true));
+        appUsers.add(new AppUser("user10", passwordEncoder.encode("user10"), "James", "Łatana", "10@yrt", true));
         appUsers.add(new AppUser("user11", passwordEncoder.encode("user11"), "Bogusław", "Łęcina", "11@yrt", true));
         appUsers.add(new AppUser("user12", passwordEncoder.encode("user12"), "Mariusz", "Tracz", "12@yrt", true));
         appUsers.add(new AppUser("user13", passwordEncoder.encode("user13"), "Sylwester", "Kasztan", "13@yrt", true));
         appUsers.add(new AppUser("user14", passwordEncoder.encode("user14"), "Dylon", "Sanawabicz", "14@yrt", true));
-        appUsers.add(new AppUser("user15", passwordEncoder.encode("user15"), "Arkadiusz", "Głowa", "15@yrt", true));
+        appUsers.add(new AppUser("user15", passwordEncoder.encode("user15"), "Czesław", "Korcipa", "15@yrt", true));
 
         appUsers.forEach(appUser -> {
             if (!Optional.ofNullable(appUserRepository.getByUserName(appUser.getUserName())).isPresent()) {
